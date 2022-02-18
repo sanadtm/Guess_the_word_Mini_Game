@@ -8,7 +8,7 @@ header{
 }
 .bootstrap-grid .row > * {
     margin-top: 0.2%;
-    margin-left: 0.2%;
+    margin-left: 0.3%;
     text-align: center;
 	height: 700px;
 	border: 2px solid var(--white);
