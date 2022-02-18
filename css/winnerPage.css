@@ -1,13 +1,15 @@
 header{
-   font-family: 'Courier New', Courier, monospace;
-   text-align: center;
-   color:white;
-}
-body{
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    color:white;
+ }
+ body{
     background-color: black;
 }
 .bootstrap-grid .row > * {
-    margin-left: 2%;
+    margin-top: 0.2%;
+    margin-left: 0.2%;
+    text-align: center;
 	height: 700px;
 	border: 2px solid var(--white);
 	padding: 10px;
