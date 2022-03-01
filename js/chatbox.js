@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 app.get("/", (req, res) => {
-	res.sendFile(__dirname + "/gamePage.html");
+	res.sendFile(__dirname + "/index.html");
 });
 
 io.on("connection", (socket) => {
@@ -13,6 +13,6 @@ io.on("connection", (socket) => {
 		io.emit("chat message", msg);
 	});
 });
-server.listen(5000, () => {
-	console.log("listening on PORT:3000");
+server.listen(4000, () => {
+	console.log("listening on PORT:4000");
 });
