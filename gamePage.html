@@ -9,6 +9,7 @@
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 		/>
 		<link rel="stylesheet" href="./css/game.css" />
+		<script defer src="./js/game.js"></script>
 	
 		<title>Word Jumbler</title>
 	</head>
@@ -45,12 +46,35 @@
 						<h4>Chat Box</h4>
 						<ul id="messages"></ul>
 						<form id="form" action="">
-						<input id="input" autocomplete="off" /><button>Send</button>
+							<input id="input" autocomplete="off" /><button>Send</button>
 						</form>
+
 					</div>
 
 				</div>
 			</div>
 		</main>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			let socket = io();
+			let messages = document.getElementById("messages");
+			let Users = document.getElementById("messages");
+			let form = document.getElementById("form");
+			let input = document.getElementById("input");
+			form.addEventListener("submit", function (e) {
+				e.preventDefault();
+				if (input.value) {
+					socket.emit("chat message", input.value);
+					input.value = "";
+				}
+			});
+			socket.on("chat message", function (msg) {
+				let eachMessage = document.createElement("li");
+				eachMessage.textContent = msg;
+				messages.appendChild(eachMessage);
+				window.scrollTo(0, document.body.scrollHeight);
+			});
+
+		</script>
 	</body>
 </html>

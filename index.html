@@ -10,7 +10,8 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
 	/>
 		<link rel="stylesheet" href="./css/index.css" />
-		<script src="./index.js"></script>
+		<script defer src="./js//index.js"></script>
+	
 		<title>Word Jumbler</title>
 	</head>
 	<body>
@@ -31,7 +32,9 @@
 							  <small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
 							</div>
 							<label class="FormTitle">Nationality</label>
-							<select class="selectpicker countrypicker" data-flag="true" ></select>
+							<select onchange="initStates()" id="country-select"  class="form-control">
+								<option selected disabled>Country</option>
+							</select>								
 							<div class="form-group">
 							  <label  class="FormTitle">Game Room ID</label>
 							  <input type="text" class="form-control" id="Game ID" placeholder="Game ID">
