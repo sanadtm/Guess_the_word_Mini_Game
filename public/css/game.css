@@ -1,0 +1,68 @@
+ul,ol{
+    list-style: none;
+}
+header{
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    color:white;
+   
+ }
+ body{
+     background-color: black;
+ }
+ .bootstrap-grid .row > * {
+    margin-top: 1%;
+    margin-left: 4%;
+    text-align: center;
+	height: 400px;
+	border: 2px solid var(--white);
+	padding: 10px;
+}
+.row1 > * {
+	background-color: rgb(210, 224, 84);
+}
+.row2 > * {
+	background-color: rgb(67, 194, 50);
+}
+/****************************************************/
+
+
+/*Chat-box --------------------------------------*/
+.chat-box{
+    position: relative;
+    
+}
+.message-box{
+    height: 80%;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    overflow: scroll;
+}
+.chat-message{
+    float: left;
+}
+
+.input-group{
+    position: absolute;
+    bottom: 5px;
+}
+.chatting-input-group{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.user-input{
+    width: fit-content;
+    background-color: white;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    overflow: scroll;
+}
+.send-btn{
+    background-color: red;
+    padding: 5px 20px;
+    height: 40px;
+    border-radius: 5px;
+}
+/************************************************/

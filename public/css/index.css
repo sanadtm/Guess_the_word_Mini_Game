@@ -1,0 +1,38 @@
+header{
+   font-family: 'Courier New', Courier, monospace;
+   text-align: center;
+   color:white;
+}
+body{
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+}
+.bootstrap-grid .row > * {
+    margin-left: 2%;
+	height: 700px;
+	border: 2px solid var(--white);
+	padding: 10px;
+    border-radius: 15px;
+}
+.row1 > * {
+	background-color: rgb(210, 224, 84);
+}
+.title{
+   text-align: center;
+   margin-top: 2%;
+   font-size: 3vw;
+}
+.list-group{
+    padding:50px;
+   
+}
+#PlayerForm{
+    padding:50px;
+    width: 70%;
+    background-color:rgb(249, 255, 253);
+    margin: 0 auto;
+    margin-top: 4%;
+}
+#PlayerForm .FormTitle{
+    font-size: 2vw;
+}
