@@ -5,58 +5,67 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link
-		rel="stylesheet"
-		type="text/css"
-		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
-	/>
+			rel="stylesheet"
+			type="text/css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+		/>
 		<link rel="stylesheet" href="./css/index.css" />
 		<script defer src="./js//index.js"></script>
-	
+
 		<title>Word Jumbler</title>
 	</head>
 	<body>
 		<header>
-				<h1> Welcome to Word Jumbler</h1>
-				<h2>Create your Account</h2>
+			<h1> Welcome to Word Jumbler</h1>
+			<h2>Create your Account</h2>
 		</header>
-		
-			
-			<div class="bootstrap-grid">
-				<div class="row row1">
-					<div class="col-7 col-md-7 col-lg-7">
-						<div class = "title">Create Player FORM</div>
-						<form id = "PlayerForm">
-							<div class="form-group">
-							  <label class="FormTitle">User Name</label>
-							  <input type="text" class="form-control" id="UserName" aria-describedby="emailHelp" placeholder="Put ur Gamer Tag Here">
-							  <small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
-							</div>
-							<label class="FormTitle">Nationality</label>
-							<select onchange="initStates()" id="country-select"  class="form-control">
-								<option selected disabled>Country</option>
-							</select>								
-							<div class="form-group">
-							  <label  class="FormTitle">Game Room ID</label>
-							  <input type="text" class="form-control" id="Game ID" placeholder="Game ID">
-							</div>
-							
-							<button type="submit" class="btn btn-primary">Get in the GAME</button>
-						  </form>
-					</div>
-					
-					<div class="col-4 col-md-4 col-lg-4">		
-						<div class = "title">Rules</div>
-						<ul class="list-group">
-							<li class="list-group-item">Guess the Correct Words</li>
-							<li class="list-group-item">Dapibus ac facilisis in</li>
-							<li class="list-group-item">Morbi leo risus</li>
-							<li class="list-group-item">Porta ac consectetur ac</li>
-							<li class="list-group-item">Vestibulum at eros</li>
-						  </ul>
-					</div>
+
+		<div class="bootstrap-grid">
+			<div class="row row1">
+				<div class="col-7 col-md-7 col-lg-7">
+					<div class="title">Create Player FORM</div>
+					<form
+						action="/register"
+						method="post"
+						id="form"
+						class="bg-light border rounded w-50 mx-auto mt-5 p-3"
+						id="PlayerForm"
+					>
+						<div class="form-group">
+							<label class="FormTitle">User Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="UserName"
+								aria-describedby="emailHelp"
+								placeholder="Put ur Gamer Tag Here"
+							/>
+							<small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
+						</div>
+						<label class="FormTitle">Nationality</label>
+						<select onchange="initStates()" id="country-select" class="form-control">
+							<option selected disabled>Country</option>
+						</select>
+						<div class="form-group">
+							<label class="FormTitle">Game Room ID</label>
+							<input type="text" class="form-control" id="Game ID" placeholder="Game ID" />
+						</div>
+
+						<button type="submit" class="btn btn-primary">Get in the GAME</button>
+					</form>
 				</div>
-			
+
+				<div class="col-4 col-md-4 col-lg-4">
+					<div class="title">Rules</div>
+					<ul class="list-group">
+						<li class="list-group-item">Guess the Correct Words</li>
+						<li class="list-group-item">Dapibus ac facilisis in</li>
+						<li class="list-group-item">Morbi leo risus</li>
+						<li class="list-group-item">Porta ac consectetur ac</li>
+						<li class="list-group-item">Vestibulum at eros</li>
+					</ul>
+				</div>
 			</div>
-	
+		</div>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const port = process.env.PORT || 5000;
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -13,6 +14,6 @@ io.on("connection", (socket) => {
 		io.emit("chat message", msg);
 	});
 });
-server.listen(5000, () => {
-	console.log("listening on PORT:5000");
+server.listen(port, () => {
+	console.log(`listening at http://localhost:${port}`);
 });
