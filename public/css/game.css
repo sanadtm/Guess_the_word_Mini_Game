@@ -1,17 +1,17 @@
-ul,ol{
-    list-style: none;
+ul,
+ol {
+	list-style: none;
 }
-header{
-    font-family: 'Courier New', Courier, monospace;
-    text-align: center;
-    color:white;
-   
- }
- body{
-     background-color: black;
- }
- .bootstrap-grid .row > * {
-    margin-top: 1%;
+header {
+	font-family: "Courier New", Courier, monospace;
+	text-align: center;
+	color: white;
+}
+body {
+	background-color: black;
+}
+.bootstrap-grid .row > * {
+	margin-top: 1%;
 	border: 2px solid var(--white);
 	padding: 10px;
 }
@@ -22,106 +22,107 @@ header{
 	background-color: rgb(67, 194, 50);
 }
 /***************************************************/
-.main-container{
-    height: 100vh;
+.main-container {
+	height: 100vh;
 }
-.main-features{
-    height: 100vh;
+.main-features {
+	height: 100vh;
 }
 /****************************************************/
-.score-box{
-    height: 38vh;
-    background-color: red;
-    margin: 5px;
-    max-height: 38vh;
-    /* overflow: scroll; */
+.score-box {
+	height: 38vh;
+	background-color: red;
+	margin: 5px;
+	max-height: 38vh;
+	color: white;
+	/* overflow: scroll; */
 }
-.game-box{
-    background-color: yellow; 
-    display: flex;
-    margin: 5px;
-    margin-top: 10px;
-    height: 50vh;
-    max-height: 50vh;
-    /* overflow: scroll; */
+.game-box {
+	background-color: yellow;
+	display: flex;
+	margin: 5px;
+	margin-top: 10px;
+	height: 50vh;
+	max-height: 50vh;
+	color: white;
+	/* overflow: scroll; */
 }
-.question-box{
-    width: 60%;
-    background-color: cadetblue;
-    /* overflow: scroll; */
+.question-box {
+	width: 60%;
+	background-color: cadetblue;
+	/* overflow: scroll; */
 }
-.answer-box{
-    width: 40%;
-    background-color: aquamarine;
-    /* overflow: scroll; */
+.answer-box {
+	width: 40%;
+	background-color: aquamarine;
+	color: rgb(209, 119, 119);
+	/* overflow: scroll; */
 }
-.input-answer{
-    /* background-color: red; */ 
-    /* margin: 5px; */
-    height: 5vh;
-    position: relative;
+.input-answer {
+	/* background-color: red; */
+	/* margin: 5px; */
+	height: 5vh;
+	position: relative;
 }
-.answer-input-group{
-    position: absolute;
-    margin-left: 5px;
-    top: -5px;
-    background-color: transparent;
+.answer-input-group {
+	position: absolute;
+	margin-left: 5px;
+	top: -5px;
+	background-color: transparent;
 }
-.user-answer{
-    width: fit-content;
-    background-color: white;
-    height: 40px;
-    border-radius: 5px;
-    padding: 5px 10px;
-    overflow: auto;
+.user-answer {
+	width: fit-content;
+	background-color: white;
+	height: 40px;
+	border-radius: 5px;
+	padding: 5px 10px;
+	overflow: auto;
 }
-.answer-btn{
-    background-color: red;
-    padding: 5px 20px;
-    height: 40px;
-    border-radius: 5px;
+.answer-btn {
+	background-color: red;
+	padding: 5px 20px;
+	height: 40px;
+	border-radius: 5px;
 }
-
 
 /*Chat-box --------------------------------------*/
-.chat-box{
-    position: relative;
-    margin-left: 4%;
-    
+.chat-box {
+	position: relative;
+	margin-left: 4%;
 }
-.message-box{
-    height: 600px;
-    background-color: whitesmoke;
-    border-radius: 5px;
-    overflow: scroll;
+.message-box {
+	height: 600px;
+	background-color: whitesmoke;
+	border-radius: 5px;
+	overflow: scroll;
 }
-.chat-message{
-    float: left;
+.chat-message {
+	float: left;
 }
 
-.input-group{
-    position: absolute;
-    bottom: 5px;
+.input-group {
+	position: absolute;
+	bottom: 5px;
 }
-.chatting-input-group{
-    width: 100%;
-    display: flex;
-    align-items: center;
+.chatting-input-group {
+	width: 100%;
+	display: flex;
+	align-items: center;
 }
-.user-input{
-    width: fit-content;
-    background-color: white;
-    height: 40px;
-    border-radius: 5px;
-    padding: 5px 10px;
-    overflow: scroll;
+.user-input {
+	width: fit-content;
+	background-color: white;
+	height: 40px;
+	border-radius: 5px;
+	padding: 5px 10px;
+	overflow: scroll;
 }
-.send-btn{
-    background-color: red;
-    padding: 5px 20px;
-    height: 40px;
-    border-radius: 5px;
+.send-btn {
+	background-color: red;
+	padding: 5px 20px;
+	height: 40px;
+	border-radius: 5px;
 }
 /************************************************/
-.input-answer{
+.input-answer {
 }
