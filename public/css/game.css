@@ -12,9 +12,6 @@ header{
  }
  .bootstrap-grid .row > * {
     margin-top: 1%;
-    margin-left: 4%;
-    /* text-align: center; */
-	height: 90vh;
 	border: 2px solid var(--white);
 	padding: 10px;
 }
@@ -33,39 +30,67 @@ header{
 }
 /****************************************************/
 .score-box{
-    height: 35vh;
+    height: 38vh;
     background-color: red;
     margin: 5px;
+    max-height: 38vh;
+    /* overflow: scroll; */
 }
 .game-box{
     background-color: yellow; 
     display: flex;
     margin: 5px;
-    height: 35vh;
-
-    
+    margin-top: 10px;
+    height: 50vh;
+    max-height: 50vh;
+    /* overflow: scroll; */
 }
 .question-box{
     width: 60%;
     background-color: cadetblue;
+    /* overflow: scroll; */
 }
 .answer-box{
     width: 40%;
     background-color: aquamarine;
+    /* overflow: scroll; */
 }
 .input-answer{
-    background-color: red; 
-    margin: 5px;
-    height: 15vh;
+    /* background-color: red; */ 
+    /* margin: 5px; */
+    height: 5vh;
+    position: relative;
 }
+.answer-input-group{
+    position: absolute;
+    margin-left: 5px;
+    top: -5px;
+    background-color: transparent;
+}
+.user-answer{
+    width: fit-content;
+    background-color: white;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    overflow: auto;
+}
+.answer-btn{
+    background-color: red;
+    padding: 5px 20px;
+    height: 40px;
+    border-radius: 5px;
+}
+
 
 /*Chat-box --------------------------------------*/
 .chat-box{
     position: relative;
+    margin-left: 4%;
     
 }
 .message-box{
-    height: 80%;
+    height: 600px;
     background-color: whitesmoke;
     border-radius: 5px;
     overflow: scroll;
@@ -98,3 +123,5 @@ header{
     border-radius: 5px;
 }
 /************************************************/
+.input-answer{
+}
