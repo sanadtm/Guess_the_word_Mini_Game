@@ -13,8 +13,8 @@ header{
  .bootstrap-grid .row > * {
     margin-top: 1%;
     margin-left: 4%;
-    text-align: center;
-	height: 400px;
+    /* text-align: center; */
+	height: 90vh;
 	border: 2px solid var(--white);
 	padding: 10px;
 }
@@ -24,8 +24,40 @@ header{
 .row2 > * {
 	background-color: rgb(67, 194, 50);
 }
+/***************************************************/
+.main-container{
+    height: 100vh;
+}
+.main-features{
+    height: 100vh;
+}
 /****************************************************/
+.score-box{
+    height: 35vh;
+    background-color: red;
+    margin: 5px;
+}
+.game-box{
+    background-color: yellow; 
+    display: flex;
+    margin: 5px;
+    height: 35vh;
 
+    
+}
+.question-box{
+    width: 60%;
+    background-color: cadetblue;
+}
+.answer-box{
+    width: 40%;
+    background-color: aquamarine;
+}
+.input-answer{
+    background-color: red; 
+    margin: 5px;
+    height: 15vh;
+}
 
 /*Chat-box --------------------------------------*/
 .chat-box{
