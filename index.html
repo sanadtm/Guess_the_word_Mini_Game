@@ -44,8 +44,12 @@
 							<small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
 						</div>
 						<label class="FormTitle">Nationality</label>
-						<select onchange="initStates()" id="country-select" class="form-control">
-							<option selected disabled>Country</option>
+						<select
+							id="select"
+							name="select"
+							placeholder="Select Your Country"
+							class="select"
+						>
 						</select>
 						<div class="form-group">
 							<label class="FormTitle">Game Room ID</label>
@@ -74,5 +78,24 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			const countryApi = "https://restcountries.com/v3.1/all";
+			let output = "";
+			const selectcountry = document.getElementById("#select");
+			fetch(countryApi)
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					data.forEach((country) => {
+						//console.log(country.name.common);
+						output += `<country value = "${country.name.common}">${country.name.common}</country>`;
+					});
+					selectcountry.innerHTML = output;
+				})
+				.catch((error) => {
+					console.log(err);
+				});
+		</script>
 	</body>
 </html>

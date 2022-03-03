@@ -18,11 +18,11 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/index.html");
 });
 
+
 app.post("/submit", function (req, res) {
 	console.log(req.body.name);
 	console.log(req.body.GameID);
 	//res.send(req.body);
-	const { username, nationality, gameRoomId } = req.body;
 	res.sendFile(__dirname + "/public/views/gamePage.html");
 
 	io.on("connection", (socket) => {
@@ -30,7 +30,12 @@ app.post("/submit", function (req, res) {
 			io.emit("chat message", req.body.name + " :: " + msg);
 		});
 	});
-	res.redirect;
+	io.on("connection", (socket) => {
+		socket.emit("chat message", req.body.name + ":: Connected");
+		socket.on("disconnect", () => {
+			socket.emit("chat message", req.body.name + ":: Disconnected");
+		});
+	});
 });
 
 // io.on("connection", (socket) => {
