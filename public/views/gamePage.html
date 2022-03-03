@@ -110,6 +110,25 @@
 				messages.appendChild(eachMessage);
 				window.scrollTo(0, document.body.scrollHeight);
 			});
+			/***************************************************************/
+			let ary = ['Hello', 'Apple', 'Portland', 'Mountain', 'Computer Science'];
+			let myQuizz = ()=>{
+
+				for(let i = 1; i <= ary.length; i++){
+					setTimeout(function(){
+						let myWord = ary[i - 1].trim();
+						let myLetter = myWord.split("");
+						for (let i = myLetter.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							const temp = myLetter[i];
+							myLetter[i] = myLetter[j];
+							myLetter[j] = temp;
+						}
+						console.log(myLetter);
+					}, 3000 * i); 
+				}
+			}
+			
 
 			/**********************************************************/
 			let answer = document.getElementById("answer");
@@ -119,7 +138,7 @@
 			let correctAnswer = document.getElementById("correct-answer");
 
 			let result = document.getElementById("result");
-
+			let executed = false; //allow correct Answer box code running only 1 time
 			formAnswer.addEventListener("submit", function(e){
 				e.preventDefault();
 				//myQuizz();
@@ -137,15 +156,49 @@
 				inputAnswer.value="";
 
 				//The correct answer box
-				let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
+				/* let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
 				let removeCorrectLi = document.querySelector('.correct-new-li');
 				if(countCorrectLi > 0){
 					removeCorrectLi.remove();
 				}   
 				let eachCorrectAnswer = document.createElement("li");
 				eachCorrectAnswer.classList.add('correct-new-li');
-				eachCorrectAnswer.textContent = "helllll";
-				correctAnswer.appendChild(eachCorrectAnswer);
+				eachCorrectAnswer.textContent = "helllll"; */
+				 //allow this excute only once
+				if(!executed){
+					executed = true;
+					for(let i = 1; i <= ary.length; i++){
+						setTimeout(function(){
+							let myWord = ary[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
+
+					
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
+
+							let removeCorrectLi = document.querySelector('.correct-new-li');
+							if(countCorrectLi > 0){
+								removeCorrectLi.remove();
+							}   
+							let eachCorrectAnswer = document.createElement("li");
+							eachCorrectAnswer.classList.add('correct-new-li');
+							//eachCorrectAnswer.textContent = myLetter;
+							eachCorrectAnswer.textContent = ary[i-1];
+							correctAnswer.appendChild(eachCorrectAnswer);
+
+
+							//console.log(myLetter);
+						}, 3000 * i); 
+					}
+					
+				}
+				
+				//correctAnswer.appendChild(eachCorrectAnswer);
 				/********************************************************/
 
 				//result box
@@ -164,24 +217,8 @@
 				
 			})
 			/****************************************************************/
-			let ary = ['Hello', 'Apple', 'Portland'];
-			let myQuizz = ()=>{
-
-				for(let i = 1; i <= ary.length; i++){
-					setTimeout(function(){
-						let myWord = ary[i - 1].trim();
-						let myLetter = myWord.split("");
-						for (let i = myLetter.length - 1; i > 0; i--) {
-							const j = Math.floor(Math.random() * (i + 1));
-							const temp = myLetter[i];
-							myLetter[i] = myLetter[j];
-							myLetter[j] = temp;
-						}
-						console.log(myLetter);
-					}, 3000 * i); 
-				}
-			}
-			myQuizz();
+			
+			
 
 		</script>
 	</body>
