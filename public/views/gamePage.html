@@ -111,12 +111,14 @@
 				window.scrollTo(0, document.body.scrollHeight);
 			});
 
+			/**********************************************************/
 			let answer = document.getElementById("answer");
 			let formAnswer = document.getElementById("form-answer");
 			let inputAnswer = document.getElementById("input-answer");
 
 			formAnswer.addEventListener("submit", function(e){
 				e.preventDefault();
+				myQuizz();
 				let count = document.querySelectorAll('.new-li').length;
 				let removeDiv = document.querySelector('.new-li');
 				if(count > 0){
@@ -127,7 +129,27 @@
 				eachAnswer.textContent = inputAnswer.value;
 				answer.appendChild(eachAnswer);
 				inputAnswer.value="";
+				
 			})
+			/****************************************************************/
+			let ary = ['Hello', 'Apple', 'Portland'];
+			let myQuizz = ()=>{
+
+				for(let i = 1; i <= ary.length; i++){
+					setTimeout(function(){
+						let myWord = ary[i - 1].trim();
+						let myLetter = myWord.split("");
+						for (let i = myLetter.length - 1; i > 0; i--) {
+							const j = Math.floor(Math.random() * (i + 1));
+							const temp = myLetter[i];
+							myLetter[i] = myLetter[j];
+							myLetter[j] = temp;
+						}
+						console.log(myLetter);
+					}, 3000 * i); 
+				}
+			}
+			myQuizz();
 
 		</script>
 	</body>

@@ -1,5 +1,5 @@
 var ary = ['Hello', 'Apple', 'Portland'];
-let myFunction = function(){
+/* let myFunction = function(){
     for(let i = 1; i <= ary.length; i++){
         setTimeout(function(){
             console.log(ary[i - 1]);
@@ -13,7 +13,7 @@ const shuffleArray = array => {
     array[i] = array[j];
     array[j] = temp;
   }
-}
+} */
 let myQuizz = ()=>{
 
     for(let i = 1; i <= ary.length; i++){
