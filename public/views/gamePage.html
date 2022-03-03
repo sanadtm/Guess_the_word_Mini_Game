@@ -11,26 +11,29 @@
 		<link rel="stylesheet" href="./css/game.css" />
 		<link rel="stylesheet" href="./css/reset.css" />
 		<script defer src="./js/game.js"></script>
-
+	
 		<title>Word Jumbler</title>
 	</head>
-	<body>
-		<header>
-			<h1>Game Page</h1>
-		</header>
-		<main>
+		<body>
+			<header>
+				<h1>Game Page</h1>
+			</header>
+		<main>				
 			<div class="container bootstrap-grid">
 				<div class="row row1 main-container">
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
-							Score-box: display the score of each player<br />
-							Player 1: 0 point <br />
-							Player 2: 0 point <br />
-							Player 3: 0 point <br />
-							Player 4: 0 point
+							Score-box: display the  score of each player<br>
+							Player 1: 0 point <br>
+							Player 2: 0 point <br>
+							Player 3: 0 point <br>
+							Player 4: 0 point 
+
 						</div>
 						<div class="game-box">
-							<div class="question-box"> Question box </div>
+							<div class="question-box">
+								Question box
+							</div>
 							<div class="answer-box">
 								<div class="header-answer-box">Player's Answer Window</div>
 								<div class="answer-display">
@@ -43,9 +46,9 @@
 								</div>
 								<div class="correct-answer-display">
 									<div class="correct-header-answer">
-										Your Answer:
+										Correct Answer:
 										<ul class="correct-answer-ul" id="correct-answer">
-											<li class="correct-new-li">hello</li>
+											<!-- <li class="correct-new-li">hello</li> -->
 										</ul>
 									</div>
 								</div>
@@ -58,6 +61,7 @@
 										</ul>
 									</div>
 								</div>
+								
 							</div>
 						</div>
 						<div class="input-answer row row1">
@@ -67,8 +71,8 @@
 							</form>
 						</div>
 					</div>
-
-					<div class="col-4 col-md-4 col-lg-4 chat-box">
+					
+					<div class="col-4 col-md-4 col-lg-4 chat-box">		
 						<h4>Chat Box</h4>
 						<div class="message-box">
 							<ul class="chat-message" id="messages"></ul>
@@ -79,18 +83,20 @@
 								<button class="send-btn">Send</button>
 							</form>
 						</div>
+						
+
 					</div>
+
 				</div>
 			</div>
 		</main>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			var socket = io();
-
-			var messages = document.getElementById("messages");
-			var form = document.getElementById("form");
-			var input = document.getElementById("input");
-
+			let socket = io();
+			let messages = document.getElementById("messages");
+			let Users = document.getElementById("messages");
+			let form = document.getElementById("form");
+			let input = document.getElementById("input");
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
@@ -98,37 +104,54 @@
 					input.value = "";
 				}
 			});
-
 			socket.on("chat message", function (msg) {
-				var item = document.createElement("li");
-				item.textContent = msg;
-				messages.appendChild(item);
+				let eachMessage = document.createElement("li");
+				eachMessage.textContent = msg;
+				messages.appendChild(eachMessage);
 				window.scrollTo(0, document.body.scrollHeight);
 			});
+
 			/**********************************************************/
 			let answer = document.getElementById("answer");
 			let formAnswer = document.getElementById("form-answer");
 			let inputAnswer = document.getElementById("input-answer");
+			let correctAnswer = document.getElementById("correct-answer");
 
-			formAnswer.addEventListener("submit", function (e) {
+			formAnswer.addEventListener("submit", function(e){
 				e.preventDefault();
-				myQuizz();
-				let count = document.querySelectorAll(".new-li").length;
-				let removeDiv = document.querySelector(".new-li");
-				if (count > 0) {
-					removeDiv.remove();
-				}
+				//myQuizz();
+				//Player's answer box
+				let count = document.querySelectorAll('.new-li').length;
+				let removeNewLi = document.querySelector('.new-li');
+				if(count > 0){
+					removeNewLi.remove();
+				}   
 				let eachAnswer = document.createElement("li");
-				eachAnswer.classList.add("new-li");
+				eachAnswer.classList.add('new-li');
 				eachAnswer.textContent = inputAnswer.value;
 				answer.appendChild(eachAnswer);
-				inputAnswer.value = "";
-			});
+
+				//The correct answer box
+				let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
+				let removeCorrectLi = document.querySelector('.correct-new-li');
+				if(countCorrectLi > 0){
+					removeCorrectLi.remove();
+				}   
+				let eachCorrectAnswer = document.createElement("li");
+				eachCorrectAnswer.classList.add('correct-new-li');
+				eachCorrectAnswer.textContent = "helllll";
+				correctAnswer.appendChild(eachCorrectAnswer);
+
+
+				inputAnswer.value="";
+				
+			})
 			/****************************************************************/
-			let ary = ["Hello", "Apple", "Portland"];
-			let myQuizz = () => {
-				for (let i = 1; i <= ary.length; i++) {
-					setTimeout(function () {
+			let ary = ['Hello', 'Apple', 'Portland'];
+			let myQuizz = ()=>{
+
+				for(let i = 1; i <= ary.length; i++){
+					setTimeout(function(){
 						let myWord = ary[i - 1].trim();
 						let myLetter = myWord.split("");
 						for (let i = myLetter.length - 1; i > 0; i--) {
@@ -138,10 +161,11 @@
 							myLetter[j] = temp;
 						}
 						console.log(myLetter);
-					}, 3000 * i);
+					}, 3000 * i); 
 				}
-			};
+			}
 			myQuizz();
+
 		</script>
 	</body>
 </html>
