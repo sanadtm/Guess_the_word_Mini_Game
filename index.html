@@ -45,8 +45,8 @@
 						</div>
 						<label class="FormTitle">Nationality</label>
 						<select
-							id="select"
-							name="select"
+							id="country_select"
+							name="country_select"
 							placeholder="Select Your Country"
 							class="select"
 						>
@@ -81,7 +81,7 @@
 		<script>
 			const countryApi = "https://restcountries.com/v3.1/all";
 			let output = "";
-			const selectcountry = document.getElementById("#select");
+			//let countryDom = document.getElementById("select");
 			fetch(countryApi)
 				.then((res) => {
 					return res.json();
@@ -89,11 +89,12 @@
 				.then((data) => {
 					data.forEach((country) => {
 						//console.log(country.name.common);
-						output += `<country value = "${country.name.common}">${country.name.common}</country>`;
+						output += `<country>${country.name.common}</country>`;
 					});
-					selectcountry.innerHTML = output;
+					console.log(output);
+					document.querySelector("#country_select").innerHTML = output;
 				})
-				.catch((error) => {
+				.catch((err) => {
 					console.log(err);
 				});
 		</script>
