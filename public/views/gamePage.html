@@ -35,12 +35,16 @@
 								Question box
 							</div>
 							<div class="answer-box">
-								Display answer box
+								<div class="header-answer-box">Player Answer Window</div>
+								<div class="answer-display">
+									<ul class="chat-message" id="answer"></ul>
+								</div>
+								
 							</div>
 						</div>
 						<div class="input-answer row row1">
-							<form id="" action="" class="answer-input-group">
-								<input id="" autocomplete="off" class="user-answer" />
+							<form id="form-answer" action="" class="answer-input-group">
+								<input id="input-answer" autocomplete="off" class="user-answer" />
 								<button class="answer-btn">Enter</button>
 							</form>
 						</div>
@@ -84,6 +88,24 @@
 				messages.appendChild(eachMessage);
 				window.scrollTo(0, document.body.scrollHeight);
 			});
+
+			let answer = document.getElementById("answer");
+			let formAnswer = document.getElementById("form-answer");
+			let inputAnswer = document.getElementById("input-answer");
+
+			formAnswer.addEventListener("submit", function(e){
+				e.preventDefault();
+				let count = document.querySelectorAll('.new-li').length;
+				let removeDiv = document.querySelector('.new-li');
+				if(count > 0){
+					removeDiv.remove();
+				}   
+				let eachAnswer = document.createElement("li");
+				eachAnswer.classList.add('new-li');
+				eachAnswer.textContent = inputAnswer.value;
+				answer.appendChild(eachAnswer);
+				inputAnswer.value="";
+			})
 
 		</script>
 	</body>

@@ -27,8 +27,6 @@ let myQuizz = ()=>{
                 myLetter[j] = temp;
             }
             console.log(myLetter);
-            //let myShuffle = shuffleArray(myLetter);
-            //console.log(myShuffle)
         }, 3000 * i); 
     }
 }
