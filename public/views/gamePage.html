@@ -55,9 +55,9 @@
 
 								<div class="result-display">
 									<div class="header-result">
-										Your Answer:
+										Result:
 										<ul class="result-ul" id="result">
-											<li class="result-new-li">Yes, your score +10</li>
+											<!-- <li class="result-new-li">Yes, your score +10</li> -->
 										</ul>
 									</div>
 								</div>
@@ -115,7 +115,10 @@
 			let answer = document.getElementById("answer");
 			let formAnswer = document.getElementById("form-answer");
 			let inputAnswer = document.getElementById("input-answer");
+
 			let correctAnswer = document.getElementById("correct-answer");
+
+			let result = document.getElementById("result");
 
 			formAnswer.addEventListener("submit", function(e){
 				e.preventDefault();
@@ -130,6 +133,8 @@
 				eachAnswer.classList.add('new-li');
 				eachAnswer.textContent = inputAnswer.value;
 				answer.appendChild(eachAnswer);
+				//reset input box
+				inputAnswer.value="";
 
 				//The correct answer box
 				let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
@@ -141,9 +146,21 @@
 				eachCorrectAnswer.classList.add('correct-new-li');
 				eachCorrectAnswer.textContent = "helllll";
 				correctAnswer.appendChild(eachCorrectAnswer);
+				/********************************************************/
+
+				//result box
+				let countResultLi = document.querySelectorAll('.result-new-li').length;
+				let removeResultLi = document.querySelector('.result-new-li');
+				if(countCorrectLi > 0){
+					removeResultLi.remove();
+				}  
+				let eachResult = document.createElement("li");
+				eachResult.classList.add('result-new-li');
+				eachResult.textContent = "Yes, your answer is correct. +10 points";
+				result.appendChild(eachResult);
 
 
-				inputAnswer.value="";
+				
 				
 			})
 			/****************************************************************/
