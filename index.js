@@ -10,21 +10,22 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", __dirname + "/public/views");
 app.engine("html", require("ejs").renderFile);
-app.set("view engine", "html");
-
+app.set("view engine", "ejs");
+var globalArray = {
+	user: "sanad",
+};
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.get("/", (req, res) => {
-	res.sendFile(__dirname + "/index.html");
+	res.render("index.html");
 });
-
 
 app.post("/submit", function (req, res) {
 	console.log(req.body.name);
 	console.log(req.body.GameID);
-	//res.send(req.body);
-	res.sendFile(__dirname + "/public/views/gamePage.html");
-
+	let name = req.body.name;
+	res.render("gamePage.html", { uname: name });
+	//res.json({ name1: req.body.name });
 	io.on("connection", (socket) => {
 		socket.on("chat message", (msg) => {
 			io.emit("chat message", req.body.name + " :: " + msg);

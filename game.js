@@ -4,6 +4,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const http = require("http");
 const server = http.createServer(app);
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/public/views/gamePage.html");
 });
