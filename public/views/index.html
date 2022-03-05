@@ -25,7 +25,7 @@
 				<div class="col-7 col-md-7 col-lg-7">
 					<div class="title">Create Player FORM</div>
 					<form
-						action="/submit"
+						action="/room"
 						method="post"
 						id="form"
 						class="bg-light border rounded w-50 mx-auto mt-5 p-3"
@@ -56,9 +56,9 @@
 							<input
 								type="text"
 								class="form-control"
-								id="GameID"
-								name="GameID"
-								placeholder="Game ID"
+								id="room"
+								name="room"
+								placeholder="Room ID"
 							/>
 						</div>
 
@@ -91,7 +91,7 @@
 						//console.log(country.name.common);
 						output += `<country>${country.name.common}</country>`;
 					});
-					console.log(output);
+					//console.log(output);
 					document.querySelector("#country_select").innerHTML = output;
 				})
 				.catch((err) => {

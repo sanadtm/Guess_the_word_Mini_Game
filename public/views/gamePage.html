@@ -24,28 +24,33 @@
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
 							Score-box: display the score of each player<br />
-							<%= uname %>: 0 point <br />
-							<%= uname %>: 0 point <br />
+							<div id="InRoomUsers"></div>
+							<% Object.values(users).forEach(user => { %> <%=user %><br />
+							<% }) %>
+							<div id="room-container">
+								available Rooms <% Object.values(rooms).forEach(room => { %>
+								<div><%= room %></div>
+								<a href="/<%= room %>">Join</a>
+								<% }) %>
+							</div>
 						</div>
+
 						<div class="game-box">
-							<div class="question-box"> 
+							<div class="question-box">
 								<h3 class="question-header">Question box </h3>
 								<div class="question">
-									<div>
-										Arrange these letters to build a correct word:
-									</div>
-									
+									<div> Arrange these letters to build a correct word: </div>
+
 									<ul class="'letters" id="letters">
 										<!-- <li class="new-letter">H</li>
 										<li class="new-letter">e</li>
 										<li class="new-letter">l</li>
 										<li class="new-letter">l</li>
 										<li class="new-letter">o</li> -->
-									</ul> 
+									</ul>
 									<form id="start-question" action="" class="start-question">
 										<button class="start-btn">Start</button>
 									</form>
-									
 								</div>
 							</div>
 							<div class="answer-box">
@@ -102,11 +107,12 @@
 		</main>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			let socket = io();
-			let messages = document.getElementById("messages");
-			let Users = document.getElementById("messages");
-			let form = document.getElementById("form");
-			let input = document.getElementById("input");
+			var socket = io();
+
+			var messages = document.getElementById("messages");
+			var form = document.getElementById("form");
+			var input = document.getElementById("input");
+
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
@@ -114,11 +120,20 @@
 					input.value = "";
 				}
 			});
+
 			socket.on("chat message", function (msg) {
-				let eachMessage = document.createElement("li");
-				eachMessage.textContent = msg;
-				messages.appendChild(eachMessage);
+				var item = document.createElement("li");
+				item.textContent = msg;
+				messages.appendChild(item);
 				window.scrollTo(0, document.body.scrollHeight);
+			});
+
+			const playerContainer = getElementById("InRoomUsers");
+
+			socket.on("user-joined", (PlayerName) => {
+				const nameElement = document.createElement("li");
+				nameElement.innerText = PlayerName;
+				playerContainer.append(nameElement);
 			});
 			/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
@@ -139,7 +154,7 @@
 			};
 
 			/**********************************************************/
-			//Question Box and correct answer box: 
+			//Question Box and correct answer box:
 			let executed = false; //allow correct Answer box code running only 1 time
 			let executedStart = false;
 			let startQuestion = document.getElementById("start-question");
@@ -150,7 +165,7 @@
 				e.preventDefault();
 
 				//display the question
-				if(!executedStart){
+				if (!executedStart) {
 					executedStart = true;
 
 					for (let i = 1; i <= ary.length; i++) {
@@ -166,14 +181,13 @@
 								myLetter[j] = temp;
 							}
 
-							
 							while (countExistLetter > 0) {
 								let removeExistLetter = document.querySelector(".new-letter");
 								removeExistLetter.remove();
-								countExistLetter = countExistLetter - 1
+								countExistLetter = countExistLetter - 1;
 							}
-							
-							for(let i = 0 ; i < myLetter.length ; i++ ){
+
+							for (let i = 0; i < myLetter.length; i++) {
 								let eachLetter = document.createElement("li");
 								eachLetter.classList.add("new-letter");
 								eachLetter.textContent = myLetter[i];
@@ -186,11 +200,10 @@
 							letters.appendChild(eachLetter); */
 
 							//console.log(myLetter);
-						}, 3000 * (i-1));
+						}, 3000 * (i - 1));
 					}
-
 				}
-				
+
 				//display the correct answer
 				if (!executed) {
 					executed = true;
@@ -221,8 +234,7 @@
 						}, 3000 * i);
 					}
 				}
-
-			})
+			});
 
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
@@ -235,7 +247,7 @@
 			let correctAnswer = document.getElementById("correct-answer");
 
 			let result = document.getElementById("result");
-			
+
 			formAnswer.addEventListener("submit", function (e) {
 				e.preventDefault();
 				//myQuizz();
@@ -262,7 +274,7 @@
 				eachCorrectAnswer.classList.add('correct-new-li');
 				eachCorrectAnswer.textContent = "helllll"; */
 				//allow this excute only once
-				
+
 				//correctAnswer.appendChild(eachCorrectAnswer);
 				/********************************************************/
 
