@@ -28,7 +28,7 @@
 							<% Object.values(users).forEach(user => { %> <%=user %><br />
 							<% }) %>
 							<div id="room-container">
-								available Rooms <% Object.values(rooms).forEach(room => { %>
+								available Rooms <% Object.keys(rooms).forEach(room => { %>
 								<div><%= room %></div>
 								<a href="/<%= room %>">Join</a>
 								<% }) %>
@@ -127,14 +127,16 @@
 				messages.appendChild(item);
 				window.scrollTo(0, document.body.scrollHeight);
 			});
+			// socket.on("user-connected", (name) => {
+			// 	appendMessage(`${name} connected`);
+			// });
 
-			const playerContainer = getElementById("InRoomUsers");
+			// socket.on("user-disconnected", (name) => {
+			// 	appendMessage(`${name} disconnected`);
+			// });
 
-			socket.on("user-joined", (PlayerName) => {
-				const nameElement = document.createElement("li");
-				nameElement.innerText = PlayerName;
-				playerContainer.append(nameElement);
-			});
+			//const playerContainer = getElementById("#InRoomUsers");
+
 			/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
 			let myQuizz = () => {
