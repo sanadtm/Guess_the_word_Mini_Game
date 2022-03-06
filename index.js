@@ -40,7 +40,7 @@ app.post("/room", function (req, res) {
 		socket.broadcast.emit("message", "A USER has joined");
 
 		socket.on("chat message", (msg) => {
-			io.emit("chat message", msg, user);
+			io.emit("chat message", name + " ::" + msg);
 		});
 
 		socket.on("disconnect", () => {
