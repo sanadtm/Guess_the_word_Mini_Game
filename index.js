@@ -17,11 +17,12 @@ app.use(express.json());
 app.get("/", (req, res) => {
 	res.render("index.html");
 });
+
 let name_points = {};
 let eachname;
 let name;
 let userData = [];
-let userArray = [];
+let GAME_round = 0;
 let rooms = {};
 app.post("/room", function (req, res) {
 	const { username, nationality, room } = req.body;
@@ -40,13 +41,25 @@ io.on("connection", (socket) => {
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " :: " + msg);
 	});
+	socket.join("chatroom");
+	socket.on("displayUsers", (username) => {
+		io.emit("displayUsers", " :: " + username);
+	});
 	socket.broadcast.emit("chat message", socket.name + ":: Connected");
 	socket.on("disconnect", () => {
 		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");
 	});
-
 	io.emit("displayUsers", name_points);
 
+	//const clients = io.sockets.adapter.rooms["chatroom"].socket;
+
+	// var roster = io.sockets.clients("chatroom1");
+
+	// roster.forEach(function (client) {
+	// 	console.log("Username: " + client.nickname);
+	// });
+
+	io.to("chatroom").emit("usersInRoom", socket.name);
 	// io.emit("displayUsers", userData);
 });
 

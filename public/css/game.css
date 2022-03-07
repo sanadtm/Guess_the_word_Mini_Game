@@ -5,7 +5,10 @@ ol {
 header {
 	font-family: "Courier New", Courier, monospace;
 	text-align: center;
-	color: white;
+	color: rgb(31, 24, 24);
+}
+#inRoomUsers {
+	color: rgb(29, 17, 17);
 }
 body {
 	background-color: black;
@@ -53,17 +56,17 @@ body {
 	background-color: cadetblue;
 	/* overflow: scroll; */
 }
-.question-header{
+.question-header {
 	font-weight: 700;
 	text-align: center;
 }
-.letters{
+.letters {
 	/* display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap; */
 }
-.new-letter{
+.new-letter {
 	display: inline-block;
 	width: 50px;
 	height: 30px;
@@ -73,7 +76,7 @@ body {
 	color: black;
 	margin: 5px;
 }
-.start-btn{
+.start-btn {
 	background-color: red;
 	padding: 5px 20px;
 	height: 40px;
@@ -87,34 +90,34 @@ body {
 
 	/* overflow: scroll; */
 }
-.header-answer-box{
+.header-answer-box {
 	margin-top: 10px;
 	font-size: 18px;
 	font-weight: 800;
 	text-align: center;
 }
-.answer-display{
+.answer-display {
 	background-color: white;
 	height: 30%;
 	width: 100%;
 	border-radius: 5px;
 	overflow: auto;
 }
-.header-answer{
+.header-answer {
 	text-align: center;
 }
-.answer-ul{
+.answer-ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding-left: 0px;
 }
-.new-li{
+.new-li {
 	justify-content: center;
 }
 /************************************/
 
-.correct-answer-display{
+.correct-answer-display {
 	background-color: white;
 	height: 30%;
 	width: 100%;
@@ -122,20 +125,20 @@ body {
 	margin-top: 10px;
 	border-radius: 5px;
 }
-.correct-header-answer{
+.correct-header-answer {
 	text-align: center;
 }
-.correct-answer-ul{
+.correct-answer-ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding-left: 0px;
 }
-.correct-new-li{
+.correct-new-li {
 	justify-content: center;
 }
 /***************************************/
-.result-display{
+.result-display {
 	background-color: white;
 	height: 22%;
 	width: 100%;
@@ -143,19 +146,18 @@ body {
 	margin-top: 10px;
 	border-radius: 5px;
 }
-.header-result{
+.header-result {
 	text-align: center;
 }
-.result-ul{
+.result-ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding-left: 0px;
 }
-.result-new-li{
+.result-new-li {
 	justify-content: center;
 }
-
 
 /*******************************************************/
 .input-answer {

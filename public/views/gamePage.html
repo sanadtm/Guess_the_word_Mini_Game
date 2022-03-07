@@ -104,43 +104,61 @@
 				</div>
 			</div>
 		</main>
+		<script type='text/javascript' > 
+			var ALLPlayers = []; 
+		  </script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
+
+			setInterval(function () {
+			function updateDiv(){ 
+  				  $( "#inRoomUsers" ).load(location.href + "#inRoomUsers" );
+			} }, 1000);
+
 			let socket = io();
 			let messages = document.getElementById("messages");
 			let Users = document.getElementById("messages");
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
-			let ALLPlayers = [];
+			
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
 					socket.emit("chat message", input.value);
 					input.value = "";
 				}
+				
+			
 			});
 			socket.on("chat message", function (msg) {
 				let eachMessage = document.createElement("li");
 				eachMessage.textContent = msg;
 				messages.appendChild(eachMessage);
 				window.scrollTo(0, document.body.scrollHeight);
+				
+		
 			});
-
+			// socket.on("usersInRoo", function (username) {
+			// 	let eachMessage = document.createElement("li");
+			// 	eachMessage.textContent= username.name;
+			// 	allUsers.appendChild(eachMessage);
+			// });
 			socket.on("displayUsers", function (username) {
-				let users_in = "<li>PLayer and Points</li>";
+				let users_in = "<li>Player and Points</li>";
 				ALLPlayers.push(username);
 				var item = document.createElement("li");
 				ALLPlayers.forEach(function (data) {
 					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
 					//console.log("password: " + data.name);
 					//	console.log("password: " + data.points);
+				
 				});
 				item.innerHTML = users_in;
 				allUsers.appendChild(item);
 			});
-
-			/***************************************************************/
+			setInterval(0.2);
+		/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
 			let myQuizz = () => {
 				for (let i = 1; i <= ary.length; i++) {
