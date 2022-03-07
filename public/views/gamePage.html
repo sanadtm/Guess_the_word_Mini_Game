@@ -131,11 +131,17 @@
 			});
 
 			socket.on("displayUsers", function (username) {
-				//let users_in;
+				let users_in = "start";
 				ALLPlayers.push(username);
 				var item = document.createElement("li");
-
-				item.innerHTML = JSON.stringify(ALLPlayers);
+				ALLPlayers.forEach(function (data) {
+					if (= undefined) {
+						users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
+						console.log("password: " + data.name);
+						console.log("password: " + data.points);
+					}
+				});
+				item.innerHTML = users_in;
 				inRoomUsers.appendChild(item);
 			});
 
