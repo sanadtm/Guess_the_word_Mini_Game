@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 let name = [];
 let eachname;
-let connectCounter = 0;
+
 let userData = [];
 let userArray = [];
 let rooms = {};
@@ -31,26 +31,6 @@ app.post("/room", function (req, res) {
 	//console.log(req.body);
 	name.push(req.body.name);
 	res.render("gamePage.html", { uname: name, userData: userData, rooms: rooms, cnt: 1 });
-
-	//res.json({ name1: req.body.name });
-	// io.emit("user-joined", req.body);
-
-	// io.on("connection", (socket) => {
-	// 	socket.on("chat message", (msg) => {
-	// 		io.emit("chat message", req.body.name + " :: " + msg);
-	// 		console.log("Rooms " + Object.keys(socket.rooms));
-	// 		console.log("Rooms " + socket.rooms);
-	// 		socket.on("disconnect", () => {
-	// 			socket.emit("chat message", req.body.name + ":: Disconnected");
-	// 		});
-	// 	});
-	// });
-
-	// 	socket.on("disconnect", () => {
-	// 		socket.emit("chat message", req.body.name + ":: Disconnected");
-	// 	});
-	// });
-	++connectCounter;
 });
 
 io.on("connection", (socket) => {
@@ -60,27 +40,12 @@ io.on("connection", (socket) => {
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " ::" + msg);
 	});
-
-	io.on("connection", (socket) => {
-		socket.emit("chat message", socket.name + ":: Connected");
-
-		socket.on("disconnect", () => {
-			socket.emit("chat message", socket.name + ":: Disconnected");
-		});
+	socket.emit("chat message", socket.name + ":: Connected");
+	socket.on("disconnect", () => {
+		socket.emit("chat message", socket.name + ":: Disconnected");
 	});
 });
-// app.use((req, res, next) => {
-// 	const err = new Error("Not Found");
-// 	err.status = 404;
-// 	next(err);
-// });
 
-// app.use((err, req, res, next) => {
-// 	res.locals.error = err;
-// 	const status = err.status || 500;
-// 	res.status(status);
-// 	//res.render("error");
-// });
 server.listen(port, () => {
 	console.log(`listening at http://localhost:${port}`);
 });
