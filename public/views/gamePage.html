@@ -75,7 +75,7 @@
 									<div class="header-result">
 										Result:
 										<ul class="result-ul" id="result">
-											<li class="result-new-li">Yes, your score ++++10</li>
+											<!-- <li class="result-new-li">Yes, your score ++++10</li> -->
 										</ul>
 									</div>
 								</div>
@@ -109,6 +109,7 @@
 		  </script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
+			timeScale = 10000;
 
 			setInterval(function () {
 			function updateDiv(){ 
@@ -172,7 +173,7 @@
 							myLetter[j] = temp;
 						}
 						console.log(myLetter);
-					}, 3000 * i);
+					}, timeScale * i);
 				}
 			};
 
@@ -180,8 +181,10 @@
 			//Question Box and correct answer box:
 			let executed = false; //allow correct Answer box code running only 1 time
 			let executedStart = false;
+			let excutedResult = false;
 			let startQuestion = document.getElementById("start-question");
 			let letters = document.getElementById("letters");
+			let result = document.getElementById("result");
 
 			//This function is excuted when the start button in question box is pressed
 			startQuestion.addEventListener("submit", function (e) {
@@ -223,7 +226,7 @@
 							letters.appendChild(eachLetter); */
 
 							//console.log(myLetter);
-						}, 3000 * (i - 1));
+						}, timeScale * (i - 1));
 					}
 				}
 
@@ -254,9 +257,51 @@
 							correctAnswer.appendChild(eachCorrectAnswer);
 
 							//console.log(myLetter);
-						}, 3000 * i);
+						}, timeScale * i);
 					}
 				}
+				//result box
+				if(!excutedResult){
+					excutedResult = true;
+					for (let i = 1; i <= ary.length; i++) {
+						setTimeout(function () {
+							let countResultLi = document.querySelectorAll(".result-new-li").length;
+							let removeResultLi = document.querySelector(".result-new-li");
+							if (countResultLi > 0) {
+								removeResultLi.remove();
+							}
+							let eachResult = document.createElement("li");
+							eachResult.classList.add("result-new-li");
+							//answer from the user
+							let userAnswer = document.getElementsByClassName("new-li");
+							let first = userAnswer[0].innerText;
+							//let first = userAnswer;
+							/* for (var i = 0; i < userAnswer.length; i++) {
+								var price = userAnswer[i].innerText;
+							} */
+							//console.log(userAnswer[0]);
+
+							//the correct answer from the program
+							let realAnswer = document.getElementsByClassName("correct-new-li");
+							let second = realAnswer[0].innerText;
+							let resultCompare = first.localeCompare(second);
+							
+							//console.log(realAnswer[0].innerText);
+							if(resultCompare !== 0){
+								eachResult.textContent = `Your answer is not correct!!!`;
+							}else{
+								eachResult.textContent = `Your answer is correct. +10 points`;
+							}
+							//eachResult.textContent = resultCompare;
+							result.appendChild(eachResult);
+						}, timeScale * i);
+					}
+				}
+					
+
+
+
+				
 			});
 
 			/************************************************************/
@@ -269,7 +314,7 @@
 
 			let correctAnswer = document.getElementById("correct-answer");
 
-			let result = document.getElementById("result");
+			
 
 			formAnswer.addEventListener("submit", function (e) {
 				e.preventDefault();
@@ -302,7 +347,7 @@
 				//correctAnswer.appendChild(eachCorrectAnswer);
 				/********************************************************/
 
-				//result box
+				/* //result box
 				let countResultLi = document.querySelectorAll(".result-new-li").length;
 				let removeResultLi = document.querySelector(".result-new-li");
 				if (countResultLi > 0) {
@@ -311,7 +356,7 @@
 				let eachResult = document.createElement("li");
 				eachResult.classList.add("result-new-li");
 				eachResult.textContent = "Yes, your answer is correct. +10 points";
-				result.appendChild(eachResult);
+				result.appendChild(eachResult); */
 			});
 			/****************************************************************/
 		</script>
