@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
 	socket.broadcast.emit("message", "A USER has joined");
 	socket.name = eachname;
 	socket.on("chat message", (msg) => {
-		io.emit("chat message", socket.name + " ::" + msg);
+		io.emit("chat message", socket.name + " :: " + msg);
 	});
 	socket.emit("chat message", socket.name + ":: Connected");
 	socket.on("disconnect", () => {
