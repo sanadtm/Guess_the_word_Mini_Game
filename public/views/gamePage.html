@@ -24,28 +24,32 @@
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
 							Score-box: display the score of each player<br />
-							<%= uname %>: 0 point <br />
-							<%= uname %>: 0 point <br />
+							<div id="inRoomUsers"></div>
+							<ul>
+								<!-- <% let Users;%> <% userData.forEach(function(data) { %>
+								<li>Player : <%= data.name %></li>
+								<% Users = data.name;%>
+								<li>points : <%= data.points%></li>
+
+								<% }); %>
+							</ul> -->
 						</div>
 						<div class="game-box">
-							<div class="question-box"> 
+							<div class="question-box">
 								<h3 class="question-header">Question box </h3>
 								<div class="question">
-									<div>
-										Arrange these letters to build a correct word:
-									</div>
-									
+									<div> Arrange these letters to build a correct word: </div>
+
 									<ul class="'letters" id="letters">
 										<!-- <li class="new-letter">H</li>
 										<li class="new-letter">e</li>
 										<li class="new-letter">l</li>
 										<li class="new-letter">l</li>
 										<li class="new-letter">o</li> -->
-									</ul> 
+									</ul>
 									<form id="start-question" action="" class="start-question">
 										<button class="start-btn">Start</button>
 									</form>
-									
 								</div>
 							</div>
 							<div class="answer-box">
@@ -107,6 +111,8 @@
 			let Users = document.getElementById("messages");
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
+			var allUsers = document.getElementById("inRoomUsers");
+			let ALLPlayers = [];
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
@@ -122,18 +128,16 @@
 			});
 
 			socket.on("displayUsers", function (username) {
-				let users_in = "start";
+				let users_in = "<li>PLayer and Points</li>";
 				ALLPlayers.push(username);
 				var item = document.createElement("li");
 				ALLPlayers.forEach(function (data) {
-					if (data == undefined) {
-						users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
-						console.log("password: " + data.name);
-						console.log("password: " + data.points);
-					}
+					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
+					//console.log("password: " + data.name);
+					//	console.log("password: " + data.points);
 				});
 				item.innerHTML = users_in;
-				inRoomUsers.appendChild(item);
+				allUsers.appendChild(item);
 			});
 
 			/***************************************************************/
@@ -155,7 +159,7 @@
 			};
 
 			/**********************************************************/
-			//Question Box and correct answer box: 
+			//Question Box and correct answer box:
 			let executed = false; //allow correct Answer box code running only 1 time
 			let executedStart = false;
 			let startQuestion = document.getElementById("start-question");
@@ -166,7 +170,7 @@
 				e.preventDefault();
 
 				//display the question
-				if(!executedStart){
+				if (!executedStart) {
 					executedStart = true;
 
 					for (let i = 1; i <= ary.length; i++) {
@@ -182,14 +186,13 @@
 								myLetter[j] = temp;
 							}
 
-							
 							while (countExistLetter > 0) {
 								let removeExistLetter = document.querySelector(".new-letter");
 								removeExistLetter.remove();
-								countExistLetter = countExistLetter - 1
+								countExistLetter = countExistLetter - 1;
 							}
-							
-							for(let i = 0 ; i < myLetter.length ; i++ ){
+
+							for (let i = 0; i < myLetter.length; i++) {
 								let eachLetter = document.createElement("li");
 								eachLetter.classList.add("new-letter");
 								eachLetter.textContent = myLetter[i];
@@ -202,11 +205,10 @@
 							letters.appendChild(eachLetter); */
 
 							//console.log(myLetter);
-						}, 3000 * (i-1));
+						}, 3000 * (i - 1));
 					}
-
 				}
-				
+
 				//display the correct answer
 				if (!executed) {
 					executed = true;
@@ -237,8 +239,7 @@
 						}, 3000 * i);
 					}
 				}
-
-			})
+			});
 
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
@@ -251,7 +252,7 @@
 			let correctAnswer = document.getElementById("correct-answer");
 
 			let result = document.getElementById("result");
-			
+
 			formAnswer.addEventListener("submit", function (e) {
 				e.preventDefault();
 				//myQuizz();
@@ -261,7 +262,7 @@
 				if (count > 0) {
 					removeNewLi.remove();
 				}
-				
+
 				let eachAnswer = document.createElement("li");
 				eachAnswer.classList.add("new-li");
 				eachAnswer.textContent = inputAnswer.value;
@@ -279,7 +280,7 @@
 				eachCorrectAnswer.classList.add('correct-new-li');
 				eachCorrectAnswer.textContent = "helllll"; */
 				//allow this excute only once
-				
+
 				//correctAnswer.appendChild(eachCorrectAnswer);
 				/********************************************************/
 
