@@ -17,9 +17,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
 	res.render("index.html");
 });
-let name = [];
+let name_points = {};
 let eachname;
-
+let name;
 let userData = [];
 let userArray = [];
 let rooms = {};
@@ -29,7 +29,7 @@ app.post("/room", function (req, res) {
 	rooms[req.body.room] = { users: {} };
 	eachname = req.body.name;
 	//console.log(req.body);
-	name.push(req.body.name);
+	name_points = { name: req.body.name, points: 15 };
 	res.render("gamePage.html", { uname: name, userData: userData, rooms: rooms, cnt: 1 });
 });
 
@@ -40,10 +40,14 @@ io.on("connection", (socket) => {
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " :: " + msg);
 	});
-	socket.emit("chat message", socket.name + ":: Connected");
+	socket.broadcast.emit("chat message", socket.name + ":: Connected");
 	socket.on("disconnect", () => {
-		socket.emit("chat message", socket.name + ":: Disconnected");
+		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");
 	});
+
+	io.emit("displayUsers", name_points);
+
+	// io.emit("displayUsers", userData);
 });
 
 server.listen(port, () => {

@@ -23,10 +23,11 @@
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
 							Score-box: display the score of each player<br />
-							<div id="InRoomUsers"></div>
+							<div id="inRoomUsers"></div>
 							<ul>
-								<% userData.forEach(function(data) { %>
+								<% let Users;%> <% userData.forEach(function(data) { %>
 								<li>Player : <%= data.name %></li>
+								<% Users = data.name;%>
 								<li>points : <%= data.points%></li>
 
 								<% }); %>
@@ -108,10 +109,11 @@
 
 		<script>
 			var socket = io();
-
+			let ALLPlayers = [];
 			var messages = document.getElementById("messages");
 			var form = document.getElementById("form");
 			var input = document.getElementById("input");
+			var allUsers = document.getElementById("inRoomUsers");
 
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
@@ -126,6 +128,15 @@
 				item.textContent = msg;
 				messages.appendChild(item);
 				window.scrollTo(0, document.body.scrollHeight);
+			});
+
+			socket.on("displayUsers", function (username) {
+				//let users_in;
+				ALLPlayers.push(username);
+				var item = document.createElement("li");
+
+				item.innerHTML = JSON.stringify(ALLPlayers);
+				inRoomUsers.appendChild(item);
 			});
 
 			/***************************************************************/
@@ -262,7 +273,7 @@
 				let removeCorrectLi = document.querySelector('.correct-new-li');
 				if(countCorrectLi > 0){
 					removeCorrectLi.remove();
-				}   
+				}
 				let eachCorrectAnswer = document.createElement("li");
 				eachCorrectAnswer.classList.add('correct-new-li');
 				eachCorrectAnswer.textContent = "helllll"; */
