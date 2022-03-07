@@ -10,7 +10,6 @@
 		/>
 		<link rel="stylesheet" href="./css/game.css" />
 		<link rel="stylesheet" href="./css/reset.css" />
-		<script defer src="./js/game.js"></script>
 
 		<title>Word Jumbler</title>
 	</head>
@@ -25,14 +24,13 @@
 						<div class="score-box row row1">
 							Score-box: display the score of each player<br />
 							<div id="InRoomUsers"></div>
-							<% Object.values(users).forEach(user => { %> <%=user %><br />
-							<% }) %>
-							<div id="room-container">
-								available Rooms <% Object.keys(rooms).forEach(room => { %>
-								<div><%= room %></div>
-								<a href="/<%= room %>">Join</a>
-								<% }) %>
-							</div>
+							<ul>
+								<% userData.forEach(function(data) { %>
+								<li>Player : <%= data.name %></li>
+								<li>points : <%= data.points%></li>
+
+								<% }); %>
+							</ul>
 						</div>
 
 						<div class="game-box">
@@ -106,6 +104,8 @@
 			</div>
 		</main>
 		<script src="/socket.io/socket.io.js"></script>
+		<script defer src="../../game.js"></script>
+
 		<script>
 			var socket = io();
 
@@ -127,15 +127,6 @@
 				messages.appendChild(item);
 				window.scrollTo(0, document.body.scrollHeight);
 			});
-			// socket.on("user-connected", (name) => {
-			// 	appendMessage(`${name} connected`);
-			// });
-
-			// socket.on("user-disconnected", (name) => {
-			// 	appendMessage(`${name} disconnected`);
-			// });
-
-			//const playerContainer = getElementById("#InRoomUsers");
 
 			/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
