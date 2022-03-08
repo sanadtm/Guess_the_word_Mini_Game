@@ -110,7 +110,7 @@
 		</script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			timeScale = 10000;
+			timeScale = 7000;
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -195,12 +195,100 @@
 			let letters = document.getElementById("letters");
 			let result = document.getElementById("result");
 
-			//This function is excuted when the start button in question box is pressed
-			startQuestion.addEventListener("submit", function (e) {
-				e.preventDefault();
+			socket.on('ary-answer', function (answerArray) {
+
+				//let eachCorrectAnswer = document.createElement("li");
+				//eachCorrectAnswer.classList.add("correct-new-li");
+				//eachCorrectAnswer.textContent = myLetter;
+				//eachCorrectAnswer.textContent = "hello hello";
+				//correctAnswer.appendChild(eachCorrectAnswer);
+				if (!executed) {
+						executed = true;
+						for (let i = 1; i <= answerArray.length; i++) {
+							setTimeout(function () {
+								let myWord = answerArray[i - 1].trim();
+								let myLetter = myWord.split("");
+								let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
+
+								for (let i = myLetter.length - 1; i > 0; i--) {
+									const j = Math.floor(Math.random() * (i + 1));
+									const temp = myLetter[i];
+									myLetter[i] = myLetter[j];
+									myLetter[j] = temp;
+								}
+
+								let removeCorrectLi = document.querySelector(".correct-new-li");
+								if (countCorrectLi > 0) {
+									removeCorrectLi.remove();
+								}
+								let eachCorrectAnswer = document.createElement("li");
+								eachCorrectAnswer.classList.add("correct-new-li");
+								//eachCorrectAnswer.textContent = myLetter;
+								eachCorrectAnswer.textContent = answerArray[i - 1];
+								correctAnswer.appendChild(eachCorrectAnswer);
+
+								//console.log(myLetter);
+							}, timeScale * i);
+						}
+					}
 
 				//display the question
 				if (!executedStart) {
+					executedStart = true;
+
+					for (let i = 1; i <= answerArray.length; i++) {
+						setTimeout(function () {
+							let myWord = answerArray[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countExistLetter = document.querySelectorAll(".new-letter").length;
+
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
+
+							while (countExistLetter > 0) {
+								let removeExistLetter = document.querySelector(".new-letter");
+								removeExistLetter.remove();
+								countExistLetter = countExistLetter - 1;
+							}
+
+							for (let i = 0; i < myLetter.length; i++) {
+								let eachLetter = document.createElement("li");
+								eachLetter.classList.add("new-letter");
+								eachLetter.textContent = myLetter[i];
+								//eachCorrectAnswer.textContent = answerArray[i - 1];
+								letters.appendChild(eachLetter);
+							}
+							/* eachLetter.classList.add("new-letter");
+							eachLetter.textContent = myLetter;
+							//eachCorrectAnswer.textContent = answerArray[i - 1];
+							letters.appendChild(eachLetter); */
+
+							//console.log(myLetter);
+						}, timeScale * (i - 1));
+					}
+				}
+
+				//right here
+
+
+			});
+			//This function is excuted when the start button in question box is pressed
+			
+			startQuestion.addEventListener("submit", function (e) {
+				e.preventDefault();
+
+				//Send the ary array to the index.js when the player press start btn
+				if(ary){
+					socket.emit('ary-answer', ary);
+				}
+
+				//display the question
+				
+				/* if (!executedStart) {
 					executedStart = true;
 
 					for (let i = 1; i <= ary.length; i++) {
@@ -229,18 +317,58 @@
 								//eachCorrectAnswer.textContent = ary[i - 1];
 								letters.appendChild(eachLetter);
 							}
-							/* eachLetter.classList.add("new-letter");
-							eachLetter.textContent = myLetter;
+							//eachLetter.classList.add("new-letter");
+							//eachLetter.textContent = myLetter;
 							//eachCorrectAnswer.textContent = ary[i - 1];
-							letters.appendChild(eachLetter); */
+							//letters.appendChild(eachLetter); 
 
 							//console.log(myLetter);
 						}, timeScale * (i - 1));
 					}
-				}
+				} */
 
+				
 				//display the correct answer
-				if (!executed) {
+				//receive the answerArray from user. Now display it on correct answer box
+				
+				/* socket.on('ary-answer', function (answerArray) {
+
+					console.log("heereeeeeeeeeeeeeee");
+					console.log(answerArray);
+					if (!executed) {
+						executed = true;
+						for (let i = 1; i <= answerArray.length; i++) {
+							setTimeout(function () {
+								let myWord = answerArray[i - 1].trim();
+								let myLetter = myWord.split("");
+								let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
+
+								for (let i = myLetter.length - 1; i > 0; i--) {
+									const j = Math.floor(Math.random() * (i + 1));
+									const temp = myLetter[i];
+									myLetter[i] = myLetter[j];
+									myLetter[j] = temp;
+								}
+
+								let removeCorrectLi = document.querySelector(".correct-new-li");
+								if (countCorrectLi > 0) {
+									removeCorrectLi.remove();
+								}
+								let eachCorrectAnswer = document.createElement("li");
+								eachCorrectAnswer.classList.add("correct-new-li");
+								//eachCorrectAnswer.textContent = myLetter;
+								eachCorrectAnswer.textContent = answerArray[i - 1];
+								correctAnswer.appendChild(eachCorrectAnswer);
+
+								//console.log(myLetter);
+							}, timeScale * i);
+						}
+					}
+
+				});
+				
+				 */
+				/* if (!executed) {
 					executed = true;
 					for (let i = 1; i <= ary.length; i++) {
 						setTimeout(function () {
@@ -269,8 +397,14 @@
 						}, timeScale * i);
 					}
 				}
+				 */
 				//result box
+<<<<<<< HEAD
 				if (!excutedResult) {
+=======
+				
+				if(!excutedResult){
+>>>>>>> 2a7a3041c3e148c5112fc82520b062bee5819f1c
 					excutedResult = true;
 					for (let i = 1; i <= ary.length; i++) {
 						setTimeout(function () {
