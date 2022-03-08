@@ -33,6 +33,7 @@
 
 								<% }); %>
 							</ul> -->
+							</ul>
 						</div>
 						<div class="game-box">
 							<div class="question-box">
@@ -104,17 +105,12 @@
 				</div>
 			</div>
 		</main>
-		<script type='text/javascript' > 
-			var ALLPlayers = []; 
-		  </script>
+		<script type="text/javascript">
+			var ALLPlayers = [];
+		</script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			timeScale = 10000;
-
-			setInterval(function () {
-			function updateDiv(){ 
-  				  $( "#inRoomUsers" ).load(location.href + "#inRoomUsers" );
-			} }, 1000);
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -122,44 +118,57 @@
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
-			
+
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
 					socket.emit("chat message", input.value);
 					input.value = "";
 				}
-				
-			
 			});
 			socket.on("chat message", function (msg) {
 				let eachMessage = document.createElement("li");
 				eachMessage.textContent = msg;
 				messages.appendChild(eachMessage);
 				window.scrollTo(0, document.body.scrollHeight);
-				
-		
 			});
 			// socket.on("usersInRoo", function (username) {
 			// 	let eachMessage = document.createElement("li");
 			// 	eachMessage.textContent= username.name;
 			// 	allUsers.appendChild(eachMessage);
 			// });
-			socket.on("displayUsers", function (username) {
-				let users_in = "<li>Player and Points</li>";
-				ALLPlayers.push(username);
-				var item = document.createElement("li");
-				ALLPlayers.forEach(function (data) {
+			socket.on("displayUsers", function (data) {
+				if (data.name || data.points) {
+					let users_in = "";
+					//ALLPlayers.push(username);
+					var item = document.createElement("li");
+
 					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
 					//console.log("password: " + data.name);
 					//	console.log("password: " + data.points);
-				
-				});
-				item.innerHTML = users_in;
-				allUsers.appendChild(item);
+
+					socket.emit("send_allUsers", users_in);
+					item.innerHTML = users_in;
+					allUsers.appendChild(item);
+				}
 			});
-			setInterval(0.2);
-		/***************************************************************/
+			socket.on("displayPrevUsers", function (data) {
+				if (data.name || data.points) {
+					let users_in = "";
+					//ALLPlayers.push(username);
+					var item = document.createElement("li");
+
+					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
+					//console.log("password: " + data.name);
+					//	console.log("password: " + data.points);
+
+					socket.emit("send_allUsers2", users_in);
+					item.innerHTML = users_in;
+					allUsers.appendChild(item);
+				}
+			});
+			//setInterval(0.2);
+			/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
 			let myQuizz = () => {
 				for (let i = 1; i <= ary.length; i++) {
@@ -261,7 +270,7 @@
 					}
 				}
 				//result box
-				if(!excutedResult){
+				if (!excutedResult) {
 					excutedResult = true;
 					for (let i = 1; i <= ary.length; i++) {
 						setTimeout(function () {
@@ -285,11 +294,11 @@
 							let realAnswer = document.getElementsByClassName("correct-new-li");
 							let second = realAnswer[0].innerText;
 							let resultCompare = first.localeCompare(second);
-							
+
 							//console.log(realAnswer[0].innerText);
-							if(resultCompare !== 0){
+							if (resultCompare !== 0) {
 								eachResult.textContent = `Your answer is not correct!!!`;
-							}else{
+							} else {
 								eachResult.textContent = `Your answer is correct. +10 points`;
 							}
 							//eachResult.textContent = resultCompare;
@@ -297,11 +306,6 @@
 						}, timeScale * i);
 					}
 				}
-					
-
-
-
-				
 			});
 
 			/************************************************************/
@@ -313,8 +317,6 @@
 			let inputAnswer = document.getElementById("input-answer");
 
 			let correctAnswer = document.getElementById("correct-answer");
-
-			
 
 			formAnswer.addEventListener("submit", function (e) {
 				e.preventDefault();
