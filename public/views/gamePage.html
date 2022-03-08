@@ -61,7 +61,8 @@
 									<div class="correct-header-answer">
 										Correct Answer:
 										<ul class="correct-answer-ul" id="correct-answer">
-											<!-- <li class="correct-new-li">hello</li> -->
+											<!-- initailize a li card -->
+											<li class="correct-new-li"></li>
 										</ul>
 									</div>
 								</div>
@@ -102,7 +103,7 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			timeScale = 10000;
+			timeScale = 5000;
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -294,6 +295,8 @@
 					executed = true;
 					for (let i = 1; i <= answerArray.length; i++) {
 						setTimeout(function () {
+
+							//This code work for the Answer box
 							let myWord = answerArray[i - 1].trim();
 							let myLetter = myWord.split("");
 							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
@@ -315,8 +318,46 @@
 							eachCorrectAnswer.textContent = answerArray[i - 1];
 							correctAnswer.appendChild(eachCorrectAnswer);
 
+							/*************************************/
+							//this code work for the Result box
+							let countResultLi = document.querySelectorAll(".result-new-li").length;
+							let removeResultLi = document.querySelector(".result-new-li");
+							if (countResultLi > 0) {
+								removeResultLi.remove();
+							}
+							let eachResult = document.createElement("li");
+							eachResult.classList.add("result-new-li");
+							//answer from the user
+							let userAnswer = document.getElementsByClassName("new-li");
+							let first = userAnswer[0].innerText;
+							//let first = userAnswer;
+							//for (var i = 0; i < userAnswer.length; i++) {
+								//var price = userAnswer[i].innerText;
+							//}
+							//console.log(userAnswer[0]);
+
+							//the correct answer from the program
+							let realAnswer = document.getElementsByClassName("correct-new-li");
+							let second = realAnswer[0].innerText;
+							let resultCompare = first.localeCompare(second);
+							let countIfInput = document.querySelectorAll(".result-new-li").length;
+							//console.log(realAnswer[0].innerText);
+							if(first == ""){
+								eachResult.textContent = `Please enter your answer`;
+							}else{
+								if (resultCompare !== 0) {
+									eachResult.textContent = `${first} is not the correct answer! Correc is ${second}`;
+								} else {
+									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
+								}
+							}
+							
+							//eachResult.textContent = resultCompare;
+							result.appendChild(eachResult);
+						
+
 							//console.log(myLetter);
-						}, timeScale * i);
+						}, (timeScale * i));
 					}
 				}
 
@@ -364,16 +405,18 @@
 
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
-
-				//Send the ary array to the index.js when the player press start btn
 				if (ary) {
 					socket.emit("ary-answer", ary);
 				}
 
+				//Send the ary array to the index.js when the player press start btn
+				
+
 				//result box
-				if (!excutedResult) {
+				/*if (!excutedResult) {
 					excutedResult = true;
-					for (let i = 1; i <= ary.length; i++) {
+					len = ary.length + 1;
+					for (let i = 0; i <= len; i++) {
 						setTimeout(function () {
 							let countResultLi = document.querySelectorAll(".result-new-li").length;
 							let removeResultLi = document.querySelector(".result-new-li");
@@ -386,9 +429,9 @@
 							let userAnswer = document.getElementsByClassName("new-li");
 							let first = userAnswer[0].innerText;
 							//let first = userAnswer;
-							/* for (var i = 0; i < userAnswer.length; i++) {
-								var price = userAnswer[i].innerText;
-							} */
+							//for (var i = 0; i < userAnswer.length; i++) {
+								//var price = userAnswer[i].innerText;
+							//}
 							//console.log(userAnswer[0]);
 
 							//the correct answer from the program
@@ -398,18 +441,18 @@
 
 							//console.log(realAnswer[0].innerText);
 							if (resultCompare !== 0) {
-								eachResult.textContent = `${first} is not the correct answer!`;
+								eachResult.textContent = `${first} is not the correct answer! Correc is ${second}`;
 							} else {
-								eachResult.textContent = `${first} is the correct answer. +10 points`;
+								eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
 							}
 							//eachResult.textContent = resultCompare;
 							result.appendChild(eachResult);
-						}, (timeScale-1000) * (i+1));
+						}, timeScale * i);
 					}
 				}
+				 */
 				
 			});
-
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
 			// let All_users = [];
