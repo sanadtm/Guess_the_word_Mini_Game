@@ -195,7 +195,9 @@
 			let letters = document.getElementById("letters");
 			let result = document.getElementById("result");
 
-			socket.on("ary-answer", function (answerArray) {
+			//receive the ary-answer from the index.js, 
+			socket.on('ary-answer', function (answerArray) {
+
 				//let eachCorrectAnswer = document.createElement("li");
 				//eachCorrectAnswer.classList.add("correct-new-li");
 				//eachCorrectAnswer.textContent = myLetter;
@@ -271,7 +273,6 @@
 					}
 				}
 
-				//right here
 			});
 			//This function is excuted when the start button in question box is pressed
 
