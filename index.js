@@ -5,6 +5,7 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server);
 const path = require("path");
+const { SocketAddress } = require("net");
 const port = process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -22,17 +23,20 @@ let name_points = {};
 let eachname;
 let name;
 let userData = [];
-let GAME_round = 0;
+let onlineUsersID = [];
 let rooms = {};
 
 
 app.post("/room", function (req, res) {
 	const { username, nationality, room } = req.body;
-	userData.push(req.body);
 	rooms[req.body.room] = { users: {} };
 	eachname = req.body.name;
 	//console.log(req.body);
+	//console.log(userData);
+
 	name_points = { name: req.body.name, points: 15 };
+	userData.push(name_points);
+
 	res.render("gamePage.html", { uname: name, userData: userData, rooms: rooms, cnt: 1 });
 });
 
@@ -62,24 +66,41 @@ io.on("connection", (socket) => {
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " :: " + msg);
 	});
+	console.log("socket ID ::" + socket.client.id);
 	socket.join("chatroom");
 	socket.on("displayUsers", (username) => {
 		io.emit("displayUsers", " :: " + username);
 	});
+	//check
+	if (onlineUsersID.length === 0) {
+		onlineUsersID.push(socket.client.id);
+	} else {
+		onlineUsersID.forEach((socketID) => {
+			if (socket.client.id === socketID) {
+				//display previous users
+			} else {
+				io.emit("displayPrevUsers", userData);
+				socket.on("send_allUsers2", function (data) {
+					if (data.name || data.points) {
+						console.log("Server :: " + data);
+						io.emit("displayPrevUsers", data);
+					}
+				});
+			}
+		});
+	}
 	socket.broadcast.emit("chat message", socket.name + ":: Connected");
 	socket.on("disconnect", () => {
 		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");
 	});
 	io.emit("displayUsers", name_points);
 
-	//const clients = io.sockets.adapter.rooms["chatroom"].socket;
-
-	// var roster = io.sockets.clients("chatroom1");
-
-	// roster.forEach(function (client) {
-	// 	console.log("Username: " + client.nickname);
-	// });
-
+	socket.on("send_allUsers", function (data) {
+		if (data.name || data.points) {
+			console.log("Server :: " + data);
+			io.emit("displayUsers", data);
+		}
+	});
 	io.to("chatroom").emit("usersInRoom", socket.name);
 	// io.emit("displayUsers", userData);
 });
