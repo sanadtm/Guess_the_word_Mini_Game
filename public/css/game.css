@@ -1,5 +1,11 @@
+body {
+	font-family: "Courier New", Courier, monospace;
+}
 ul,
 ol {
+	list-style: none;
+}
+li {
 	list-style: none;
 }
 header {
@@ -7,8 +13,12 @@ header {
 	text-align: center;
 	color: rgb(31, 24, 24);
 }
-#inRoomUsers {
+#inRoomUsers.users-ul {
 	color: rgb(29, 17, 17);
+	max-height: 38vh;
+}
+#inRoomUsers {
+	max-height: 38vh;
 }
 body {
 	background-color: black;
@@ -19,7 +29,7 @@ body {
 	padding: 10px;
 }
 .row1 > * {
-	background-color: rgb(210, 224, 84);
+	background-color: rgb(229, 231, 66);
 }
 .row2 > * {
 	background-color: rgb(67, 194, 50);
@@ -34,10 +44,13 @@ body {
 /****************************************************/
 .score-box {
 	height: 38vh;
-	background-color: red;
+	background-color: rgb(24, 27, 212);
+	border-radius: 5px;
 	margin: 5px;
-	max-height: 38vh;
-	color: white;
+	max-height: 35vh;
+	color: black;
+	text-align: center;
+	border-style: outset;
 	/* overflow: scroll; */
 }
 .game-box {
@@ -54,6 +67,8 @@ body {
 .question-box {
 	width: 60%;
 	background-color: cadetblue;
+	padding: 10px;
+	border-style: outset;
 	/* overflow: scroll; */
 }
 .question-header {
@@ -81,6 +96,7 @@ body {
 	padding: 5px 20px;
 	height: 40px;
 	border-radius: 5px;
+	color: white;
 }
 /******************************/
 .answer-box {
@@ -182,6 +198,7 @@ body {
 }
 .answer-btn {
 	background-color: red;
+	color: white;
 	padding: 5px 20px;
 	height: 40px;
 	border-radius: 5px;
@@ -191,6 +208,7 @@ body {
 .chat-box {
 	position: relative;
 	margin-left: 4%;
+	text-align: center;
 }
 .message-box {
 	height: 600px;
@@ -224,6 +242,7 @@ body {
 	padding: 5px 20px;
 	height: 40px;
 	border-radius: 5px;
+	color: white;
 }
 /************************************************/
 .input-answer {

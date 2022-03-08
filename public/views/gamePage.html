@@ -23,16 +23,9 @@
 				<div class="row row1 main-container">
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
-							Score-box: display the score of each player<br />
-							<div id="inRoomUsers"></div>
-							<ul>
-								<!-- <% let Users;%> <% userData.forEach(function(data) { %>
-								<li>Player : <%= data.name %></li>
-								<% Users = data.name;%>
-								<li>points : <%= data.points%></li>
-
-								<% }); %>
-							</ul> -->
+							<h1>Word Jumbler</h1><br />
+							<ul class="users-ul" id="inRoomUsers">
+								<h3>Players</h3>
 							</ul>
 						</div>
 						<div class="game-box">
@@ -105,9 +98,7 @@
 				</div>
 			</div>
 		</main>
-		<script type="text/javascript">
-			//var ALLPlayers = [];
-		</script>
+
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			timeScale = 15000;
@@ -118,7 +109,7 @@
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
-			var ALLPlayers = [];
+			let ALLPlayers = [];
 
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
@@ -138,23 +129,7 @@
 			// 	eachMessage.textContent= username.name;
 			// 	allUsers.appendChild(eachMessage);
 			// });
-			socket.on("displayUsers", function (data) {
-				if (data.name || data.points) {
-					let users_in = "";
-					ALLPlayers.push(data);
-					console.log(ALLPlayers);
-					var item = document.createElement("li");
 
-					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
-					//console.log("password: " + data.name);
-					//	console.log("password: " + data.points);
-
-					socket.emit("send_allUsers", ALLPlayers);
-					item.innerHTML = users_in;
-					allUsers.appendChild(item);
-					
-				}
-			});
 			/* socket.on("displayPrevUsers", function (data) {
 				if (data.name || data.points) {
 					let users_in = "";
@@ -170,34 +145,102 @@
 					allUsers.appendChild(item);
 				}
 			}); */
-			socket.on("send_allUsers", function (data) {
-				//if (data.name || data.points) {
-					//let users_in = "";
-					//ALLPlayers.push(username);
-					//setTimeout(function () {
-						data.forEach(oneData => {
-						for (let key in oneData) {
-							console.log(`${key}: ${oneData[key]}`);
-							var item = document.createElement("li");
-							item.textContent = `${key}: ${oneData[key]}`;
-							allUsers.appendChild(item);
-						}
-						console.log("aaabbb")
-						
-					});
-					//}, 100);
-					
-					//console.log(data);
-					//var item = document.createElement("li");
+			// let removeCorrectLi = document.querySelector(".correct-new-li");
+			// if (countCorrectLi > 0) {
+			// 	removeCorrectLi.remove();
+			// }
+			// let eachCorrectAnswer = document.createElement("li");
+			// eachCorrectAnswer.classList.add("correct-new-li");
+			// //eachCorrectAnswer.textContent = myLetter;
+			// eachCorrectAnswer.textContent = answerArray[i - 1];
+			// correctAnswer.appendChild(eachCorrectAnswer);
+			socket.on("displayUsers", function (data) {
+				//let users_in = "";
+				ALLPlayers.push(data);
+				console.log("All players " + ALLPlayers);
+				socket.emit("send_allUsers", ALLPlayers);
+			});
 
-					//users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
-					//console.log("password: " + data.name);
-					//	console.log("password: " + data.points);
-					//item.textContent = "hello";
+			socket.on("send_allUsers", function (ALLPlayers) {
+				//setTimeout(function () {
+				// for (let i = 0; i <= ALLPlayers.length; ++i) {
+				// 	let countResultLi = document.querySelectorAll(".users-new-li").length;
+				// 	let removeResultLi = document.querySelector(".users-new-li");
+				// 	if (removeResultLi) removeResultLi.remove();
+				// }
+				ALLPlayers.forEach((oneData) => {
+					console.log(ALLPlayers);
+					for (let key in oneData) {
+						console.log(`${key}: ${oneData[key]}`);
+						let eachResult = document.createElement("li");
+						eachResult.classList.add("users-new-li");
+						eachResult.textContent = `${key}: ${oneData[key]}`;
+						allUsers.appendChild(eachResult);
+					}
+					// data.forEach((oneData) => {
+					// 	for (let key in oneData) {
+					// 		console.log(`${key}: ${oneData[key]}`);
+					// 		var item = document.createElement("li");
+					// 		item.textContent = `${key}: ${oneData[key]}`;
+					// 		let removeCorrectLi = document.getElementById("inRoomUsers");
+					// 		allUsers.appendChild(item);
+					// 	}
+				});
 
-					//socket.emit("send_allUsers2", users_in);
-					//item.innerHTML = users_in;
-					//allUsers.appendChild(item);
+				//}, 100);
+
+				//console.log(data);
+				//var item = document.createElement("li");
+
+				//users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
+				//console.log("password: " + data.name);
+				//	console.log("password: " + data.points);
+				//item.textContent = "hello";
+
+				//socket.emit("send_allUsers2", users_in);
+				//item.innerHTML = users_in;
+				//allUsers.appendChild(item);
+				//}
+			});
+			socket.on("send_allUsers", function (ALLPlayers) {
+				//setTimeout(function () {
+				for (let i = 0; i <= ALLPlayers.length; ++i) {
+					let countResultLi = document.querySelectorAll(".users-new-li").length;
+					let removeResultLi = document.querySelector(".users-new-li");
+					if (removeResultLi) removeResultLi.remove();
+				}
+				ALLPlayers.forEach((oneData) => {
+					console.log(ALLPlayers);
+					for (let key in oneData) {
+						console.log(`${key}: ${oneData[key]}`);
+						let eachResult = document.createElement("li");
+						eachResult.classList.add("users-new-li");
+						eachResult.textContent = `${key}: ${oneData[key]}`;
+						allUsers.appendChild(eachResult);
+					}
+					// data.forEach((oneData) => {
+					// 	for (let key in oneData) {
+					// 		console.log(`${key}: ${oneData[key]}`);
+					// 		var item = document.createElement("li");
+					// 		item.textContent = `${key}: ${oneData[key]}`;
+					// 		let removeCorrectLi = document.getElementById("inRoomUsers");
+					// 		allUsers.appendChild(item);
+					// 	}
+				});
+
+				//}, 100);
+
+				//console.log(data);
+				//var item = document.createElement("li");
+
+				//users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
+				//console.log("password: " + data.name);
+				//	console.log("password: " + data.points);
+				//item.textContent = "hello";
+
+				//socket.emit("send_allUsers2", users_in);
+				//item.innerHTML = users_in;
+				//allUsers.appendChild(item);
 				//}
 			});
 			/* socket.on("send_allUsers", function(data){
@@ -238,9 +281,8 @@
 			let letters = document.getElementById("letters");
 			let result = document.getElementById("result");
 
-			//receive the ary-answer from the index.js, 
-			socket.on('ary-answer', function (answerArray) {
-
+			//receive the ary-answer from the index.js,
+			socket.on("ary-answer", function (answerArray) {
 				//let eachCorrectAnswer = document.createElement("li");
 				//eachCorrectAnswer.classList.add("correct-new-li");
 				//eachCorrectAnswer.textContent = myLetter;
@@ -315,7 +357,6 @@
 						}, timeScale * (i - 1));
 					}
 				}
-
 			});
 			//This function is excuted when the start button in question box is pressed
 
@@ -361,7 +402,7 @@
 							//eachLetter.classList.add("new-letter");
 							//eachLetter.textContent = myLetter;
 							//eachCorrectAnswer.textContent = ary[i - 1];
-							//letters.appendChild(eachLetter); 
+							//letters.appendChild(eachLetter);
 
 							//console.log(myLetter);
 						}, timeScale * (i - 1));
@@ -406,7 +447,7 @@
 					}
 
 				});
-				
+
 				 */
 				/* if (!executed) {
 					executed = true;
@@ -510,7 +551,7 @@
 				let removeCorrectLi = document.querySelector('.correct-new-li');
 				if(countCorrectLi > 0){
 					removeCorrectLi.remove();
-				}   
+				}
 				let eachCorrectAnswer = document.createElement("li");
 				eachCorrectAnswer.classList.add('correct-new-li');
 				eachCorrectAnswer.textContent = "helllll"; */
