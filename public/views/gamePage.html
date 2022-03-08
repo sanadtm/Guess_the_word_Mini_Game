@@ -24,9 +24,9 @@
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
 							<h1>Word Jumbler</h1><br />
-							<h3>Players</h3>
-							<div class="outerUser" id="inRoomUsers">
-								<ul class="users-ul" id=""> </ul>
+							<!-- <h3>Players</h3> -->
+							<div class="outerUser" id="">
+								<ul class="users-ul" id="inRoomUsers"> </ul>
 							</div>
 						</div>
 						<div class="game-box">
@@ -61,7 +61,8 @@
 									<div class="correct-header-answer">
 										Correct Answer:
 										<ul class="correct-answer-ul" id="correct-answer">
-											<!-- <li class="correct-new-li">hello</li> -->
+											<!-- initailize a li card -->
+											<li class="correct-new-li"></li>
 										</ul>
 									</div>
 								</div>
@@ -102,7 +103,7 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			timeScale = 15000;
+			timeScale = 5000;
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -110,6 +111,7 @@
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
+
 			let ALLPlayers = [];
 
 			form.addEventListener("submit", function (e) {
@@ -119,6 +121,7 @@
 					input.value = "";
 				}
 			});
+
 			socket.on("chat message", function (msg) {
 				let eachMessage = document.createElement("li");
 				eachMessage.textContent = msg;
@@ -158,16 +161,26 @@
 			socket.on("displayUsers", function (data) {
 				//let users_in = "";
 				ALLPlayers.push(data);
-				console.log("All players " + ALLPlayers);
+				//console.log("All players " + ALLPlayers);
 				socket.emit("send_allUsers", ALLPlayers);
 			});
 
 			socket.on("send_allUsers1", function (ALLPlayers) {
 				//let removeResultLi = document.querySelector(".users-ul");
 				//	removeResultLi.remove();
+				console.log(ALLPlayers);
+				let countUsersLi = document.querySelectorAll(".users-new-li").length;
+				console.log("count user Li ",countUsersLi)
+				while (countUsersLi > 0) {
+					let removeUserLi = document.querySelector(".users-new-li");
+					removeUserLi.remove();
+					countUsersLi = countUsersLi - 1;
+				}
 				ALLPlayers.forEach((oneData) => {
-					console.log(ALLPlayers);
+					
+					//console.log(ALLPlayers);
 					for (let key in oneData) {
+						
 						if (key) {
 							console.log(`${key}: ${oneData[key]}`);
 							let eachCorrectAnswer = document.createElement("li");
@@ -202,6 +215,7 @@
 				//allUsers.appendChild(item);
 				//}
 			});
+			
 			socket.on("send_allUsers", function (ALLPlayers) {
 				//setTimeout(function () {
 				// for (let i = 0; i <= ALLPlayers.length; ++i) {
@@ -209,15 +223,26 @@
 				// 	let removeResultLi = document.querySelector(".users-new-li");
 				// 	if (removeResultLi) removeResultLi.remove();
 				// }
+				
 				ALLPlayers.forEach((oneData) => {
-					console.log(ALLPlayers);
+					//console.log("------------")
+					//console.log(ALLPlayers);
+					let countUsersLi = document.querySelectorAll(".users-new-li").length;
+					console.log("count user Li ",countUsersLi)
+
+					while (countUsersLi > 0) {
+						let removeUserLi = document.querySelector(".users-new-li");
+						removeUserLi.remove();
+						countUsersLi = countUsersLi - 1;
+					}
 					for (let key in oneData) {
-						console.log(`${key}: ${oneData[key]}`);
+						//console.log(`${key}: ${oneData[key]}`);
 						let eachResult = document.createElement("li");
 						eachResult.classList.add("users-new-li");
 						eachResult.textContent = `${key}: ${oneData[key]}`;
 						allUsers.appendChild(eachResult);
 					}
+					
 					// data.forEach((oneData) => {
 					// 	for (let key in oneData) {
 					// 		console.log(`${key}: ${oneData[key]}`);
@@ -288,10 +313,14 @@
 				//eachCorrectAnswer.textContent = myLetter;
 				//eachCorrectAnswer.textContent = "hello hello";
 				//correctAnswer.appendChild(eachCorrectAnswer);
+
+				//correct answer box
 				if (!executed) {
 					executed = true;
 					for (let i = 1; i <= answerArray.length; i++) {
 						setTimeout(function () {
+							//********************************************************************************************  
+							//Answer box
 							let myWord = answerArray[i - 1].trim();
 							let myLetter = myWord.split("");
 							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
@@ -313,8 +342,46 @@
 							eachCorrectAnswer.textContent = answerArray[i - 1];
 							correctAnswer.appendChild(eachCorrectAnswer);
 
+							//********************************************************
+							//Result box
+							let countResultLi = document.querySelectorAll(".result-new-li").length;
+							let removeResultLi = document.querySelector(".result-new-li");
+							if (countResultLi > 0) {
+								removeResultLi.remove();
+							}
+							let eachResult = document.createElement("li");
+							eachResult.classList.add("result-new-li");
+							//answer from the user
+							let userAnswer = document.getElementsByClassName("new-li");
+							let first = userAnswer[0].innerText;
+							//let first = userAnswer;
+							//for (var i = 0; i < userAnswer.length; i++) {
+								//var price = userAnswer[i].innerText;
+							//}
+							//console.log(userAnswer[0]);
+
+							//the correct answer from the program
+							let realAnswer = document.getElementsByClassName("correct-new-li");
+							let second = realAnswer[0].innerText;
+							let resultCompare = first.localeCompare(second);
+							let countIfInput = document.querySelectorAll(".result-new-li").length;
+							//console.log(realAnswer[0].innerText);
+							if(first == ""){
+								eachResult.textContent = `Please enter your answer`;
+							}else{
+								if (resultCompare !== 0) {
+									eachResult.textContent = `${first} is not the correct answer! Correc is ${second}`;
+								} else {
+									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
+								}
+							}
+							
+							//eachResult.textContent = resultCompare;
+							result.appendChild(eachResult);
+						
+
 							//console.log(myLetter);
-						}, timeScale * i);
+						}, (timeScale * i));
 					}
 				}
 
@@ -348,10 +415,10 @@
 								//eachCorrectAnswer.textContent = answerArray[i - 1];
 								letters.appendChild(eachLetter);
 							}
-							/* eachLetter.classList.add("new-letter");
-							eachLetter.textContent = myLetter;
+							//eachLetter.classList.add("new-letter");
+							//eachLetter.textContent = myLetter;
 							//eachCorrectAnswer.textContent = answerArray[i - 1];
-							letters.appendChild(eachLetter); */
+							//letters.appendChild(eachLetter);
 
 							//console.log(myLetter);
 						}, timeScale * (i - 1));
@@ -362,163 +429,12 @@
 
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
-
 				//Send the ary array to the index.js when the player press start btn
 				if (ary) {
 					socket.emit("ary-answer", ary);
 				}
 
-				//display the question
-
-				/* if (!executedStart) {
-					executedStart = true;
-
-					for (let i = 1; i <= ary.length; i++) {
-						setTimeout(function () {
-							let myWord = ary[i - 1].trim();
-							let myLetter = myWord.split("");
-							let countExistLetter = document.querySelectorAll(".new-letter").length;
-
-							for (let i = myLetter.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								const temp = myLetter[i];
-								myLetter[i] = myLetter[j];
-								myLetter[j] = temp;
-							}
-
-							while (countExistLetter > 0) {
-								let removeExistLetter = document.querySelector(".new-letter");
-								removeExistLetter.remove();
-								countExistLetter = countExistLetter - 1;
-							}
-
-							for (let i = 0; i < myLetter.length; i++) {
-								let eachLetter = document.createElement("li");
-								eachLetter.classList.add("new-letter");
-								eachLetter.textContent = myLetter[i];
-								//eachCorrectAnswer.textContent = ary[i - 1];
-								letters.appendChild(eachLetter);
-							}
-							//eachLetter.classList.add("new-letter");
-							//eachLetter.textContent = myLetter;
-							//eachCorrectAnswer.textContent = ary[i - 1];
-							//letters.appendChild(eachLetter);
-
-							//console.log(myLetter);
-						}, timeScale * (i - 1));
-					}
-				} */
-
-				//display the correct answer
-				//receive the answerArray from user. Now display it on correct answer box
-
-				/* socket.on('ary-answer', function (answerArray) {
-
-					console.log("heereeeeeeeeeeeeeee");
-					console.log(answerArray);
-					if (!executed) {
-						executed = true;
-						for (let i = 1; i <= answerArray.length; i++) {
-							setTimeout(function () {
-								let myWord = answerArray[i - 1].trim();
-								let myLetter = myWord.split("");
-								let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
-
-								for (let i = myLetter.length - 1; i > 0; i--) {
-									const j = Math.floor(Math.random() * (i + 1));
-									const temp = myLetter[i];
-									myLetter[i] = myLetter[j];
-									myLetter[j] = temp;
-								}
-
-								let removeCorrectLi = document.querySelector(".correct-new-li");
-								if (countCorrectLi > 0) {
-									removeCorrectLi.remove();
-								}
-								let eachCorrectAnswer = document.createElement("li");
-								eachCorrectAnswer.classList.add("correct-new-li");
-								//eachCorrectAnswer.textContent = myLetter;
-								eachCorrectAnswer.textContent = answerArray[i - 1];
-								correctAnswer.appendChild(eachCorrectAnswer);
-
-								//console.log(myLetter);
-							}, timeScale * i);
-						}
-					}
-
-				});
-
-				 */
-				/* if (!executed) {
-					executed = true;
-					for (let i = 1; i <= ary.length; i++) {
-						setTimeout(function () {
-							let myWord = ary[i - 1].trim();
-							let myLetter = myWord.split("");
-							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
-
-							for (let i = myLetter.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								const temp = myLetter[i];
-								myLetter[i] = myLetter[j];
-								myLetter[j] = temp;
-							}
-
-							let removeCorrectLi = document.querySelector(".correct-new-li");
-							if (countCorrectLi > 0) {
-								removeCorrectLi.remove();
-							}
-							let eachCorrectAnswer = document.createElement("li");
-							eachCorrectAnswer.classList.add("correct-new-li");
-							//eachCorrectAnswer.textContent = myLetter;
-							eachCorrectAnswer.textContent = ary[i - 1];
-							correctAnswer.appendChild(eachCorrectAnswer);
-
-							//console.log(myLetter);
-						}, timeScale * i);
-					}
-				}
-				 */
-				//result box
-
-				if (!excutedResult) {
-					excutedResult = true;
-					for (let i = 1; i <= ary.length; i++) {
-						setTimeout(function () {
-							let countResultLi = document.querySelectorAll(".result-new-li").length;
-							let removeResultLi = document.querySelector(".result-new-li");
-							if (countResultLi > 0) {
-								removeResultLi.remove();
-							}
-							let eachResult = document.createElement("li");
-							eachResult.classList.add("result-new-li");
-							//answer from the user
-							let userAnswer = document.getElementsByClassName("new-li");
-							let first = userAnswer[0].innerText;
-							//let first = userAnswer;
-							/* for (var i = 0; i < userAnswer.length; i++) {
-								var price = userAnswer[i].innerText;
-							} */
-							//console.log(userAnswer[0]);
-
-							//the correct answer from the program
-							let realAnswer = document.getElementsByClassName("correct-new-li");
-							let second = realAnswer[0].innerText;
-							let resultCompare = first.localeCompare(second);
-
-							//console.log(realAnswer[0].innerText);
-							if (resultCompare !== 0) {
-								eachResult.textContent = `Your answer is not correct!!!`;
-							} else {
-								eachResult.textContent = `Your answer is correct. +10 points`;
-							}
-							//eachResult.textContent = resultCompare;
-							result.appendChild(eachResult);
-						}, timeScale * i);
-					}
-				}
 			});
-
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
 			// let All_users = [];
@@ -546,30 +462,6 @@
 				//reset input box
 				inputAnswer.value = "";
 
-				//The correct answer box
-				/* let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
-				let removeCorrectLi = document.querySelector('.correct-new-li');
-				if(countCorrectLi > 0){
-					removeCorrectLi.remove();
-				}
-				let eachCorrectAnswer = document.createElement("li");
-				eachCorrectAnswer.classList.add('correct-new-li');
-				eachCorrectAnswer.textContent = "helllll"; */
-				//allow this excute only once
-
-				//correctAnswer.appendChild(eachCorrectAnswer);
-				/********************************************************/
-
-				/* //result box
-				let countResultLi = document.querySelectorAll(".result-new-li").length;
-				let removeResultLi = document.querySelector(".result-new-li");
-				if (countResultLi > 0) {
-					removeResultLi.remove();
-				}
-				let eachResult = document.createElement("li");
-				eachResult.classList.add("result-new-li");
-				eachResult.textContent = "Yes, your answer is correct. +10 points";
-				result.appendChild(eachResult); */
 			});
 			/****************************************************************/
 		</script>

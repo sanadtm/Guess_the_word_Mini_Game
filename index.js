@@ -37,7 +37,7 @@ app.post("/room", function (req, res) {
 
 io.on("connection", (socket) => {
 	socket.on("ary-answer", (answerArray) => {
-		console.log(answerArray);
+		//console.log(answerArray);
 		io.emit("ary-answer", answerArray);
 	});
 

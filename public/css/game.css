@@ -134,6 +134,7 @@ body {
 /************************************/
 
 .correct-answer-display {
+	/* display: none; */
 	background-color: white;
 	height: 30%;
 	width: 100%;
@@ -245,5 +246,11 @@ body {
 	color: white;
 }
 /************************************************/
-.input-answer {
+.outerUser{
+	/* background-color: orange; */
+	overflow: auto;
+}
+.users-ul{
+	height: 150px;
+	overflow: auto;
 }
