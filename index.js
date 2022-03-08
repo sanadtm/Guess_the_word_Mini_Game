@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
 
 	socket.on("send_allUsers", function (ALLPlayers) {
 		console.log("server test : ", ALLPlayers);
-		io.emit("send_allUsers", ALLPlayers);
+		io.emit("send_allUsers1", ALLPlayers);
 	});
 
 	// if (onlineUsersID.length === 0) {

@@ -161,7 +161,7 @@
 				socket.emit("send_allUsers", ALLPlayers);
 			});
 
-			socket.on("send_allUsers", function (ALLPlayers) {
+			socket.on("send_allUsers1", function (ALLPlayers) {
 				//setTimeout(function () {
 				// for (let i = 0; i <= ALLPlayers.length; ++i) {
 				// 	let countResultLi = document.querySelectorAll(".users-new-li").length;
@@ -171,11 +171,13 @@
 				ALLPlayers.forEach((oneData) => {
 					console.log(ALLPlayers);
 					for (let key in oneData) {
-						console.log(`${key}: ${oneData[key]}`);
-						let eachResult = document.createElement("li");
-						eachResult.classList.add("users-new-li");
-						eachResult.textContent = `${key}: ${oneData[key]}`;
-						allUsers.appendChild(eachResult);
+						if (key) {
+							console.log(`${key}: ${oneData[key]}`);
+							let eachResult = document.createElement("li");
+							eachResult.classList.add("users-new-li");
+							eachResult.textContent = `${key}: ${oneData[key]}`;
+							allUsers.appendChild(eachResult);
+						}
 					}
 					// data.forEach((oneData) => {
 					// 	for (let key in oneData) {
