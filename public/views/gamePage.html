@@ -102,7 +102,7 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			timeScale = 15000;
+			timeScale = 10000;
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -288,6 +288,8 @@
 				//eachCorrectAnswer.textContent = myLetter;
 				//eachCorrectAnswer.textContent = "hello hello";
 				//correctAnswer.appendChild(eachCorrectAnswer);
+
+				//correct answer box
 				if (!executed) {
 					executed = true;
 					for (let i = 1; i <= answerArray.length; i++) {
@@ -348,10 +350,10 @@
 								//eachCorrectAnswer.textContent = answerArray[i - 1];
 								letters.appendChild(eachLetter);
 							}
-							/* eachLetter.classList.add("new-letter");
-							eachLetter.textContent = myLetter;
+							//eachLetter.classList.add("new-letter");
+							//eachLetter.textContent = myLetter;
 							//eachCorrectAnswer.textContent = answerArray[i - 1];
-							letters.appendChild(eachLetter); */
+							//letters.appendChild(eachLetter);
 
 							//console.log(myLetter);
 						}, timeScale * (i - 1));
@@ -368,119 +370,7 @@
 					socket.emit("ary-answer", ary);
 				}
 
-				//display the question
-
-				/* if (!executedStart) {
-					executedStart = true;
-
-					for (let i = 1; i <= ary.length; i++) {
-						setTimeout(function () {
-							let myWord = ary[i - 1].trim();
-							let myLetter = myWord.split("");
-							let countExistLetter = document.querySelectorAll(".new-letter").length;
-
-							for (let i = myLetter.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								const temp = myLetter[i];
-								myLetter[i] = myLetter[j];
-								myLetter[j] = temp;
-							}
-
-							while (countExistLetter > 0) {
-								let removeExistLetter = document.querySelector(".new-letter");
-								removeExistLetter.remove();
-								countExistLetter = countExistLetter - 1;
-							}
-
-							for (let i = 0; i < myLetter.length; i++) {
-								let eachLetter = document.createElement("li");
-								eachLetter.classList.add("new-letter");
-								eachLetter.textContent = myLetter[i];
-								//eachCorrectAnswer.textContent = ary[i - 1];
-								letters.appendChild(eachLetter);
-							}
-							//eachLetter.classList.add("new-letter");
-							//eachLetter.textContent = myLetter;
-							//eachCorrectAnswer.textContent = ary[i - 1];
-							//letters.appendChild(eachLetter);
-
-							//console.log(myLetter);
-						}, timeScale * (i - 1));
-					}
-				} */
-
-				//display the correct answer
-				//receive the answerArray from user. Now display it on correct answer box
-
-				/* socket.on('ary-answer', function (answerArray) {
-
-					console.log("heereeeeeeeeeeeeeee");
-					console.log(answerArray);
-					if (!executed) {
-						executed = true;
-						for (let i = 1; i <= answerArray.length; i++) {
-							setTimeout(function () {
-								let myWord = answerArray[i - 1].trim();
-								let myLetter = myWord.split("");
-								let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
-
-								for (let i = myLetter.length - 1; i > 0; i--) {
-									const j = Math.floor(Math.random() * (i + 1));
-									const temp = myLetter[i];
-									myLetter[i] = myLetter[j];
-									myLetter[j] = temp;
-								}
-
-								let removeCorrectLi = document.querySelector(".correct-new-li");
-								if (countCorrectLi > 0) {
-									removeCorrectLi.remove();
-								}
-								let eachCorrectAnswer = document.createElement("li");
-								eachCorrectAnswer.classList.add("correct-new-li");
-								//eachCorrectAnswer.textContent = myLetter;
-								eachCorrectAnswer.textContent = answerArray[i - 1];
-								correctAnswer.appendChild(eachCorrectAnswer);
-
-								//console.log(myLetter);
-							}, timeScale * i);
-						}
-					}
-
-				});
-
-				 */
-				/* if (!executed) {
-					executed = true;
-					for (let i = 1; i <= ary.length; i++) {
-						setTimeout(function () {
-							let myWord = ary[i - 1].trim();
-							let myLetter = myWord.split("");
-							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
-
-							for (let i = myLetter.length - 1; i > 0; i--) {
-								const j = Math.floor(Math.random() * (i + 1));
-								const temp = myLetter[i];
-								myLetter[i] = myLetter[j];
-								myLetter[j] = temp;
-							}
-
-							let removeCorrectLi = document.querySelector(".correct-new-li");
-							if (countCorrectLi > 0) {
-								removeCorrectLi.remove();
-							}
-							let eachCorrectAnswer = document.createElement("li");
-							eachCorrectAnswer.classList.add("correct-new-li");
-							//eachCorrectAnswer.textContent = myLetter;
-							eachCorrectAnswer.textContent = ary[i - 1];
-							correctAnswer.appendChild(eachCorrectAnswer);
-
-							//console.log(myLetter);
-						}, timeScale * i);
-					}
-				}
-				 */
 				//result box
-
 				if (!excutedResult) {
 					excutedResult = true;
 					for (let i = 1; i <= ary.length; i++) {
@@ -508,15 +398,16 @@
 
 							//console.log(realAnswer[0].innerText);
 							if (resultCompare !== 0) {
-								eachResult.textContent = `Your answer is not correct!!!`;
+								eachResult.textContent = `${first} is not the correct answer!`;
 							} else {
-								eachResult.textContent = `Your answer is correct. +10 points`;
+								eachResult.textContent = `${first} is the correct answer. +10 points`;
 							}
 							//eachResult.textContent = resultCompare;
 							result.appendChild(eachResult);
-						}, timeScale * i);
+						}, (timeScale-1000) * (i+1));
 					}
 				}
+				
 			});
 
 			/************************************************************/
@@ -546,30 +437,6 @@
 				//reset input box
 				inputAnswer.value = "";
 
-				//The correct answer box
-				/* let countCorrectLi = document.querySelectorAll('.correct-new-li').length;
-				let removeCorrectLi = document.querySelector('.correct-new-li');
-				if(countCorrectLi > 0){
-					removeCorrectLi.remove();
-				}
-				let eachCorrectAnswer = document.createElement("li");
-				eachCorrectAnswer.classList.add('correct-new-li');
-				eachCorrectAnswer.textContent = "helllll"; */
-				//allow this excute only once
-
-				//correctAnswer.appendChild(eachCorrectAnswer);
-				/********************************************************/
-
-				/* //result box
-				let countResultLi = document.querySelectorAll(".result-new-li").length;
-				let removeResultLi = document.querySelector(".result-new-li");
-				if (countResultLi > 0) {
-					removeResultLi.remove();
-				}
-				let eachResult = document.createElement("li");
-				eachResult.classList.add("result-new-li");
-				eachResult.textContent = "Yes, your answer is correct. +10 points";
-				result.appendChild(eachResult); */
 			});
 			/****************************************************************/
 		</script>
