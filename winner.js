@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-
+const port = process.env.PORT || 4000;
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -16,4 +16,8 @@ io.on("connection", (socket) => {
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", msg);
 	});
+});
+
+server.listen(port, () => {
+	console.log(`listening at http://localhost:${port}`);
 });

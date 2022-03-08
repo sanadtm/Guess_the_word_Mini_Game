@@ -5,16 +5,15 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server);
 const path = require("path");
-const { SocketAddress } = require("net");
 const port = process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", __dirname + "/public/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "ejs");
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.get("/", (req, res) => {
 	res.render("index.html");
 });
@@ -30,9 +29,6 @@ app.post("/room", function (req, res) {
 	const { username, nationality, room } = req.body;
 	rooms[req.body.room] = { users: {} };
 	eachname = req.body.name;
-	//console.log(req.body);
-	//console.log(userData);
-
 	name_points = { name: req.body.name, points: 0 };
 	userData.push(name_points);
 
@@ -67,23 +63,23 @@ io.on("connection", (socket) => {
 		io.emit("send_allUsers1", ALLPlayers);
 	});
 
-	// if (onlineUsersID.length === 0) {
-	// 	onlineUsersID.push(socket.client.id);
-	// } else {
-	// 	onlineUsersID.forEach((socketID) => {
-	// 		if (socket.client.id === socketID) {
-	// 			//display previous users
-	// 		} else {
-	// 			//io.emit("displayPrevUsers", userData);
-	// 			socket.on("send_allUsers2", function (data) {
-	// 				if (data.name || data.points) {
-	// 					console.log("Server :: " + data);
-	// 					io.emit("displayPrevUsers", data);
-	// 				}
-	// 			});
-	// 		}
-	// 	});
-	// }
+	if (onlineUsersID.length === 0) {
+		onlineUsersID.push(socket.client.id);
+	} else {
+		onlineUsersID.forEach((socketID) => {
+			if (socket.client.id === socketID) {
+				//display previous users
+			} else {
+				//io.emit("displayPrevUsers", userData);
+				socket.on("send_allUsers2", function (data) {
+					if (data.name || data.points) {
+						console.log("Server :: " + data);
+						io.emit("displayPrevUsers", data);
+					}
+				});
+			}
+		});
+	}
 	socket.broadcast.emit("chat message", socket.name + ":: Connected");
 	socket.on("disconnect", () => {
 		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");

@@ -67,13 +67,18 @@
 				</div>
 
 				<div class="col-4 col-md-4 col-lg-4">
-					<div class="title">Rules</div>
+					<div class="title">GAME Rules</div>
 					<ul class="list-group">
-						<li class="list-group-item">Guess the Correct Words</li>
-						<li class="list-group-item">Dapibus ac facilisis in</li>
-						<li class="list-group-item">Morbi leo risus</li>
-						<li class="list-group-item">Porta ac consectetur ac</li>
-						<li class="list-group-item">Vestibulum at eros</li>
+						<li class="list-group-item">Create an Account Using your Unique ID</li>
+						<li class="list-group-item">Choose Your Nationality</li>
+						<li class="list-group-item">Click the Enter Game ROOM</li>
+					</ul>
+					<hr />
+					<ul class="list-group">
+						<li class="list-group-item">Wait for your Rival to Join</li>
+						<li class="list-group-item">Communicate and Start the Game</li>
+						<li class="list-group-item">Start Typing the Answer </li>
+						<li class="list-group-item">GOOD LUCK!!</li>
 					</ul>
 				</div>
 			</div>
@@ -81,7 +86,7 @@
 		<script>
 			const countryApi = "https://restcountries.com/v3.1/all";
 			let output = "";
-			//let countryDom = document.getElementById("select");
+			let countryDom = document.querySelector(".select");
 			fetch(countryApi)
 				.then((res) => {
 					return res.json();
@@ -92,7 +97,8 @@
 						output += `<country>${country.name.common}</country>`;
 					});
 					//console.log(output);
-					document.querySelector("#country_select").innerHTML = output;
+					document.querySelector(".select").innerHTML = output;
+					countryDom.appendChild(eachCorrectAnswer);
 				})
 				.catch((err) => {
 					console.log(err);
