@@ -247,34 +247,34 @@
 				//eachCorrectAnswer.textContent = "hello hello";
 				//correctAnswer.appendChild(eachCorrectAnswer);
 				if (!executed) {
-						executed = true;
-						for (let i = 1; i <= answerArray.length; i++) {
-							setTimeout(function () {
-								let myWord = answerArray[i - 1].trim();
-								let myLetter = myWord.split("");
-								let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
+					executed = true;
+					for (let i = 1; i <= answerArray.length; i++) {
+						setTimeout(function () {
+							let myWord = answerArray[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
 
-								for (let i = myLetter.length - 1; i > 0; i--) {
-									const j = Math.floor(Math.random() * (i + 1));
-									const temp = myLetter[i];
-									myLetter[i] = myLetter[j];
-									myLetter[j] = temp;
-								}
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
 
-								let removeCorrectLi = document.querySelector(".correct-new-li");
-								if (countCorrectLi > 0) {
-									removeCorrectLi.remove();
-								}
-								let eachCorrectAnswer = document.createElement("li");
-								eachCorrectAnswer.classList.add("correct-new-li");
-								//eachCorrectAnswer.textContent = myLetter;
-								eachCorrectAnswer.textContent = answerArray[i - 1];
-								correctAnswer.appendChild(eachCorrectAnswer);
+							let removeCorrectLi = document.querySelector(".correct-new-li");
+							if (countCorrectLi > 0) {
+								removeCorrectLi.remove();
+							}
+							let eachCorrectAnswer = document.createElement("li");
+							eachCorrectAnswer.classList.add("correct-new-li");
+							//eachCorrectAnswer.textContent = myLetter;
+							eachCorrectAnswer.textContent = answerArray[i - 1];
+							correctAnswer.appendChild(eachCorrectAnswer);
 
-								//console.log(myLetter);
-							}, timeScale * i);
-						}
+							//console.log(myLetter);
+						}, timeScale * i);
 					}
+				}
 
 				//display the question
 				if (!executedStart) {
@@ -316,20 +316,19 @@
 					}
 				}
 
-
 			});
 			//This function is excuted when the start button in question box is pressed
-			
+
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
 
 				//Send the ary array to the index.js when the player press start btn
-				if(ary){
-					socket.emit('ary-answer', ary);
+				if (ary) {
+					socket.emit("ary-answer", ary);
 				}
 
 				//display the question
-				
+
 				/* if (!executedStart) {
 					executedStart = true;
 
@@ -369,10 +368,9 @@
 					}
 				} */
 
-				
 				//display the correct answer
 				//receive the answerArray from user. Now display it on correct answer box
-				
+
 				/* socket.on('ary-answer', function (answerArray) {
 
 					console.log("heereeeeeeeeeeeeeee");
@@ -441,8 +439,8 @@
 				}
 				 */
 				//result box
-				
-				if(!excutedResult){
+
+				if (!excutedResult) {
 					excutedResult = true;
 					for (let i = 1; i <= ary.length; i++) {
 						setTimeout(function () {
