@@ -184,6 +184,7 @@
 			let letters = document.getElementById("letters");
 			let result = document.getElementById("result");
 
+			//receive the ary-answer from the index.js, 
 			socket.on('ary-answer', function (answerArray) {
 
 				//let eachCorrectAnswer = document.createElement("li");
@@ -260,8 +261,6 @@
 						}, timeScale * (i - 1));
 					}
 				}
-
-				//right here
 
 
 			});

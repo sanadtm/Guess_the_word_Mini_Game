@@ -25,8 +25,6 @@ let userData = [];
 let GAME_round = 0;
 let rooms = {};
 
-let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
-
 
 app.post("/room", function (req, res) {
 	const { username, nationality, room } = req.body;
