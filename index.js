@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 let name_points = {};
 let eachname;
 let name;
-let userData = [];
+let userData = []; //whole array
 let onlineUsersID = [];
 let rooms = {};
 
@@ -45,6 +45,7 @@ io.on("connection", (socket) => {
 		io.emit("ary-answer", answerArray);
 	});
 
+
 	//	io.emit("displayUsers", name_points);
 	io.emit("send_allUsers1", userData);
 	//console.log("A user connected");
@@ -60,7 +61,9 @@ io.on("connection", (socket) => {
 	// });
 
 	//console.log;
-	console.log(name_points);
+	console.log("111", name_points);
+	console.log(userData);
+
 	//console.log("User Data" + userData.name);
 	socket.on("send_allUsers", function (ALLPlayers) {
 		console.log("server test : ", ALLPlayers);
