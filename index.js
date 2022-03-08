@@ -24,6 +24,10 @@ let name;
 let userData = [];
 let GAME_round = 0;
 let rooms = {};
+
+let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
+
+
 app.post("/room", function (req, res) {
 	const { username, nationality, room } = req.body;
 	userData.push(req.body);
@@ -34,7 +38,26 @@ app.post("/room", function (req, res) {
 	res.render("gamePage.html", { uname: name, userData: userData, rooms: rooms, cnt: 1 });
 });
 
+//Send the ary to the client
+/* io.on('connection', (socket) => {
+	socket.on('ary-answer', (answerArray) => {
+		//console.log(answerArray);
+		io.emit('ary-answer', answerArray);
+	});
+
+}); */
+
+
+
+
 io.on("connection", (socket) => {
+
+	socket.on('ary-answer', (answerArray) => {
+		console.log(answerArray);
+		io.emit('ary-answer', answerArray);
+	});
+
+
 	console.log("A user connected");
 	socket.broadcast.emit("message", "A USER has joined");
 	socket.name = eachname;
