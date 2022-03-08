@@ -24,9 +24,10 @@
 					<div class="col-7 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
 							<h1>Word Jumbler</h1><br />
-							<ul class="users-ul" id="inRoomUsers">
-								<h3>Players</h3>
-							</ul>
+							<h3>Players</h3>
+							<div class="outerUser" id="inRoomUsers">
+								<ul class="users-ul" id=""> </ul>
+							</div>
 						</div>
 						<div class="game-box">
 							<div class="question-box">
@@ -162,23 +163,20 @@
 			});
 
 			socket.on("send_allUsers1", function (ALLPlayers) {
-				//setTimeout(function () {
-				// for (let i = 0; i <= ALLPlayers.length; ++i) {
-				// 	let countResultLi = document.querySelectorAll(".users-new-li").length;
-				// 	let removeResultLi = document.querySelector(".users-new-li");
-				// 	if (removeResultLi) removeResultLi.remove();
-				// }
+				//let removeResultLi = document.querySelector(".users-ul");
+				//	removeResultLi.remove();
 				ALLPlayers.forEach((oneData) => {
 					console.log(ALLPlayers);
 					for (let key in oneData) {
 						if (key) {
 							console.log(`${key}: ${oneData[key]}`);
-							let eachResult = document.createElement("li");
-							eachResult.classList.add("users-new-li");
-							eachResult.textContent = `${key}: ${oneData[key]}`;
-							allUsers.appendChild(eachResult);
+							let eachCorrectAnswer = document.createElement("li");
+							eachCorrectAnswer.classList.add("users-new-li");
+							eachCorrectAnswer.textContent = `${key}: ${oneData[key]}`;
+							allUsers.appendChild(eachCorrectAnswer);
 						}
 					}
+					//socket.emit("send_allUsers", ALLPlayers);
 					// data.forEach((oneData) => {
 					// 	for (let key in oneData) {
 					// 		console.log(`${key}: ${oneData[key]}`);
@@ -206,11 +204,11 @@
 			});
 			socket.on("send_allUsers", function (ALLPlayers) {
 				//setTimeout(function () {
-				for (let i = 0; i <= ALLPlayers.length; ++i) {
-					let countResultLi = document.querySelectorAll(".users-new-li").length;
-					let removeResultLi = document.querySelector(".users-new-li");
-					if (removeResultLi) removeResultLi.remove();
-				}
+				// for (let i = 0; i <= ALLPlayers.length; ++i) {
+				// 	let countResultLi = document.querySelectorAll(".users-new-li").length;
+				// 	let removeResultLi = document.querySelector(".users-new-li");
+				// 	if (removeResultLi) removeResultLi.remove();
+				// }
 				ALLPlayers.forEach((oneData) => {
 					console.log(ALLPlayers);
 					for (let key in oneData) {

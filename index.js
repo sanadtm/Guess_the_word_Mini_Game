@@ -45,8 +45,8 @@ io.on("connection", (socket) => {
 		io.emit("ary-answer", answerArray);
 	});
 
-	io.emit("displayUsers", name_points);
-
+	//	io.emit("displayUsers", name_points);
+	io.emit("send_allUsers1", userData);
 	//console.log("A user connected");
 	socket.broadcast.emit("message", "A USER has joined");
 	socket.name = eachname;
@@ -61,7 +61,7 @@ io.on("connection", (socket) => {
 
 	//console.log;
 	console.log(name_points);
-
+	//console.log("User Data" + userData.name);
 	socket.on("send_allUsers", function (ALLPlayers) {
 		console.log("server test : ", ALLPlayers);
 		io.emit("send_allUsers1", ALLPlayers);
