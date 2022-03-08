@@ -106,11 +106,11 @@
 			</div>
 		</main>
 		<script type="text/javascript">
-			var ALLPlayers = [];
+			//var ALLPlayers = [];
 		</script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			timeScale = 7000;
+			timeScale = 15000;
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -118,6 +118,7 @@
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
+			var ALLPlayers = [];
 
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
@@ -140,19 +141,21 @@
 			socket.on("displayUsers", function (data) {
 				if (data.name || data.points) {
 					let users_in = "";
-					//ALLPlayers.push(username);
+					ALLPlayers.push(data);
+					console.log(ALLPlayers);
 					var item = document.createElement("li");
 
 					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
 					//console.log("password: " + data.name);
 					//	console.log("password: " + data.points);
 
-					socket.emit("send_allUsers", users_in);
+					socket.emit("send_allUsers", ALLPlayers);
 					item.innerHTML = users_in;
 					allUsers.appendChild(item);
+					
 				}
 			});
-			socket.on("displayPrevUsers", function (data) {
+			/* socket.on("displayPrevUsers", function (data) {
 				if (data.name || data.points) {
 					let users_in = "";
 					//ALLPlayers.push(username);
@@ -166,7 +169,47 @@
 					item.innerHTML = users_in;
 					allUsers.appendChild(item);
 				}
+			}); */
+			socket.on("send_allUsers", function (data) {
+				//if (data.name || data.points) {
+					//let users_in = "";
+					//ALLPlayers.push(username);
+					//setTimeout(function () {
+						data.forEach(oneData => {
+						for (let key in oneData) {
+							console.log(`${key}: ${oneData[key]}`);
+							var item = document.createElement("li");
+							item.textContent = `${key}: ${oneData[key]}`;
+							allUsers.appendChild(item);
+						}
+						console.log("aaabbb")
+						
+					});
+					//}, 100);
+					
+					//console.log(data);
+					//var item = document.createElement("li");
+
+					//users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
+					//console.log("password: " + data.name);
+					//	console.log("password: " + data.points);
+					//item.textContent = "hello";
+
+					//socket.emit("send_allUsers2", users_in);
+					//item.innerHTML = users_in;
+					//allUsers.appendChild(item);
+				//}
 			});
+			/* socket.on("send_allUsers", function(data){
+				console.log("test object")
+				console.log(data);
+				let testing = document.createElement("li");
+				testing.classList.add("userDisplayScore");
+				testing.textContent = "hello";
+				//eachCorrectAnswer.textContent = "hello hello";
+				//correctAnswer.appendChild(eachCorrectAnswer);
+
+			}) */
 			//setInterval(0.2);
 			/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
@@ -398,12 +441,8 @@
 				}
 				 */
 				//result box
-<<<<<<< HEAD
-				if (!excutedResult) {
-=======
 				
 				if(!excutedResult){
->>>>>>> 2a7a3041c3e148c5112fc82520b062bee5819f1c
 					excutedResult = true;
 					for (let i = 1; i <= ary.length; i++) {
 						setTimeout(function () {

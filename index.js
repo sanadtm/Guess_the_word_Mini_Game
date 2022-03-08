@@ -94,12 +94,17 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");
 	});
 	io.emit("displayUsers", name_points);
+	console.log
+	console.log(name_points);
 
 	socket.on("send_allUsers", function (data) {
-		if (data.name || data.points) {
+		//io.emit("displayUsers", data);
+		io.emit("send_allUsers", data);
+		//console.log("testingtttttttttt", data);
+		/* if (data.name || data.points) {
 			console.log("Server :: " + data);
 			io.emit("displayUsers", data);
-		}
+		} */
 	});
 	io.to("chatroom").emit("usersInRoom", socket.name);
 	// io.emit("displayUsers", userData);
