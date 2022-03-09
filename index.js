@@ -40,9 +40,9 @@ io.on("connection", (socket) => {
 		//console.log(answerArray);
 		io.emit("ary-answer", answerArray);
 	});
-
+	socket.name = eachname;
 	io.emit("get_users", userData);
-	console.log("Eachname : " + eachname);
+	console.log("Eachname : " + socket.name);
 	io.emit("correctUser", socket.name);
 
 	//	io.emit("displayUsers", name_points);
