@@ -133,5 +133,5 @@ io.on("connection", (socket) => {
 
 // server.listen(port, () => {
 // 	console.log(`listening at http://localhost:${port}`);
-//  }); heroku
+//  }); heroku g
 server.listen(process.env.PORT || port);
