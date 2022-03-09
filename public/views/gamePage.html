@@ -111,7 +111,7 @@
 			let form = document.getElementById("form");
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
-
+			let gameArray = [];
 			let ALLPlayers = [];
 
 			form.addEventListener("submit", function (e) {
@@ -164,23 +164,31 @@
 				//console.log("All players " + ALLPlayers);
 				socket.emit("send_allUsers", ALLPlayers);
 			});
-
+			socket.on("get_users", function (AllUsers) {
+				console.log("Line 377", AllUsers);
+				gameArray = AllUsers;
+				gameArray.forEach((oneData) => {
+					for (let key in oneData) {
+						if (key) {
+							console.log(`Game Array : ${key}: ${oneData[key]}`);
+						}
+					}
+				});
+			});
 			socket.on("send_allUsers1", function (ALLPlayers) {
 				//let removeResultLi = document.querySelector(".users-ul");
 				//	removeResultLi.remove();
 				console.log(ALLPlayers);
 				let countUsersLi = document.querySelectorAll(".users-new-li").length;
-				console.log("count user Li ",countUsersLi)
+				console.log("count user Li ", countUsersLi);
 				while (countUsersLi > 0) {
 					let removeUserLi = document.querySelector(".users-new-li");
 					removeUserLi.remove();
 					countUsersLi = countUsersLi - 1;
 				}
 				ALLPlayers.forEach((oneData) => {
-					
 					//console.log(ALLPlayers);
 					for (let key in oneData) {
-						
 						if (key) {
 							console.log(`${key}: ${oneData[key]}`);
 							let eachCorrectAnswer = document.createElement("li");
@@ -215,7 +223,7 @@
 				//allUsers.appendChild(item);
 				//}
 			});
-			
+
 			socket.on("send_allUsers", function (ALLPlayers) {
 				//setTimeout(function () {
 				// for (let i = 0; i <= ALLPlayers.length; ++i) {
@@ -223,12 +231,12 @@
 				// 	let removeResultLi = document.querySelector(".users-new-li");
 				// 	if (removeResultLi) removeResultLi.remove();
 				// }
-				
+
 				ALLPlayers.forEach((oneData) => {
 					//console.log("------------")
 					//console.log(ALLPlayers);
 					let countUsersLi = document.querySelectorAll(".users-new-li").length;
-					console.log("count user Li ",countUsersLi)
+					console.log("count user Li ", countUsersLi);
 
 					while (countUsersLi > 0) {
 						let removeUserLi = document.querySelector(".users-new-li");
@@ -242,7 +250,7 @@
 						eachResult.textContent = `${key}: ${oneData[key]}`;
 						allUsers.appendChild(eachResult);
 					}
-					
+
 					// data.forEach((oneData) => {
 					// 	for (let key in oneData) {
 					// 		console.log(`${key}: ${oneData[key]}`);
@@ -319,7 +327,7 @@
 					executed = true;
 					for (let i = 1; i <= answerArray.length; i++) {
 						setTimeout(function () {
-							//********************************************************************************************  
+							//********************************************************************************************
 							//Answer box
 							let myWord = answerArray[i - 1].trim();
 							let myLetter = myWord.split("");
@@ -356,7 +364,7 @@
 							let first = userAnswer[0].innerText;
 							//let first = userAnswer;
 							//for (var i = 0; i < userAnswer.length; i++) {
-								//var price = userAnswer[i].innerText;
+							//var price = userAnswer[i].innerText;
 							//}
 							//console.log(userAnswer[0]);
 
@@ -366,22 +374,26 @@
 							let resultCompare = first.localeCompare(second);
 							let countIfInput = document.querySelectorAll(".result-new-li").length;
 							//console.log(realAnswer[0].innerText);
-							if(first == ""){
+							if (first == "") {
 								eachResult.textContent = `Please enter your answer`;
-							}else{
+							} else {
 								if (resultCompare !== 0) {
 									eachResult.textContent = `${first} is not the correct answer! Correc is ${second}`;
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
+									console.log(gameArray);
+									socket.on("correctUser", function (correctUser) {
+										console.log("Line 377", correctUser);
+										console.log(correctUser);
+									});
 								}
 							}
-							
+
 							//eachResult.textContent = resultCompare;
 							result.appendChild(eachResult);
-						
 
 							//console.log(myLetter);
-						}, (timeScale * i));
+						}, timeScale * i);
 					}
 				}
 
@@ -433,7 +445,6 @@
 				if (ary) {
 					socket.emit("ary-answer", ary);
 				}
-
 			});
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
@@ -461,7 +472,6 @@
 				answer.appendChild(eachAnswer);
 				//reset input box
 				inputAnswer.value = "";
-
 			});
 			/****************************************************************/
 		</script>

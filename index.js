@@ -41,11 +41,15 @@ io.on("connection", (socket) => {
 		io.emit("ary-answer", answerArray);
 	});
 
+	io.emit("get_users", userData);
+	console.log("Eachname : " + eachname);
+	io.emit("correctUser", socket.name);
 	//	io.emit("displayUsers", name_points);
 	io.emit("send_allUsers1", userData);
-	//console.log("A user connected");
+	console.log("Line 45: ", userData);
+
 	socket.broadcast.emit("message", "A USER has joined");
-	socket.name = eachname;
+
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " :: " + msg);
 	});
@@ -62,6 +66,7 @@ io.on("connection", (socket) => {
 		console.log("server test : ", ALLPlayers);
 		io.emit("send_allUsers1", ALLPlayers);
 	});
+	//sending to client
 
 	if (onlineUsersID.length === 0) {
 		onlineUsersID.push(socket.client.id);
@@ -85,7 +90,7 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");
 	});
 
-	io.to("chatroom").emit("usersInRoom", socket.name);
+	//io.to("chatroom").emit("usersInRoom", socket.name);
 	// io.emit("displayUsers", userData);
 });
 
