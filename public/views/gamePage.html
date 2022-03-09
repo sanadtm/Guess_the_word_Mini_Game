@@ -115,16 +115,13 @@
 			let ALLPlayersArr = [];
 			let result1 = document.getElementById("result");
 			//let correctAnswerArr = [];
-<<<<<<< HEAD
-			let currentPlayer = "";
+	
 			let allOnlinePlayers = [];
-=======
 			//let currentPlayer = "";
 			let playerName = "";
 			let currentPlayer = [];
 			let playerArrObj = [];
 
->>>>>>> 5a3d4a2f5a6c0b16d5bd77f8e6f630595b67f519
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
@@ -163,20 +160,6 @@
 			})
 			//console.log("line 159", currUser);
 			
-
-			//socket.emit("cunrrent player", currentPlayer);
-<<<<<<< HEAD
-			socket.on("current Player", function (nameOfPlayer) {
-				//console.log("currentPlayer 1:" ,currentPlayer);
-				currentPlayer = nameOfPlayer;
-				allOnlinePlayers.push(currentPlayer);
-				console.log("ALL PLAYERS : " + allOnlinePlayers);
-				//console.log("nameOfPlayer", nameOfPlayer);
-				//currentPlayer.push(nameOfPlayer);
-				console.log("currentPlayer 2:", currentPlayer);
-			});
-
-=======
 			
 			/* currentPlayer(data=>{
 				console.log(data);
@@ -197,7 +180,6 @@
 				
 			})
 			
->>>>>>> 5a3d4a2f5a6c0b16d5bd77f8e6f630595b67f519
 			socket.on("displayUsers", function (data) {
 				//let users_in = "";
 				ALLPlayers.push(data);
@@ -301,14 +283,11 @@
 
 			//receive the ary-answer from the index.js,
 			socket.on("ary-answer", function (answerArray) {
-<<<<<<< HEAD
 				console.log(" 329 out side of socket: ", currentPlayer);
 				console.log("329 all players arr:", ALLPlayersArr);
-=======
 				console.log(" 250 out side of socket: ", currentPlayer);
 				console.log("251 all players arr:", ALLPlayersArr)
 				console.log("line 111159", currUser);
->>>>>>> 5a3d4a2f5a6c0b16d5bd77f8e6f630595b67f519
 				//let eachCorrectAnswer = document.createElement("li");
 				//eachCorrectAnswer.classList.add("correct-new-li");
 				//eachCorrectAnswer.textContent = myLetter;
@@ -376,14 +355,12 @@
 									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
-<<<<<<< HEAD
 
 									console.log("--------------");
 									console.log("401 currentPlayer", currentPlayer);
 
 									socket.emit("user get points", currentPlayer);
 									//correctAnswerArr.push(currentPlayer);
-=======
 									
 									/* console.log("--------------");
 									console.log("401 currentPlayer", currentPlayer);
@@ -396,7 +373,6 @@
 									socket.emit('user get points', currentPlayer);
 									
 									correctAnswerArr.push(currentPlayer);
->>>>>>> 5a3d4a2f5a6c0b16d5bd77f8e6f630595b67f519
 									console.log("correctAnswerArr: ", correctAnswerArr);
 
 									console.log("319 ALLPlayersArr:", ALLPlayersArr);
@@ -405,11 +381,7 @@
 										if (player.name == currentPlayer) {
 											player.points = player.points + 10;
 										}
-<<<<<<< HEAD
-									});
-=======
 									}) */
->>>>>>> 5a3d4a2f5a6c0b16d5bd77f8e6f630595b67f519
 									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
