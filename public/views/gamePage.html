@@ -190,7 +190,7 @@
 					//console.log(ALLPlayers);
 					for (let key in oneData) {
 						if (key) {
-							console.log(`${key}: ${oneData[key]}`);
+							//console.log(`${key}: ${oneData[key]}`);
 							let eachCorrectAnswer = document.createElement("li");
 							eachCorrectAnswer.classList.add("users-new-li");
 							eachCorrectAnswer.textContent = `${key}: ${oneData[key]}`;
@@ -378,7 +378,7 @@
 								eachResult.textContent = `Please enter your answer`;
 							} else {
 								if (resultCompare !== 0) {
-									eachResult.textContent = `${first} is not the correct answer! Correc is ${second}`;
+									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
 									console.log(gameArray);
@@ -386,6 +386,8 @@
 										console.log("Line 377", correctUser);
 										console.log(correctUser);
 									});
+									console.log("--------------");
+									console.log(ALLPlayers);
 								}
 							}
 
