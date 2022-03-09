@@ -23,7 +23,7 @@ let name_points = {};
 let eachname;
 let name;
 let userData = []; //hwo
-let onlineUsersID = [];
+let onlineUsers = [];
 let rooms = {};
 let userGetPointsArr = [];
 
@@ -33,6 +33,7 @@ app.post("/room", function (req, res) {
 	eachname = req.body.name;
 	//console.log(req.body);
 	//console.log(userData);
+	onlineUsers.push(eachname);
 
 	name_points = { name: req.body.name, points: 0 };
 	userData.push(name_points);
@@ -48,11 +49,19 @@ io.on("connection", (socket) => {
 
 	socket.on("user get points", (userGetPoints) => {
 		userGetPointsArr.push(userGetPoints);
+<<<<<<< HEAD
 		console.log("Line52 : ", userGetPoints);
 		console.log("Users Correct : ", userGetPointsArr);
 		
 		io.emit("user get points", userGetPointsArr);
 	});
+=======
+		let combineArr = userGetPointsArr.concat(userGetPoints)
+		/* console.log("line 51", userGetPoints);
+		console.log("line 52", userGetPointsArr);
+		console.log("line 54", combineArr); */
+	})
+>>>>>>> 5a3d4a2f5a6c0b16d5bd77f8e6f630595b67f519
 
 	//	io.emit("displayUsers", name_points);
 	io.emit("send_allUsers1", userData);
@@ -63,13 +72,21 @@ io.on("connection", (socket) => {
 	socket.name = eachname;
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " :: " + msg);
+		console.log("chat box socket.name", socket.name)
 	});
+
+	io.emit("singleUser", eachname);
+
+	/* socket.on('testing', (test) => {
+		io.emit('testing', socket.name + test );
+		console.log("line 70", socket.name);
+	}); */
 
 	//sending the name of current player
 	//let curr = socket.name;
 	//console.log("curr: ", curr);
 	console.log("current player ", socket.name);
-	io.emit("current Player", socket.name);
+	io.emit("current Player", onlineUsers);
 
 	//console.log("socket ID ::" + socket.client.id);
 	socket.join("chatroom");
