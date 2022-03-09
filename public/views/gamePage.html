@@ -103,7 +103,7 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			timeScale = 5000;
+			timeScale = 2000;
 
 			let socket = io();
 			let messages = document.getElementById("messages");
@@ -112,8 +112,10 @@
 			let input = document.getElementById("input");
 			var allUsers = document.getElementById("inRoomUsers");
 			let gameArray = [];
-			let ALLPlayers = [];
-
+			let ALLPlayersArr = [];
+			//let correctAnswerArr = [];
+			//let currentPlayer = "";
+			let currentPlayer = [];
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
@@ -128,36 +130,16 @@
 				messages.appendChild(eachMessage);
 				window.scrollTo(0, document.body.scrollHeight);
 			});
-			// socket.on("usersInRoo", function (username) {
-			// 	let eachMessage = document.createElement("li");
-			// 	eachMessage.textContent= username.name;
-			// 	allUsers.appendChild(eachMessage);
-			// });
 
-			/* socket.on("displayPrevUsers", function (data) {
-				if (data.name || data.points) {
-					let users_in = "";
-					//ALLPlayers.push(username);
-					var item = document.createElement("li");
-
-					users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
-					//console.log("password: " + data.name);
-					//	console.log("password: " + data.points);
-
-					socket.emit("send_allUsers2", users_in);
-					item.innerHTML = users_in;
-					allUsers.appendChild(item);
-				}
-			}); */
-			// let removeCorrectLi = document.querySelector(".correct-new-li");
-			// if (countCorrectLi > 0) {
-			// 	removeCorrectLi.remove();
-			// }
-			// let eachCorrectAnswer = document.createElement("li");
-			// eachCorrectAnswer.classList.add("correct-new-li");
-			// //eachCorrectAnswer.textContent = myLetter;
-			// eachCorrectAnswer.textContent = answerArray[i - 1];
-			// correctAnswer.appendChild(eachCorrectAnswer);
+			//socket.emit("cunrrent player", currentPlayer);
+			socket.on("current Player", function(nameOfPlayer){
+				//console.log("currentPlayer 1:" ,currentPlayer);
+				currentPlayer = nameOfPlayer;
+				//console.log("nameOfPlayer", nameOfPlayer);
+				//currentPlayer.push(nameOfPlayer);
+				console.log("currentPlayer 2:" ,currentPlayer);
+			})
+			
 			socket.on("displayUsers", function (data) {
 				//let users_in = "";
 				ALLPlayers.push(data);
@@ -178,15 +160,19 @@
 			socket.on("send_allUsers1", function (ALLPlayers) {
 				//let removeResultLi = document.querySelector(".users-ul");
 				//	removeResultLi.remove();
-				console.log(ALLPlayers);
+				//console.log("all player arr: ", ALLPlayersArr);
+				ALLPlayersArr = ALLPlayers;
+				//console.log("all player arr updated:", ALLPlayersArr )
+				//console.log("line 181", ALLPlayers);
 				let countUsersLi = document.querySelectorAll(".users-new-li").length;
-				console.log("count user Li ", countUsersLi);
+				//console.log("count user Li ", countUsersLi);
 				while (countUsersLi > 0) {
 					let removeUserLi = document.querySelector(".users-new-li");
 					removeUserLi.remove();
 					countUsersLi = countUsersLi - 1;
 				}
-				ALLPlayers.forEach((oneData) => {
+				//ALLPlayers.forEach((oneData) => {
+				ALLPlayersArr.forEach((oneData) =>{
 					//console.log(ALLPlayers);
 					for (let key in oneData) {
 						if (key) {
@@ -197,40 +183,14 @@
 							allUsers.appendChild(eachCorrectAnswer);
 						}
 					}
-					//socket.emit("send_allUsers", ALLPlayers);
-					// data.forEach((oneData) => {
-					// 	for (let key in oneData) {
-					// 		console.log(`${key}: ${oneData[key]}`);
-					// 		var item = document.createElement("li");
-					// 		item.textContent = `${key}: ${oneData[key]}`;
-					// 		let removeCorrectLi = document.getElementById("inRoomUsers");
-					// 		allUsers.appendChild(item);
-					// 	}
+
 				});
 
-				//}, 100);
 
-				//console.log(data);
-				//var item = document.createElement("li");
-
-				//users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
-				//console.log("password: " + data.name);
-				//	console.log("password: " + data.points);
-				//item.textContent = "hello";
-
-				//socket.emit("send_allUsers2", users_in);
-				//item.innerHTML = users_in;
-				//allUsers.appendChild(item);
-				//}
 			});
 
 			socket.on("send_allUsers", function (ALLPlayers) {
-				//setTimeout(function () {
-				// for (let i = 0; i <= ALLPlayers.length; ++i) {
-				// 	let countResultLi = document.querySelectorAll(".users-new-li").length;
-				// 	let removeResultLi = document.querySelector(".users-new-li");
-				// 	if (removeResultLi) removeResultLi.remove();
-				// }
+
 
 				ALLPlayers.forEach((oneData) => {
 					//console.log("------------")
@@ -251,42 +211,11 @@
 						allUsers.appendChild(eachResult);
 					}
 
-					// data.forEach((oneData) => {
-					// 	for (let key in oneData) {
-					// 		console.log(`${key}: ${oneData[key]}`);
-					// 		var item = document.createElement("li");
-					// 		item.textContent = `${key}: ${oneData[key]}`;
-					// 		let removeCorrectLi = document.getElementById("inRoomUsers");
-					// 		allUsers.appendChild(item);
-					// 	}
 				});
 
-				//}, 100);
 
-				//console.log(data);
-				//var item = document.createElement("li");
-
-				//users_in += `<li>name:  ${data.name} --> Points: ${data.points} </li>`;
-				//console.log("password: " + data.name);
-				//	console.log("password: " + data.points);
-				//item.textContent = "hello";
-
-				//socket.emit("send_allUsers2", users_in);
-				//item.innerHTML = users_in;
-				//allUsers.appendChild(item);
-				//}
 			});
-			/* socket.on("send_allUsers", function(data){
-				console.log("test object")
-				console.log(data);
-				let testing = document.createElement("li");
-				testing.classList.add("userDisplayScore");
-				testing.textContent = "hello";
-				//eachCorrectAnswer.textContent = "hello hello";
-				//correctAnswer.appendChild(eachCorrectAnswer);
 
-			}) */
-			//setInterval(0.2);
 			/***************************************************************/
 			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
 			let myQuizz = () => {
@@ -314,15 +243,18 @@
 			let letters = document.getElementById("letters");
 			let result = document.getElementById("result");
 
+
 			//receive the ary-answer from the index.js,
 			socket.on("ary-answer", function (answerArray) {
+				console.log(" 329 out side of socket: ", currentPlayer);
+				console.log("329 all players arr:", ALLPlayersArr)
 				//let eachCorrectAnswer = document.createElement("li");
 				//eachCorrectAnswer.classList.add("correct-new-li");
 				//eachCorrectAnswer.textContent = myLetter;
 				//eachCorrectAnswer.textContent = "hello hello";
 				//correctAnswer.appendChild(eachCorrectAnswer);
 
-				//correct answer box
+				//correct answer box and result box
 				if (!executed) {
 					executed = true;
 					for (let i = 1; i <= answerArray.length; i++) {
@@ -352,6 +284,7 @@
 
 							//********************************************************
 							//Result box
+							
 							let countResultLi = document.querySelectorAll(".result-new-li").length;
 							let removeResultLi = document.querySelector(".result-new-li");
 							if (countResultLi > 0) {
@@ -373,6 +306,7 @@
 							let second = realAnswer[0].innerText;
 							let resultCompare = first.localeCompare(second);
 							let countIfInput = document.querySelectorAll(".result-new-li").length;
+							let correctAnswerArr = [];
 							//console.log(realAnswer[0].innerText);
 							if (first == "") {
 								eachResult.textContent = `Please enter your answer`;
@@ -381,18 +315,29 @@
 									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
-									console.log(gameArray);
-									socket.on("correctUser", function (correctUser) {
-										console.log("Line 377", correctUser);
-										console.log(correctUser);
-									});
+									
 									console.log("--------------");
-									console.log(ALLPlayers);
+									console.log("401 currentPlayer", currentPlayer);
+
+									socket.emit('user get points', currentPlayer);
+									correctAnswerArr.push(currentPlayer);
+									console.log("correctAnswerArr: ", correctAnswerArr);
+									
+									console.log("319 ALLPlayersArr:", ALLPlayersArr);
+
+									ALLPlayersArr.forEach(player => {
+										if(player.name == currentPlayer){
+											player.points = player.points + 10;
+										}
+									})
+									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
 
 							//eachResult.textContent = resultCompare;
 							result.appendChild(eachResult);
+
+						
 
 							//console.log(myLetter);
 						}, timeScale * i);

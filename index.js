@@ -5,15 +5,16 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server);
 const path = require("path");
+const { SocketAddress } = require("net");
 const port = process.env.PORT || 4000;
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", __dirname + "/public/views");
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "ejs");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.get("/", (req, res) => {
 	res.render("index.html");
 });
@@ -21,14 +22,18 @@ app.get("/", (req, res) => {
 let name_points = {};
 let eachname;
 let name;
-let userData = []; //whole array
+let userData = []; //hwo
 let onlineUsersID = [];
 let rooms = {};
+let userGetPointsArr = [];
 
 app.post("/room", function (req, res) {
 	const { username, nationality, room } = req.body;
 	rooms[req.body.room] = { users: {} };
 	eachname = req.body.name;
+	//console.log(req.body);
+	//console.log(userData);
+
 	name_points = { name: req.body.name, points: 0 };
 	userData.push(name_points);
 
@@ -40,20 +45,32 @@ io.on("connection", (socket) => {
 		//console.log(answerArray);
 		io.emit("ary-answer", answerArray);
 	});
-	socket.name = eachname;
-	io.emit("get_users", userData);
-	console.log("Eachname : " + socket.name);
-	io.emit("correctUser", socket.name);
+
+	socket.on('user get points', (userGetPoints)=>{
+		userGetPointsArr.push(userGetPoints);
+		console.log(userGetPoints);
+		console.log(userGetPointsArr);
+	})
 
 	//	io.emit("displayUsers", name_points);
 	io.emit("send_allUsers1", userData);
-	console.log("Line 45: ", userData);
+	console.log("line 50", userData);
 
+	//console.log("A user connected");
 	socket.broadcast.emit("message", "A USER has joined");
-
+	socket.name = eachname;
 	socket.on("chat message", (msg) => {
 		io.emit("chat message", socket.name + " :: " + msg);
 	});
+
+	//sending the name of current player
+	//let curr = socket.name;
+	//console.log("curr: ", curr);
+	console.log("current player ", socket.name);
+	io.emit("current Player", socket.name);
+
+
+
 	//console.log("socket ID ::" + socket.client.id);
 	socket.join("chatroom");
 	// socket.on("displayUsers", (username) => {
@@ -62,38 +79,36 @@ io.on("connection", (socket) => {
 
 	//console.log;
 	console.log("111", name_points);
-	console.log(userData);
 
 	//console.log("User Data" + userData.name);
-	socket.on("send_allUsers", function (ALLPlayers) {
+	/* socket.on("send_allUsers", function (ALLPlayers) {
 		console.log("server test : ", ALLPlayers);
 		io.emit("send_allUsers1", ALLPlayers);
 	});
-	//sending to client
-
-	if (onlineUsersID.length === 0) {
-		onlineUsersID.push(socket.client.id);
-	} else {
-		onlineUsersID.forEach((socketID) => {
-			if (socket.client.id === socketID) {
-				//display previous users
-			} else {
-				//io.emit("displayPrevUsers", userData);
-				socket.on("send_allUsers2", function (data) {
-					if (data.name || data.points) {
-						console.log("Server :: " + data);
-						io.emit("displayPrevUsers", data);
-					}
-				});
-			}
-		});
-	}
+ */
+	// if (onlineUsersID.length === 0) {
+	// 	onlineUsersID.push(socket.client.id);
+	// } else {
+	// 	onlineUsersID.forEach((socketID) => {
+	// 		if (socket.client.id === socketID) {
+	// 			//display previous users
+	// 		} else {
+	// 			//io.emit("displayPrevUsers", userData);
+	// 			socket.on("send_allUsers2", function (data) {
+	// 				if (data.name || data.points) {
+	// 					console.log("Server :: " + data);
+	// 					io.emit("displayPrevUsers", data);
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	// }
 	socket.broadcast.emit("chat message", socket.name + ":: Connected");
 	socket.on("disconnect", () => {
 		socket.broadcast.emit("chat message", socket.name + ":: Disconnected");
 	});
 
-	//io.to("chatroom").emit("usersInRoom", socket.name);
+	io.to("chatroom").emit("usersInRoom", socket.name);
 	// io.emit("displayUsers", userData);
 });
 
