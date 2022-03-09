@@ -1,5 +1,6 @@
 body {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva,
+		Verdana, sans-serif;
 }
 ul,
 ol {
@@ -9,9 +10,10 @@ li {
 	list-style: none;
 }
 header {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva,
+		Verdana, sans-serif;
 	text-align: center;
-	color: rgb(31, 24, 24);
+	color: rgb(255, 255, 255);
 }
 #inRoomUsers.users-ul {
 	color: rgb(29, 17, 17);
@@ -41,10 +43,13 @@ body {
 .main-features {
 	height: 100vh;
 }
+.pageHeader {
+	font-size: 3vw;
+}
 /****************************************************/
 .score-box {
 	height: 38vh;
-	background-color: rgb(24, 27, 212);
+	background-color: rgb(230, 25, 25);
 	border-radius: 5px;
 	margin: 5px;
 	max-height: 35vh;
@@ -74,12 +79,6 @@ body {
 .question-header {
 	font-weight: 700;
 	text-align: center;
-}
-.letters {
-	/* display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap; */
 }
 .new-letter {
 	display: inline-block;
@@ -213,12 +212,13 @@ body {
 }
 .message-box {
 	height: 600px;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva,
+		Verdana, sans-serif;
 	background-color: whitesmoke;
 	border-radius: 5px;
 	overflow: scroll;
-}
-.chat-message {
-	float: left;
+	text-align: left;
+	margin-left: 0.1%;
 }
 
 .input-group {
@@ -246,16 +246,425 @@ body {
 	color: white;
 }
 /************************************************/
-.outerUser{
+.outerUser {
 	/* background-color: orange; */
 	overflow: auto;
 }
-.users-ul{
+.users-ul {
 	height: 150px;
 	overflow: auto;
 }
 
 .owl-carousel {
-    width: 60% !important;
-    z-index: 1;
+	width: 60% !important;
+	z-index: 1;
+}
+@media screen and (max-width: 1024px) {
+	.score-box {
+		height: 38vh;
+		background-color: rgb(230, 25, 25);
+		border-radius: 5px;
+		margin: 5px;
+		max-height: 35vh;
+		color: black;
+		text-align: center;
+		border-style: outset;
+		/* overflow: scroll; */
+	}
+	.game-box {
+		background-color: yellow;
+		display: flex;
+		margin: 5px;
+		margin-top: 10px;
+		height: 50vh;
+		max-height: 50vh;
+		color: white;
+		/* overflow: scroll; */
+	}
+	/**************************************/
+	.question-box {
+		width: 60%;
+		background-color: cadetblue;
+		padding: 10px;
+		border-style: outset;
+		/* overflow: scroll; */
+	}
+	.question-header {
+		font-weight: 700;
+		text-align: center;
+	}
+	.new-letter {
+		display: inline-block;
+		width: 50px;
+		height: 30px;
+		background-color: yellow;
+		font-size: 700;
+		text-align: center;
+		color: black;
+		margin: 5px;
+	}
+	.start-btn {
+		background-color: red;
+		padding: 5px 20px;
+		height: 40px;
+		border-radius: 5px;
+		color: white;
+		font-size: 10px;
+	}
+	/******************************/
+	.answer-box {
+		width: 40%;
+		background-color: aquamarine;
+		color: rgb(209, 119, 119);
+
+		/* overflow: scroll; */
+	}
+	.header-answer-box {
+		margin-top: 10px;
+		font-size: 10px;
+		font-weight: 800;
+		text-align: center;
+	}
+	.answer-display {
+		background-color: white;
+		height: 30%;
+		width: 100%;
+		font-size: 10px;
+		border-radius: 5px;
+		overflow: auto;
+	}
+	.header-answer {
+		text-align: center;
+	}
+	.answer-ul {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-left: 0px;
+		font-size: 10px;
+	}
+	.new-li {
+		justify-content: center;
+	}
+	.chat-box {
+		position: relative;
+		margin: auto;
+		margin-left: 2%;
+		text-align: center;
+		width: 39%;
+		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+			Geneva, Verdana, sans-serif;
+		height: 800px;
+	}
+	.main-features {
+		height: 800px;
+	}
+	.message-box {
+		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+			Geneva, Verdana, sans-serif;
+		height: 700px;
+		background-color: whitesmoke;
+		border-radius: 5px;
+		overflow: scroll;
+		text-align: left;
+		margin-left: 0.1%;
+	}
+
+	.input-group {
+		position: absolute;
+		bottom: 5px;
+	}
+	.chatting-input-group {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.user-input {
+		width: fit-content;
+		background-color: white;
+		height: 40px;
+		border-radius: 5px;
+		padding: 5px 10px;
+		overflow: scroll;
+	}
+	.send-btn {
+		background-color: red;
+		padding: 5px 20px;
+		height: 40px;
+		margin-right: 5%;
+		border-radius: 5px;
+		color: white;
+	}
+}
+
+@media screen and (max-width: 769px) {
+	.score-box {
+		height: 38vh;
+		background-color: rgb(230, 25, 25);
+		border-radius: 5px;
+		margin: 5px;
+		max-height: 35vh;
+		color: black;
+		text-align: center;
+		border-style: outset;
+		/* overflow: scroll; */
+	}
+	.game-box {
+		background-color: yellow;
+		display: flex;
+		margin: 5px;
+		margin-top: 10px;
+		height: 50vh;
+		max-height: 50vh;
+		color: white;
+		/* overflow: scroll; */
+	}
+	/**************************************/
+	.question-box {
+		width: 60%;
+		background-color: cadetblue;
+		padding: 10px;
+		border-style: outset;
+		/* overflow: scroll; */
+	}
+	.question-header {
+		font-weight: 700;
+		text-align: center;
+	}
+	.new-letter {
+		display: inline-block;
+		width: 50px;
+		height: 30px;
+		background-color: yellow;
+		font-size: 700;
+		text-align: center;
+		color: black;
+		margin: 5px;
+	}
+	.start-btn {
+		background-color: red;
+		padding: 5px 20px;
+		height: 40px;
+		border-radius: 5px;
+		color: white;
+		font-size: 10px;
+	}
+	/******************************/
+	.answer-box {
+		width: 40%;
+		background-color: aquamarine;
+		color: rgb(209, 119, 119);
+
+		/* overflow: scroll; */
+	}
+	.header-answer-box {
+		margin-top: 10px;
+		font-size: 10px;
+		font-weight: 800;
+		text-align: center;
+	}
+	.answer-display {
+		background-color: white;
+		height: 30%;
+		width: 100%;
+		font-size: 10px;
+		border-radius: 5px;
+		overflow: auto;
+	}
+	.header-answer {
+		text-align: center;
+	}
+	.answer-ul {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-left: 0px;
+		font-size: 10px;
+	}
+	.new-li {
+		justify-content: center;
+	}
+	.chat-box {
+		position: relative;
+		margin: auto;
+		margin-left: 2%;
+		text-align: center;
+		width: 39%;
+		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+			Geneva, Verdana, sans-serif;
+		height: 800px;
+	}
+	.main-features {
+		height: 800px;
+	}
+	.message-box {
+		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+			Geneva, Verdana, sans-serif;
+		height: 700px;
+		background-color: whitesmoke;
+		border-radius: 5px;
+		overflow: scroll;
+		text-align: left;
+		margin-left: 0.1%;
+	}
+
+	.input-group {
+		position: absolute;
+		bottom: 5px;
+	}
+	.chatting-input-group {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.user-input {
+		width: fit-content;
+		background-color: white;
+		height: 40px;
+		border-radius: 5px;
+		padding: 5px 10px;
+		overflow: scroll;
+	}
+	.send-btn {
+		background-color: red;
+		padding: 5px 20px;
+		height: 40px;
+		margin-right: 5%;
+		border-radius: 5px;
+		color: white;
+	}
+}
+
+@media screen and (max-width: 426px) {
+	.score-box {
+		height: 38vh;
+		background-color: rgb(230, 25, 25);
+		border-radius: 5px;
+		margin: 5px;
+		max-height: 35vh;
+		color: black;
+		text-align: center;
+		border-style: outset;
+		/* overflow: scroll; */
+	}
+	.game-box {
+		background-color: yellow;
+		display: flex;
+		margin: 5px;
+		margin-top: 10px;
+		height: 50vh;
+		max-height: 50vh;
+		color: white;
+		/* overflow: scroll; */
+	}
+	/**************************************/
+	.question-box {
+		width: 60%;
+		background-color: cadetblue;
+		padding: 10px;
+		border-style: outset;
+		/* overflow: scroll; */
+	}
+	.question-header {
+		font-weight: 700;
+		text-align: center;
+	}
+	.new-letter {
+		display: inline-block;
+		width: 50px;
+		height: 30px;
+		background-color: yellow;
+		font-size: 700;
+		text-align: center;
+		color: black;
+		margin: 5px;
+	}
+	.start-btn {
+		background-color: red;
+		padding: 5px 20px;
+		height: 40px;
+		border-radius: 5px;
+		color: white;
+		font-size: 10px;
+	}
+	/******************************/
+	.answer-box {
+		width: 40%;
+		background-color: aquamarine;
+		color: rgb(209, 119, 119);
+
+		/* overflow: scroll; */
+	}
+	.header-answer-box {
+		margin-top: 10px;
+		font-size: 10px;
+		font-weight: 800;
+		text-align: center;
+	}
+	.answer-display {
+		background-color: white;
+		height: 30%;
+		width: 100%;
+		font-size: 10px;
+		border-radius: 5px;
+		overflow: auto;
+	}
+	.header-answer {
+		text-align: center;
+	}
+	.answer-ul {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-left: 0px;
+		font-size: 10px;
+	}
+	.new-li {
+		justify-content: center;
+	}
+	.chat-box {
+		position: relative;
+		margin: auto;
+		text-align: center;
+		width: 95%;
+		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+			Geneva, Verdana, sans-serif;
+		height: 500px;
+	}
+	.message-box {
+		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+			Geneva, Verdana, sans-serif;
+		height: 400px;
+		background-color: whitesmoke;
+		border-radius: 5px;
+		overflow: scroll;
+		text-align: left;
+		margin-left: 0.1%;
+	}
+
+	.input-group {
+		position: absolute;
+		bottom: 5px;
+	}
+	.chatting-input-group {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.user-input {
+		width: fit-content;
+		background-color: white;
+		height: 40px;
+		border-radius: 5px;
+		padding: 5px 10px;
+		overflow: scroll;
+	}
+	.send-btn {
+		background-color: red;
+		padding: 5px 20px;
+		height: 40px;
+
+		border-radius: 5px;
+		color: white;
+	}
 }

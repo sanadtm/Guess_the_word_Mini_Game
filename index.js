@@ -105,15 +105,15 @@ io.on("connection", (socket) => {
 		io.emit("send_allUsers1", ALLPlayers);
 	});
  */
-	// if (onlineUsersID.length === 0) {
-	// 	onlineUsersID.push(socket.client.id);
+	// if (userData.length === 0) {
+	// //	userData.push(socket.client.id);
 	// } else {
-	// 	onlineUsersID.forEach((socketID) => {
+	// 	userData.forEach((socketID) => {
 	// 		if (socket.client.id === socketID) {
 	// 			//display previous users
 	// 		} else {
 	// 			//io.emit("displayPrevUsers", userData);
-	// 			socket.on("send_allUsers2", function (data) {
+	// 			socket.on("send_allUsers12", function (data) {
 	// 				if (data.name || data.points) {
 	// 					console.log("Server :: " + data);
 	// 					io.emit("displayPrevUsers", data);

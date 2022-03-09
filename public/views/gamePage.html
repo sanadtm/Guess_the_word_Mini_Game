@@ -10,8 +10,8 @@
 		/>
 		<link rel="stylesheet" href="./css/game.css" />
 		<link rel="stylesheet" href="./css/reset.css" />
-		<link rel="stylesheet" href="./css/owl.carousel.min.css">
-    	<link rel="stylesheet" href="./css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="./css/owl.carousel.min.css" />
+		<link rel="stylesheet" href="./css/owl.theme.default.min.css" />
 		<script defer src="./js/game.js"></script>
 
 		<title>Word Jumbler</title>
@@ -23,21 +23,23 @@
 		<main>
 			<div class="container bootstrap-grid">
 				<div class="row row1 main-container">
-					<div class="col-7 col-md-7 col-lg-7 main-features">
+					<div class="col-12 col-md-7 col-lg-7 main-features">
 						<div class="score-box row row1">
-							<h1>Word Jumbler</h1><br />
+							<h1 class="pageHeader">Word Jumbler</h1><br />
 							<!-- <h3>Players</h3> -->
 							<div class="outerUser" id="">
+								<hr />
 								<ul class="users-ul" id="inRoomUsers"> </ul>
+								<hr />
 							</div>
 						</div>
 						<div class="game-box">
-							
 							<div class="question-box owl-carousel owl-theme">
-								
 								<div class="question item">
 									<h3 class="question-header">City in Oregon </h3>
-									<div> Arrange these letters to build a correct name of city in Oregon: </div>
+									<div>
+										Arrange these letters to build a correct name of city in Oregon:
+									</div>
 
 									<ul class="'letters" id="letters">
 										<!-- <li class="new-letter">H</li>
@@ -55,9 +57,7 @@
 									<h3 class="question-header">Name of Countries </h3>
 									<div> Arrange these letters to build a correct name of country: </div>
 
-									<ul class="'letters" id="lettersCountry">
-										
-									</ul>
+									<ul class="'letters" id="lettersCountry"> </ul>
 									<form id="start-question-country" action="" class="start-question">
 										<button class="start-btn">Start</button>
 									</form>
@@ -67,16 +67,11 @@
 									<h3 class="question-header">Name of Fruits </h3>
 									<div> Arrange these letters to build a correct name of fruit: </div>
 
-									<ul class="'letters" id="lettersFruit">
-										
-									</ul>
+									<ul class="'letters" id="lettersFruit"> </ul>
 									<form id="start-question-fruit" action="" class="start-question">
 										<button class="start-btn">Start</button>
 									</form>
 								</div>
-
-								
-								
 
 								<!-- <div class="question item">
 									<h3 class="question-header">Question box </h3>
@@ -131,7 +126,6 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
 						<div class="input-answer row row1">
 							<form id="form-answer" action="" class="answer-input-group">
@@ -141,7 +135,7 @@
 						</div>
 					</div>
 
-					<div class="col-4 col-md-4 col-lg-4 chat-box">
+					<div class="col-12 col-md-4 col-lg-4 chat-box">
 						<h4>Chat Box</h4>
 						<div class="message-box">
 							<ul class="chat-message" id="messages"></ul>
@@ -159,9 +153,8 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<script src = "./css/owl.carousel.min.js"></script>
+		<script src="./css/owl.carousel.min.js"></script>
 		<script>
-
 			timeScale = 2000;
 
 			let socket = io();
@@ -174,7 +167,7 @@
 			let ALLPlayersArr = [];
 			let result1 = document.getElementById("result");
 			//let correctAnswerArr = [];
-	
+
 			let allOnlinePlayers = [];
 			//let currentPlayer = "";
 			let playerName = "";
@@ -206,26 +199,23 @@
 
 			let testingUsers = [];
 			let currUser;
-			socket.on("singleUser", function(eachname){
+			socket.on("singleUser", function (eachname) {
 				console.log("line 147", eachname);
-				for(let  i = 0; i < testingUsers.length; i++){
+				for (let i = 0; i < testingUsers.length; i++) {
 					//console.log(`hit ${i}: ${testingUsers[i]}`);
 					let compare = eachname.localeCompare(testingUsers[i]);
-					if(compare == 0){
+					if (compare == 0) {
 						currUser = eachname;
-						
 					}
 				}
-			})
+			});
 			//console.log("line 159", currUser);
-			
-			
+
 			/* currentPlayer(data=>{
 				console.log(data);
 			}); */
-			socket.on("current Player", function(nameOfPlayer){
-				
-				testingUsers = nameOfPlayer;	
+			socket.on("current Player", function (nameOfPlayer) {
+				testingUsers = nameOfPlayer;
 				/* console.log("currentPlayer 1:" ,nameOfPlayer);
 				//currentPlayer = nameOfPlayer;
 
@@ -233,12 +223,11 @@
 				//playerName = nameOfPlayer;
 				currentPlayer.push(nameOfPlayer);
 				console.log("currentPlayer 2:" ,currentPlayer); */
-				for(let  i = 0; i < nameOfPlayer.length; i++){
+				for (let i = 0; i < nameOfPlayer.length; i++) {
 					console.log(`hit ${i}: ${nameOfPlayer[i]}`);
 				}
-				
-			})
-			
+			});
+
 			socket.on("displayUsers", function (data) {
 				//let users_in = "";
 				ALLPlayers.push(data);
@@ -352,13 +341,11 @@
 			let letters = document.getElementById("letters");
 			let lettersCountry = document.getElementById("lettersCountry");
 			let lettersFruit = document.getElementById("lettersFruit");
-			
-			
+
 			let result = document.getElementById("result");
 
 			//receive the ary-answer from the index.js,
 			socket.on("ary-answer", function (answerArray) {
-				
 				//correct answer box and result box
 				if (!executed) {
 					executed = true;
@@ -426,7 +413,7 @@
 
 									socket.emit("user get points", currentPlayer);
 									//correctAnswerArr.push(currentPlayer);
-									
+
 									/* console.log("--------------");
 									console.log("401 currentPlayer", currentPlayer);
 									console.log("402 currentPlayer", playerName );
@@ -500,11 +487,9 @@
 				}
 			});
 
-
-
 			//This function is excuted when the start button in question box is pressed
 			//let result1 = document.getElementById("result");
-			
+
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
 				/* let testing ='';
@@ -513,14 +498,10 @@
 				if (ary) {
 					socket.emit("ary-answer", ary);
 				}
-				
-
 			});
 			/////////////////////////////////////////////////////////////
 
-
 			socket.on("country-answer", function (answerArrayCountry) {
-				
 				//correct answer box and result box
 				if (!executedCountry) {
 					executedCountry = true;
@@ -588,7 +569,7 @@
 
 									socket.emit("user get points", currentPlayer);
 									//correctAnswerArr.push(currentPlayer);
-									
+
 									/* console.log("--------------");
 									console.log("401 currentPlayer", currentPlayer);
 									console.log("402 currentPlayer", playerName );
@@ -661,7 +642,6 @@
 					}
 				}
 			});
-						
 
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			startQuestionCountry.addEventListener("submit", function (e) {
@@ -672,22 +652,18 @@
 				if (countries) {
 					socket.emit("country-answer", countries);
 				}
-				
-
 			});
 			///////////////////////////////////////////////////////////////////////////////////
 
 			startQuestionFruit.addEventListener("submit", function (e) {
 				e.preventDefault();
-				
+
 				if (fruits) {
 					socket.emit("fruit-answer", fruits);
 				}
-				
 			});
 			/////////////////////////////////////////////////////////////////////////
 			socket.on("fruit-answer", function (answerArrayFruit) {
-				
 				//correct answer box and result box
 				if (!executedFruit) {
 					executedFruit = true;
@@ -755,8 +731,7 @@
 
 									socket.emit("user get points", currentPlayer);
 									//correctAnswerArr.push(currentPlayer);
-									
-									
+
 									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
@@ -810,7 +785,6 @@
 				}
 			});
 
-
 			/////////////////////////////////////////////////////////////////////////////
 			/* socket.on('testing', function(msg){
 				let eachResult = document.createElement("li");
@@ -848,8 +822,6 @@
 				inputAnswer.value = "";
 			});
 
-			
-
 			/****************************************************************/
 			$(".owl-carousel").owlCarousel({
 				items: 1,
@@ -857,18 +829,10 @@
 				loop: true,
 				/* autoplayTimeout: 5000, */
 				nav: true,
-				
-				navText: [
-					'<i class="fas fa-angle-left"></i>',
-					'<i class="fas fa-angle-right"></i>',
-				],
+
+				navText: ['<i class="fas fa-angle-left"></i>', '<i class="fas fa-angle-right"></i>'],
 				dots: true,
 			});
-
-			
-
 		</script>
-		
-		
 	</body>
 </html>

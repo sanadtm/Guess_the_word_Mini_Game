@@ -22,81 +22,82 @@
 
 		<div class="bootstrap-grid">
 			<div class="row row1">
-				<div class="col-7 col-md-7 col-lg-7">
-					<div class="title">Create Player FORM</div>
-					<form
-						action="/room"
-						method="post"
-						id="form"
-						class="bg-light border rounded w-50 mx-auto mt-5 p-3"
-						id="PlayerForm"
-					>
-						<div class="form-group">
-							<label class="FormTitle">User Name</label>
-							<input
-								type="text"
-								class="form-control"
-								id="name"
-								name="name"
-								aria-describedby="emailHelp"
-								placeholder="Put ur Gamer Tag Here"
-							/>
-							<small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
-						</div>
-						<label class="FormTitle">Nationality</label>
-						<!-- <select
+			<div class="col-12 col-md-7 col-lg-7">
+				<div class="title">Create Player FORM</div>
+				<form
+					action="/room"
+					method="post"
+					class = "formW"
+					class="bg-light border rounded w-50 mx-auto mt-5 p-3"
+					
+					id="PlayerForm"
+				>
+					<div class="form-group">
+						<label class="FormTitle">User Name</label>
+						<input
+							type="text"
+							class="form-control"
+							id="name"
+							name="name"
+							aria-describedby="emailHelp"
+							placeholder="Put ur Gamer Tag Here"
+						/>
+						<small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
+					</div>
+					<label class="FormTitle">Nationality</label>
+					<!-- <select
 							id="country_select"
 							name="country_select"
 							placeholder="Select Your Country"
 							class="select"
 						>
 						</select> -->
-						<select
-							id="allCountries"
-							name="nationality"
-							class="form-select"
-							aria-label="Default select example"
-						>
-							<option selected>Select Country</option>
-							<option>One</option>
-							<option>Two</option>
-							<option>Three</option>
-						</select>
-						<div class="form-group">
-							<label class="FormTitle">Game Room ID</label>
-							<input
-								type="text"
-								class="form-control"
-								id="room"
-								name="room"
-								placeholder="Room ID"
-							/>
-						</div>
+					<select
+						size="1"
+						id="allCountries"
+						name="nationality"
+						class="form-select"
+						aria-label="Default select example"
+						placeholder="select Country"
+					>
+						<option selected>Select Country</option>
+					</select>
+					<div class="form-group">
+						<label class="FormTitle">Game Room ID</label>
+						<input
+							type="text"
+							class="form-control"
+							id="room"
+							name="room"
+							placeholder="Room ID"
+						/>
+					</div>
 
-						<button type="submit" class="btn btn-primary">Get in the GAME</button>
-					</form>
-				</div>
+					<button type="submit" class="btn btn-primary">Get in the GAME</button>
+				</form>
+			</div>
 
-				<div class="col-4 col-md-4 col-lg-4">
-					<div class="title">GAME Rules</div>
-					<ul class="list-group">
-						<li class="list-group-item">Create an Account Using your Unique ID</li>
-						<li class="list-group-item">Choose Your Nationality</li>
-						<li class="list-group-item">Click the Enter Game ROOM</li>
-					</ul>
-					<hr />
-					<ul class="list-group">
-						<li class="list-group-item">Wait for your Rival to Join</li>
-						<li class="list-group-item">Communicate and Start the Game</li>
-						<li class="list-group-item">Start Typing the Answer </li>
-						<li class="list-group-item">GOOD LUCK!!</li>
-					</ul>
-				</div>
+			<div class="col-12 col-md-4 col-lg-4" id="right-box">
+				<div class="title">GAME Rules</div>
+				<ul class="list-group">
+					<li class="list-group-item">Create an Account Using your Unique ID</li>
+					<li class="list-group-item">Choose Your Nationality</li>
+					<li class="list-group-item">Click the Enter Game ROOM</li>
+				</ul>
+				<hr />
+				<ul class="list-group">
+					<li class="list-group-item">Wait for your Rival to Join</li>
+					<li class="list-group-item">Communicate and Start the Game</li>
+					<li class="list-group-item">Start Typing the Answer </li>
+					<li class="list-group-item">GOOD LUCK!!</li>
+				</ul>
 			</div>
 		</div>
+
 		<script>
 			const countryApi = "https://restcountries.com/v3.1/all";
 			let output = "";
+
 			let countryDom = document.querySelector(".select");
 			fetch(countryApi)
 				.then((res) => {
@@ -104,10 +105,11 @@
 				})
 				.then((data) => {
 					data.forEach((country) => {
-						//console.log(country.name.common);
-						output += `<option value = "${country.name.common}">${country.name.common}</option>`;
+						//console.log(Object.keys(country.name));
+						let name = country.name.common.length;
+						if (name < 10)
+							output += `<option value = "${country.name.common}">${country.name.common}</option>`;
 					});
-
 					//console.log(output);
 					document.getElementById("allCountries").innerHTML = output;
 					//countryDom.appendChild(eachCorrectAnswer);
