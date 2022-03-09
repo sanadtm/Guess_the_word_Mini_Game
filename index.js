@@ -131,6 +131,7 @@ io.on("connection", (socket) => {
 	// io.emit("displayUsers", userData);
 });
 
-server.listen(port, () => {
-	console.log(`listening at http://localhost:${port}`);
-});
+// server.listen(port, () => {
+// 	console.log(`listening at http://localhost:${port}`);
+// });
+server.listen(process.env.PORT||port);
