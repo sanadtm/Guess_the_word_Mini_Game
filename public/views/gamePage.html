@@ -113,17 +113,29 @@
 			var allUsers = document.getElementById("inRoomUsers");
 			let gameArray = [];
 			let ALLPlayersArr = [];
+			let result1 = document.getElementById("result");
 			//let correctAnswerArr = [];
 			//let currentPlayer = "";
+			let playerName = "";
 			let currentPlayer = [];
+			let playerArrObj = [];
+
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
 					socket.emit("chat message", input.value);
 					input.value = "";
 				}
+				//let testing ='hello';
+				//socket.emit('testing', testing);
 			});
+			/* socket.on('testing', function(msg){
+				let eachResult = document.createElement("li");
+				//eachResult.classList.add("result-new-li");
+				eachResult.textContent = msg +`: Please enter your answer`;
+				result1.appendChild(eachResult);
 
+			}); */
 			socket.on("chat message", function (msg) {
 				let eachMessage = document.createElement("li");
 				eachMessage.textContent = msg;
@@ -131,13 +143,41 @@
 				window.scrollTo(0, document.body.scrollHeight);
 			});
 
+			let testingUsers = [];
+			let currUser;
+			socket.on("singleUser", function(eachname){
+				console.log("line 147", eachname);
+				for(let  i = 0; i < testingUsers.length; i++){
+					//console.log(`hit ${i}: ${testingUsers[i]}`);
+					let compare = eachname.localeCompare(testingUsers[i]);
+					if(compare == 0){
+						currUser = eachname;
+						
+					}
+				}
+			})
+			//console.log("line 159", currUser);
+			
+
 			//socket.emit("cunrrent player", currentPlayer);
+			
+			/* currentPlayer(data=>{
+				console.log(data);
+			}); */
 			socket.on("current Player", function(nameOfPlayer){
-				//console.log("currentPlayer 1:" ,currentPlayer);
-				currentPlayer = nameOfPlayer;
+				
+				testingUsers = nameOfPlayer;	
+				/* console.log("currentPlayer 1:" ,nameOfPlayer);
+				//currentPlayer = nameOfPlayer;
+
 				//console.log("nameOfPlayer", nameOfPlayer);
-				//currentPlayer.push(nameOfPlayer);
-				console.log("currentPlayer 2:" ,currentPlayer);
+				//playerName = nameOfPlayer;
+				currentPlayer.push(nameOfPlayer);
+				console.log("currentPlayer 2:" ,currentPlayer); */
+				for(let  i = 0; i < nameOfPlayer.length; i++){
+					console.log(`hit ${i}: ${nameOfPlayer[i]}`);
+				}
+				
 			})
 			
 			socket.on("displayUsers", function (data) {
@@ -246,8 +286,9 @@
 
 			//receive the ary-answer from the index.js,
 			socket.on("ary-answer", function (answerArray) {
-				console.log(" 329 out side of socket: ", currentPlayer);
-				console.log("329 all players arr:", ALLPlayersArr)
+				console.log(" 250 out side of socket: ", currentPlayer);
+				console.log("251 all players arr:", ALLPlayersArr)
+				console.log("line 111159", currUser);
 				//let eachCorrectAnswer = document.createElement("li");
 				//eachCorrectAnswer.classList.add("correct-new-li");
 				//eachCorrectAnswer.textContent = myLetter;
@@ -316,10 +357,16 @@
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
 									
-									console.log("--------------");
+									/* console.log("--------------");
 									console.log("401 currentPlayer", currentPlayer);
-
+									console.log("402 currentPlayer", playerName );
+									let obj = {name: playerName, count: 1};
+									//playerArrObj
+									playerArrObj.push(obj);
+									console.log("object", playerArrObj);
+									socket.emit('user get points', obj)
 									socket.emit('user get points', currentPlayer);
+									
 									correctAnswerArr.push(currentPlayer);
 									console.log("correctAnswerArr: ", correctAnswerArr);
 									
@@ -329,7 +376,7 @@
 										if(player.name == currentPlayer){
 											player.points = player.points + 10;
 										}
-									})
+									}) */
 									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
@@ -385,14 +432,26 @@
 				}
 			});
 			//This function is excuted when the start button in question box is pressed
-
+			//let result1 = document.getElementById("result");
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
+				/* let testing ='';
+				socket.emit('testing', testing); */
 				//Send the ary array to the index.js when the player press start btn
 				if (ary) {
 					socket.emit("ary-answer", ary);
 				}
+				
+
+
 			});
+			/* socket.on('testing', function(msg){
+				let eachResult = document.createElement("li");
+				eachResult.classList.add("result-new-li");
+				eachResult.textContent = msg +`: Please`;
+				result1.appendChild(eachResult);
+				io.emit('testing', msg );
+			}) */
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
 			// let All_users = [];
