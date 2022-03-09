@@ -114,8 +114,8 @@
 			let gameArray = [];
 			let ALLPlayersArr = [];
 			//let correctAnswerArr = [];
-			//let currentPlayer = "";
-			let currentPlayer = [];
+			let currentPlayer = "";
+			let allOnlinePlayers = [];
 			form.addEventListener("submit", function (e) {
 				e.preventDefault();
 				if (input.value) {
@@ -132,14 +132,16 @@
 			});
 
 			//socket.emit("cunrrent player", currentPlayer);
-			socket.on("current Player", function(nameOfPlayer){
+			socket.on("current Player", function (nameOfPlayer) {
 				//console.log("currentPlayer 1:" ,currentPlayer);
 				currentPlayer = nameOfPlayer;
+				allOnlinePlayers.push(currentPlayer);
+				console.log("ALL PLAYERS : " + allOnlinePlayers);
 				//console.log("nameOfPlayer", nameOfPlayer);
 				//currentPlayer.push(nameOfPlayer);
-				console.log("currentPlayer 2:" ,currentPlayer);
-			})
-			
+				console.log("currentPlayer 2:", currentPlayer);
+			});
+
 			socket.on("displayUsers", function (data) {
 				//let users_in = "";
 				ALLPlayers.push(data);
@@ -157,6 +159,12 @@
 					}
 				});
 			});
+			let newArr = [];
+			socket.on("user get points", function (getPoints) {
+				newArr.push(getPoints);
+				console.log("NEW ARR ", newArr);
+			});
+
 			socket.on("send_allUsers1", function (ALLPlayers) {
 				//let removeResultLi = document.querySelector(".users-ul");
 				//	removeResultLi.remove();
@@ -172,7 +180,7 @@
 					countUsersLi = countUsersLi - 1;
 				}
 				//ALLPlayers.forEach((oneData) => {
-				ALLPlayersArr.forEach((oneData) =>{
+				ALLPlayersArr.forEach((oneData) => {
 					//console.log(ALLPlayers);
 					for (let key in oneData) {
 						if (key) {
@@ -183,15 +191,10 @@
 							allUsers.appendChild(eachCorrectAnswer);
 						}
 					}
-
 				});
-
-
 			});
 
 			socket.on("send_allUsers", function (ALLPlayers) {
-
-
 				ALLPlayers.forEach((oneData) => {
 					//console.log("------------")
 					//console.log(ALLPlayers);
@@ -210,10 +213,7 @@
 						eachResult.textContent = `${key}: ${oneData[key]}`;
 						allUsers.appendChild(eachResult);
 					}
-
 				});
-
-
 			});
 
 			/***************************************************************/
@@ -243,11 +243,10 @@
 			let letters = document.getElementById("letters");
 			let result = document.getElementById("result");
 
-
 			//receive the ary-answer from the index.js,
 			socket.on("ary-answer", function (answerArray) {
 				console.log(" 329 out side of socket: ", currentPlayer);
-				console.log("329 all players arr:", ALLPlayersArr)
+				console.log("329 all players arr:", ALLPlayersArr);
 				//let eachCorrectAnswer = document.createElement("li");
 				//eachCorrectAnswer.classList.add("correct-new-li");
 				//eachCorrectAnswer.textContent = myLetter;
@@ -284,7 +283,7 @@
 
 							//********************************************************
 							//Result box
-							
+
 							let countResultLi = document.querySelectorAll(".result-new-li").length;
 							let removeResultLi = document.querySelector(".result-new-li");
 							if (countResultLi > 0) {
@@ -315,29 +314,27 @@
 									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
-									
+
 									console.log("--------------");
 									console.log("401 currentPlayer", currentPlayer);
 
-									socket.emit('user get points', currentPlayer);
-									correctAnswerArr.push(currentPlayer);
+									socket.emit("user get points", currentPlayer);
+									//correctAnswerArr.push(currentPlayer);
 									console.log("correctAnswerArr: ", correctAnswerArr);
-									
+
 									console.log("319 ALLPlayersArr:", ALLPlayersArr);
 
-									ALLPlayersArr.forEach(player => {
-										if(player.name == currentPlayer){
+									ALLPlayersArr.forEach((player) => {
+										if (player.name == currentPlayer) {
 											player.points = player.points + 10;
 										}
-									})
+									});
 									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
 
 							//eachResult.textContent = resultCompare;
 							result.appendChild(eachResult);
-
-						
 
 							//console.log(myLetter);
 						}, timeScale * i);

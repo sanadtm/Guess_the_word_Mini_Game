@@ -44,12 +44,23 @@
 							<small id="NameHelp" class="form-text text-muted">Pick Something Unique</small>
 						</div>
 						<label class="FormTitle">Nationality</label>
-						<select
+						<!-- <select
 							id="country_select"
 							name="country_select"
 							placeholder="Select Your Country"
 							class="select"
 						>
+						</select> -->
+						<select
+							id="allCountries"
+							name="nationality"
+							class="form-select"
+							aria-label="Default select example"
+						>
+							<option selected>Select Country</option>
+							<option>One</option>
+							<option>Two</option>
+							<option>Three</option>
 						</select>
 						<div class="form-group">
 							<label class="FormTitle">Game Room ID</label>
@@ -94,11 +105,12 @@
 				.then((data) => {
 					data.forEach((country) => {
 						//console.log(country.name.common);
-						output += `<country>${country.name.common}</country>`;
+						output += `<option value = "${country.name.common}">${country.name.common}</option>`;
 					});
+
 					//console.log(output);
-					document.querySelector(".select").innerHTML = output;
-					countryDom.appendChild(eachCorrectAnswer);
+					document.getElementById("allCountries").innerHTML = output;
+					//countryDom.appendChild(eachCorrectAnswer);
 				})
 				.catch((err) => {
 					console.log(err);

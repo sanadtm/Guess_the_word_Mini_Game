@@ -46,11 +46,13 @@ io.on("connection", (socket) => {
 		io.emit("ary-answer", answerArray);
 	});
 
-	socket.on('user get points', (userGetPoints)=>{
+	socket.on("user get points", (userGetPoints) => {
 		userGetPointsArr.push(userGetPoints);
-		console.log(userGetPoints);
-		console.log(userGetPointsArr);
-	})
+		console.log("Line52 : ", userGetPoints);
+		console.log("Users Correct : ", userGetPointsArr);
+		
+		io.emit("user get points", userGetPointsArr);
+	});
 
 	//	io.emit("displayUsers", name_points);
 	io.emit("send_allUsers1", userData);
@@ -68,8 +70,6 @@ io.on("connection", (socket) => {
 	//console.log("curr: ", curr);
 	console.log("current player ", socket.name);
 	io.emit("current Player", socket.name);
-
-
 
 	//console.log("socket ID ::" + socket.client.id);
 	socket.join("chatroom");
