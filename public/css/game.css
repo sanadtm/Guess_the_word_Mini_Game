@@ -254,3 +254,8 @@ body {
 	height: 150px;
 	overflow: auto;
 }
+
+.owl-carousel {
+    width: 60% !important;
+    z-index: 1;
+}

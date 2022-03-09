@@ -10,6 +10,8 @@
 		/>
 		<link rel="stylesheet" href="./css/game.css" />
 		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/owl.carousel.min.css">
+    	<link rel="stylesheet" href="./css/owl.theme.default.min.css">
 		<script defer src="./js/game.js"></script>
 
 		<title>Word Jumbler</title>
@@ -30,10 +32,12 @@
 							</div>
 						</div>
 						<div class="game-box">
-							<div class="question-box">
-								<h3 class="question-header">Question box </h3>
-								<div class="question">
-									<div> Arrange these letters to build a correct word: </div>
+							
+							<div class="question-box owl-carousel owl-theme">
+								
+								<div class="question item">
+									<h3 class="question-header">City in Oregon </h3>
+									<div> Arrange these letters to build a correct name of city in Oregon: </div>
 
 									<ul class="'letters" id="letters">
 										<!-- <li class="new-letter">H</li>
@@ -46,6 +50,57 @@
 										<button class="start-btn">Start</button>
 									</form>
 								</div>
+
+								<div class="question item">
+									<h3 class="question-header">Name of Countries </h3>
+									<div> Arrange these letters to build a correct name of country: </div>
+
+									<ul class="'letters" id="lettersCountry">
+										
+									</ul>
+									<form id="start-question-country" action="" class="start-question">
+										<button class="start-btn">Start</button>
+									</form>
+								</div>
+
+								<div class="question item">
+									<h3 class="question-header">Name of Fruits </h3>
+									<div> Arrange these letters to build a correct name of fruit: </div>
+
+									<ul class="'letters" id="lettersFruit">
+										
+									</ul>
+									<form id="start-question-fruit" action="" class="start-question">
+										<button class="start-btn">Start</button>
+									</form>
+								</div>
+
+								
+								
+
+								<!-- <div class="question item">
+									<h3 class="question-header">Question box </h3>
+									<div> Arrange these letters to build a correct word: </div>
+
+									<ul class="'letters" id="letters">
+										
+									</ul>
+									<form id="start-question" action="" class="start-question">
+										<button class="start-btn">Start</button>
+									</form>
+								</div>
+
+								<div class="question item">
+									<h3 class="question-header">Question box </h3>
+									<div> Arrange these letters to build a correct word: </div>
+
+									<ul class="'letters" id="letters">
+										
+									</ul>
+									<form id="start-question" action="" class="start-question">
+										<button class="start-btn">Start</button>
+									</form>
+								</div> -->
 							</div>
 							<div class="answer-box">
 								<div class="header-answer-box">Player's Answer Window</div>
@@ -76,6 +131,7 @@
 									</div>
 								</div>
 							</div>
+							
 						</div>
 						<div class="input-answer row row1">
 							<form id="form-answer" action="" class="answer-input-group">
@@ -102,7 +158,10 @@
 		</main>
 
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src = "./css/owl.carousel.min.js"></script>
 		<script>
+
 			timeScale = 2000;
 
 			let socket = io();
@@ -255,7 +314,9 @@
 			});
 
 			/***************************************************************/
-			let ary = ["Hello", "Apple", "Portland", "Mountain", "Computer"];
+			let ary = ["Salem", "Beaverton", "Portland", "Astoria", "Gresham"];
+			let countries = ["Nepal", "Vietnam", "Belgium", "Canada", "Israel"];
+			let fruits = ["Apple", "Banana", "Grapefruit", "Pineapple", "Tamarind"];
 			let myQuizz = () => {
 				for (let i = 1; i <= ary.length; i++) {
 					setTimeout(function () {
@@ -277,23 +338,27 @@
 			let executed = false; //allow correct Answer box code running only 1 time
 			let executedStart = false;
 			let excutedResult = false;
+
+			let executedCountry = false; //allow correct Answer box code running only 1 time
+			let executedStartCountry = false;
+
+			let executedFruit = false; //allow correct Answer box code running only 1 time
+			let executedStartFruit = false;
+
+			//////////////////////////////////////////////////////////
 			let startQuestion = document.getElementById("start-question");
+			let startQuestionCountry = document.getElementById("start-question-country");
+			let startQuestionFruit = document.getElementById("start-question-fruit");
 			let letters = document.getElementById("letters");
+			let lettersCountry = document.getElementById("lettersCountry");
+			let lettersFruit = document.getElementById("lettersFruit");
+			
+			
 			let result = document.getElementById("result");
 
 			//receive the ary-answer from the index.js,
 			socket.on("ary-answer", function (answerArray) {
-				console.log(" 329 out side of socket: ", currentPlayer);
-				console.log("329 all players arr:", ALLPlayersArr);
-				console.log(" 250 out side of socket: ", currentPlayer);
-				console.log("251 all players arr:", ALLPlayersArr)
-				console.log("line 111159", currUser);
-				//let eachCorrectAnswer = document.createElement("li");
-				//eachCorrectAnswer.classList.add("correct-new-li");
-				//eachCorrectAnswer.textContent = myLetter;
-				//eachCorrectAnswer.textContent = "hello hello";
-				//correctAnswer.appendChild(eachCorrectAnswer);
-
+				
 				//correct answer box and result box
 				if (!executed) {
 					executed = true;
@@ -434,8 +499,12 @@
 					}
 				}
 			});
+
+
+
 			//This function is excuted when the start button in question box is pressed
 			//let result1 = document.getElementById("result");
+			
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
 				/* let testing ='';
@@ -446,8 +515,303 @@
 				}
 				
 
+			});
+			/////////////////////////////////////////////////////////////
+
+
+			socket.on("country-answer", function (answerArrayCountry) {
+				
+				//correct answer box and result box
+				if (!executedCountry) {
+					executedCountry = true;
+					for (let i = 1; i <= answerArrayCountry.length; i++) {
+						setTimeout(function () {
+							//********************************************************************************************
+							//Answer box
+							let myWord = answerArrayCountry[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
+
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
+
+							let removeCorrectLi = document.querySelector(".correct-new-li");
+							if (countCorrectLi > 0) {
+								removeCorrectLi.remove();
+							}
+							let eachCorrectAnswer = document.createElement("li");
+							eachCorrectAnswer.classList.add("correct-new-li");
+							//eachCorrectAnswer.textContent = myLetter;
+							eachCorrectAnswer.textContent = answerArrayCountry[i - 1];
+							correctAnswer.appendChild(eachCorrectAnswer);
+
+							//********************************************************
+							//Result box
+
+							let countResultLi = document.querySelectorAll(".result-new-li").length;
+							let removeResultLi = document.querySelector(".result-new-li");
+							if (countResultLi > 0) {
+								removeResultLi.remove();
+							}
+							let eachResult = document.createElement("li");
+							eachResult.classList.add("result-new-li");
+							//answer from the user
+							let userAnswer = document.getElementsByClassName("new-li");
+							let first = userAnswer[0].innerText;
+							//let first = userAnswer;
+							//for (var i = 0; i < userAnswer.length; i++) {
+							//var price = userAnswer[i].innerText;
+							//}
+							//console.log(userAnswer[0]);
+
+							//the correct answer from the program
+							let realAnswer = document.getElementsByClassName("correct-new-li");
+							let second = realAnswer[0].innerText;
+							let resultCompare = first.localeCompare(second);
+							let countIfInput = document.querySelectorAll(".result-new-li").length;
+							let correctAnswerArr = [];
+							//console.log(realAnswer[0].innerText);
+							if (first == "") {
+								eachResult.textContent = `Please enter your answer`;
+							} else {
+								if (resultCompare !== 0) {
+									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
+								} else {
+									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
+
+									console.log("--------------");
+									console.log("401 currentPlayer", currentPlayer);
+
+									socket.emit("user get points", currentPlayer);
+									//correctAnswerArr.push(currentPlayer);
+									
+									/* console.log("--------------");
+									console.log("401 currentPlayer", currentPlayer);
+									console.log("402 currentPlayer", playerName );
+									let obj = {name: playerName, count: 1};
+									//playerArrObj
+									playerArrObj.push(obj);
+									console.log("object", playerArrObj);
+									socket.emit('user get points', obj)
+									socket.emit('user get points', currentPlayer);
+									
+									correctAnswerArr.push(currentPlayer);
+									console.log("correctAnswerArr: ", correctAnswerArr);
+
+									console.log("319 ALLPlayersArr:", ALLPlayersArr);
+
+									ALLPlayersArr.forEach((player) => {
+										if (player.name == currentPlayer) {
+											player.points = player.points + 10;
+										}
+									}) */
+									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
+								}
+							}
+
+							//eachResult.textContent = resultCompare;
+							result.appendChild(eachResult);
+
+							//console.log(myLetter);
+						}, timeScale * i);
+					}
+				}
+
+				//display the question
+				if (!executedStartCountry) {
+					executedStartCountry = true;
+
+					for (let i = 1; i <= answerArrayCountry.length; i++) {
+						setTimeout(function () {
+							let myWord = answerArrayCountry[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countExistLetter = document.querySelectorAll(".new-letter").length;
+
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
+
+							while (countExistLetter > 0) {
+								let removeExistLetter = document.querySelector(".new-letter");
+								removeExistLetter.remove();
+								countExistLetter = countExistLetter - 1;
+							}
+
+							for (let i = 0; i < myLetter.length; i++) {
+								let eachLetter = document.createElement("li");
+								eachLetter.classList.add("new-letter");
+								eachLetter.textContent = myLetter[i];
+								//eachCorrectAnswer.textContent = answerArray[i - 1];
+								lettersCountry.appendChild(eachLetter);
+							}
+							//eachLetter.classList.add("new-letter");
+							//eachLetter.textContent = myLetter;
+							//eachCorrectAnswer.textContent = answerArray[i - 1];
+							//letters.appendChild(eachLetter);
+
+							//console.log(myLetter);
+						}, timeScale * (i - 1));
+					}
+				}
+			});
+						
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////
+			startQuestionCountry.addEventListener("submit", function (e) {
+				e.preventDefault();
+				/* let testing ='';
+				socket.emit('testing', testing); */
+				//Send the ary array to the index.js when the player press start btn
+				if (countries) {
+					socket.emit("country-answer", countries);
+				}
+				
 
 			});
+			///////////////////////////////////////////////////////////////////////////////////
+
+			startQuestionFruit.addEventListener("submit", function (e) {
+				e.preventDefault();
+				
+				if (fruits) {
+					socket.emit("fruit-answer", fruits);
+				}
+				
+			});
+			/////////////////////////////////////////////////////////////////////////
+			socket.on("fruit-answer", function (answerArrayFruit) {
+				
+				//correct answer box and result box
+				if (!executedFruit) {
+					executedFruit = true;
+					for (let i = 1; i <= answerArrayFruit.length; i++) {
+						setTimeout(function () {
+							//********************************************************************************************
+							// Correct answer box
+							let myWord = answerArrayFruit[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countCorrectLi = document.querySelectorAll(".correct-new-li").length;
+
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
+
+							let removeCorrectLi = document.querySelector(".correct-new-li");
+							if (countCorrectLi > 0) {
+								removeCorrectLi.remove();
+							}
+							let eachCorrectAnswer = document.createElement("li");
+							eachCorrectAnswer.classList.add("correct-new-li");
+							//eachCorrectAnswer.textContent = myLetter;
+							eachCorrectAnswer.textContent = answerArrayFruit[i - 1];
+							correctAnswer.appendChild(eachCorrectAnswer);
+
+							//********************************************************
+							//Result box
+
+							let countResultLi = document.querySelectorAll(".result-new-li").length;
+							let removeResultLi = document.querySelector(".result-new-li");
+							if (countResultLi > 0) {
+								removeResultLi.remove();
+							}
+							let eachResult = document.createElement("li");
+							eachResult.classList.add("result-new-li");
+							//answer from the user
+							let userAnswer = document.getElementsByClassName("new-li");
+							let first = userAnswer[0].innerText;
+							//let first = userAnswer;
+							//for (var i = 0; i < userAnswer.length; i++) {
+							//var price = userAnswer[i].innerText;
+							//}
+							//console.log(userAnswer[0]);
+
+							//the correct answer from the program
+							let realAnswer = document.getElementsByClassName("correct-new-li");
+							let second = realAnswer[0].innerText;
+							let resultCompare = first.localeCompare(second);
+							let countIfInput = document.querySelectorAll(".result-new-li").length;
+							let correctAnswerArr = [];
+							//console.log(realAnswer[0].innerText);
+							if (first == "") {
+								eachResult.textContent = `Please enter your answer`;
+							} else {
+								if (resultCompare !== 0) {
+									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
+								} else {
+									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
+
+									console.log("--------------");
+									console.log("401 currentPlayer", currentPlayer);
+
+									socket.emit("user get points", currentPlayer);
+									//correctAnswerArr.push(currentPlayer);
+									
+									
+									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
+								}
+							}
+
+							//eachResult.textContent = resultCompare;
+							result.appendChild(eachResult);
+
+							//console.log(myLetter);
+						}, timeScale * i);
+					}
+				}
+
+				//display the question
+				if (!executedStartFruit) {
+					executedStartFruit = true;
+
+					for (let i = 1; i <= answerArrayFruit.length; i++) {
+						setTimeout(function () {
+							let myWord = answerArrayFruit[i - 1].trim();
+							let myLetter = myWord.split("");
+							let countExistLetter = document.querySelectorAll(".new-letter").length;
+
+							for (let i = myLetter.length - 1; i > 0; i--) {
+								const j = Math.floor(Math.random() * (i + 1));
+								const temp = myLetter[i];
+								myLetter[i] = myLetter[j];
+								myLetter[j] = temp;
+							}
+
+							while (countExistLetter > 0) {
+								let removeExistLetter = document.querySelector(".new-letter");
+								removeExistLetter.remove();
+								countExistLetter = countExistLetter - 1;
+							}
+
+							for (let i = 0; i < myLetter.length; i++) {
+								let eachLetter = document.createElement("li");
+								eachLetter.classList.add("new-letter");
+								eachLetter.textContent = myLetter[i];
+								//eachCorrectAnswer.textContent = answerArray[i - 1];
+								lettersFruit.appendChild(eachLetter);
+							}
+							//eachLetter.classList.add("new-letter");
+							//eachLetter.textContent = myLetter;
+							//eachCorrectAnswer.textContent = answerArray[i - 1];
+							//letters.appendChild(eachLetter);
+
+							//console.log(myLetter);
+						}, timeScale * (i - 1));
+					}
+				}
+			});
+
+
+			/////////////////////////////////////////////////////////////////////////////
 			/* socket.on('testing', function(msg){
 				let eachResult = document.createElement("li");
 				eachResult.classList.add("result-new-li");
@@ -461,6 +825,7 @@
 			// All_users.push(uname);
 			let answer = document.getElementById("answer");
 			let formAnswer = document.getElementById("form-answer");
+
 			let inputAnswer = document.getElementById("input-answer");
 
 			let correctAnswer = document.getElementById("correct-answer");
@@ -482,7 +847,28 @@
 				//reset input box
 				inputAnswer.value = "";
 			});
+
+			
+
 			/****************************************************************/
+			$(".owl-carousel").owlCarousel({
+				items: 1,
+				//margin: 10,
+				loop: true,
+				/* autoplayTimeout: 5000, */
+				nav: true,
+				
+				navText: [
+					'<i class="fas fa-angle-left"></i>',
+					'<i class="fas fa-angle-right"></i>',
+				],
+				dots: true,
+			});
+
+			
+
 		</script>
+		
+		
 	</body>
 </html>

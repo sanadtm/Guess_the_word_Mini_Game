@@ -47,6 +47,16 @@ io.on("connection", (socket) => {
 		io.emit("ary-answer", answerArray);
 	});
 
+	socket.on("country-answer", (answerArrayCountry) => {
+		//console.log(answerArray);
+		io.emit("country-answer", answerArrayCountry);
+	});
+
+	socket.on("fruit-answer", (answerArrayFruit) => {
+		//console.log(answerArray);
+		io.emit("fruit-answer", answerArrayFruit);
+	});
+
 	socket.on("user get points", (userGetPoints) => {
 		userGetPointsArr.push(userGetPoints);
 		let combineArr = userGetPointsArr.concat(userGetPoints);
