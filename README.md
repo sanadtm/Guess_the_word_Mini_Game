@@ -11,10 +11,13 @@
 
 # Sources Used 
 > ### Socket IO https://socket.io/ , https://socket.io/docs/v4/ 
+
 > ### Login Chat 
-#### https://www.youtube.com/watch?v=rxzOqP9YwmM&t=708s
-#### https://www.youtube.com/watch?v=UymGJnv-WsE&t=879s
+> #### https://www.youtube.com/watch?v=rxzOqP9YwmM&t=708s
+> #### https://www.youtube.com/watch?v=UymGJnv-WsE&t=879s
+
 > ### https://stackoverflow.com/questions/42618720/socket-io-data-from-server-to-client
 > ### https://stackoverflow.com/questions/32265731/socket-io-emits-multiple-times
 > ### https://stackoverflow.com/questions/39187252/send-messages-from-server-to-client-socket-io
+
 > ### Heroku Deployment  https://www.youtube.com/watch?v=gPOa0LvIwHQ
