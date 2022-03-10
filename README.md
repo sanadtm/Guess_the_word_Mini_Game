@@ -1,6 +1,6 @@
 # Word Jumbler Mini Game - Full Stack Winter 2022 Final Project
 ### App this deployed Here :- https://jumble-words-mini-game.herokuapp.com/
-### The API that we used, Country API: https://restcountries.com/v2/all  
+### API used, Country API: https://restcountries.com/v2/all  
 
 # Technologies Used
 > ## Socket IO, Which is a real time communication between client and server.
