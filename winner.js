@@ -12,12 +12,6 @@ app.get("/", (req, res) => {
 
 app.use(express.static(path.join(__dirname, "public")));
 
-io.on("connection", (socket) => {
-	socket.on("chat message", (msg) => {
-		io.emit("chat message", msg);
-	});
-});
-
 server.listen(port, () => {
 	console.log(`listening at http://localhost:${port}`);
 });
