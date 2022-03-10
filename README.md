@@ -13,8 +13,7 @@
 > ### Socket IO https://socket.io/ , https://socket.io/docs/v4/ 
 
 > ### Login Chat 
-> #### https://www.youtube.com/watch?v=rxzOqP9YwmM&t=708s
-> #### https://www.youtube.com/watch?v=UymGJnv-WsE&t=879s
+> #### https://www.youtube.com/watch?v=rxzOqP9YwmM&t=708s  ::  https://www.youtube.com/watch?v=UymGJnv-WsE&t=879s
 
 > ### https://stackoverflow.com/questions/42618720/socket-io-data-from-server-to-client
 > ### https://stackoverflow.com/questions/32265731/socket-io-emits-multiple-times
