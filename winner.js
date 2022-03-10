@@ -12,6 +12,12 @@ app.get("/", (req, res) => {
 
 app.use(express.static(path.join(__dirname, "public")));
 
+io.on("connection", (socket) => {
+	socket.on("Winner-Display", (msgPlayer) => {
+		io.emit("Winner-Display", msgPlayer);
+	});
+});
+
 server.listen(port, () => {
 	console.log(`listening at http://localhost:${port}`);
 });
