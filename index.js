@@ -98,8 +98,8 @@ io.on("connection", (socket) => {
 	io.to("chatroom").emit("usersInRoom", socket.name);
 });
 
-server.listen(port, () => {
-	console.log(`listening at http://localhost:${port}`);
-});
+// server.listen(port, () => {
+// 	console.log(`listening at http://localhost:${port}`);
+// });
 //heroku game serve
-//server.listen(process.env.PORT || port);
+server.listen(process.env.PORT || port);
