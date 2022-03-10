@@ -3,11 +3,14 @@
 ### API used, Country API: https://restcountries.com/v2/all  
 
 # Technologies Used
-> ## Socket IO, Which is a real time communication between client and server.
-> ## use Html, Css, Javascript for the frontend, and we will use NodeJs and Express for the backend.
-> ## Bootstrap framework and owl carousel:  a free and open-source. It contains CSS- and JavaScript-based design templates for some features.
-> ## Jquery library: a free and open source library.  We used it to simplify HTML DOM and handling event.
+> ### Socket IO, Which is a real time communication between client and server.
+> ### use Html, Css, Javascript for the frontend, and we will use NodeJs and Express for the backend.
+> ### Bootstrap framework and owl carousel:  a free and open-source. It contains CSS- and JavaScript-based design templates for some features.
+> ### Jquery library: a free and open source library.  We used it to simplify HTML DOM and handling event.
 
 
 # Sources Used 
+> ### Socket IO https://socket.io/
 
+
+> ### Heroku Deployment  https://www.youtube.com/watch?v=gPOa0LvIwHQ
