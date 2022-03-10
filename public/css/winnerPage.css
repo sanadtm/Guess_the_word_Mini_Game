@@ -19,13 +19,138 @@ li {
 }
 .row1 > * {
 	background-color: rgb(210, 224, 84);
+	height: 600px;
+}
+#runner-ups {
+	background-color: orange;
+	font-size: 15px;
+}
+#rowbox {
+	height: 650px;
 }
 #congrats {
+	background-color: red;
 	font-size: 5vw;
 }
 #winner {
 	font-size: 3vw;
 }
 #runner {
-	font-size: 3vw;
+	font-size: 20px;
+}
+#game-details {
+	background-color: aquamarine;
+}
+@media screen and (max-width: 1025px) {
+	header {
+		font-family: "Courier New", Courier, monospace;
+		text-align: center;
+		color: white;
+	}
+	#rowbox {
+		height: 450px;
+	}
+	#congrats {
+		background-color: red;
+		font-size: 5vw;
+	}
+	#winner {
+		font-size: 3vw;
+	}
+	#runner {
+		font-size: 20px;
+	}
+	#game-details {
+		background-color: aquamarine;
+	}
+}
+@media screen and (max-width: 769px) {
+	header {
+		font-family: "Courier New", Courier, monospace;
+		text-align: center;
+		color: white;
+	}
+	body {
+		background-color: black;
+	}
+	.bootstrap-grid .row > * {
+		margin-top: 0.2%;
+		margin-left: 0.3%;
+		text-align: center;
+		height: 40vw;
+		border: 2px solid var(--white);
+		padding: 10px;
+	}
+	li {
+		text-decoration: none;
+	}
+	.row1 > * {
+		background-color: rgb(210, 224, 84);
+		height: 600px;
+	}
+	#runner-ups {
+		background-color: orange;
+		font-size: 15px;
+	}
+	#rowbox {
+		height: 400px;
+	}
+	#congrats {
+		background-color: red;
+		font-size: 5vw;
+	}
+	#winner {
+		font-size: 3vw;
+	}
+	#runner {
+		font-size: 20px;
+	}
+	#game-details {
+		background-color: aquamarine;
+	}
+}
+@media screen and (max-width: 415px) {
+	header {
+		font-family: "Courier New", Courier, monospace;
+		text-align: center;
+		color: white;
+	}
+	body {
+		background-color: black;
+	}
+	.bootstrap-grid .row > * {
+		margin-top: 0.2%;
+		margin-left: 0.3%;
+		text-align: center;
+		height: 40vw;
+		border: 2px solid var(--white);
+		padding: 10px;
+	}
+	li {
+		text-decoration: none;
+	}
+	.row1 > * {
+		background-color: rgb(210, 224, 84);
+		height: 600px;
+	}
+	#runner-ups {
+		background-color: orange;
+		font-size: 15px;
+	}
+	#rowbox {
+		height: 400px;
+	}
+	#congrats {
+		background-color: red;
+		font-size: 5vw;
+	}
+	#winner {
+		font-size: 3vw;
+	}
+	#runner {
+		font-size: 20px;
+	}
+	#game-details {
+		background-color: aquamarine;
+	}
 }

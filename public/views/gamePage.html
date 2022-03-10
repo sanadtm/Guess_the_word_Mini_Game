@@ -71,30 +71,6 @@
 										<button class="start-btn">Start</button>
 									</form>
 								</div>
-
-								<!-- <div class="question item">
-									<h3 class="question-header">Question box </h3>
-									<div> Arrange these letters to build a correct word: </div>
-
-									<ul class="'letters" id="letters">
-										
-									</ul>
-									<form id="start-question" action="" class="start-question">
-										<button class="start-btn">Start</button>
-									</form>
-								</div>
-
-								<div class="question item">
-									<h3 class="question-header">Question box </h3>
-									<div> Arrange these letters to build a correct word: </div>
-
-									<ul class="'letters" id="letters">
-										
-									</ul>
-									<form id="start-question" action="" class="start-question">
-										<button class="start-btn">Start</button>
-									</form>
-								</div> -->
 							</div>
 							<div class="answer-box">
 								<div class="header-answer-box">Player's Answer Window</div>
@@ -165,10 +141,8 @@
 			let gameArray = [];
 			let ALLPlayersArr = [];
 			let result1 = document.getElementById("result");
-			//let correctAnswerArr = [];
 
 			let allOnlinePlayers = [];
-			//let currentPlayer = "";
 			let playerName = "";
 			let currentPlayer = [];
 			let playerArrObj = [];
@@ -179,16 +153,8 @@
 					socket.emit("chat message", input.value);
 					input.value = "";
 				}
-				//let testing ='hello';
-				//socket.emit('testing', testing);
 			});
-			/* socket.on('testing', function(msg){
-				let eachResult = document.createElement("li");
-				//eachResult.classList.add("result-new-li");
-				eachResult.textContent = msg +`: Please enter your answer`;
-				result1.appendChild(eachResult);
 
-			}); */
 			socket.on("chat message", function (msg) {
 				let eachMessage = document.createElement("li");
 				eachMessage.textContent = msg;
@@ -201,36 +167,23 @@
 			socket.on("singleUser", function (eachname) {
 				console.log("line 147", eachname);
 				for (let i = 0; i < testingUsers.length; i++) {
-					//console.log(`hit ${i}: ${testingUsers[i]}`);
 					let compare = eachname.localeCompare(testingUsers[i]);
 					if (compare == 0) {
 						currUser = eachname;
 					}
 				}
 			});
-			//console.log("line 159", currUser);
 
-			/* currentPlayer(data=>{
-				console.log(data);
-			}); */
 			socket.on("current Player", function (nameOfPlayer) {
 				testingUsers = nameOfPlayer;
-				/* console.log("currentPlayer 1:" ,nameOfPlayer);
-				//currentPlayer = nameOfPlayer;
-
-				//console.log("nameOfPlayer", nameOfPlayer);
-				//playerName = nameOfPlayer;
-				currentPlayer.push(nameOfPlayer);
-				console.log("currentPlayer 2:" ,currentPlayer); */
 				for (let i = 0; i < nameOfPlayer.length; i++) {
 					console.log(`hit ${i}: ${nameOfPlayer[i]}`);
 				}
 			});
 
 			socket.on("displayUsers", function (data) {
-				//let users_in = "";
 				ALLPlayers.push(data);
-				//console.log("All players " + ALLPlayers);
+
 				socket.emit("send_allUsers", ALLPlayers);
 			});
 			socket.on("get_users", function (AllUsers) {
@@ -251,25 +204,19 @@
 			});
 
 			socket.on("send_allUsers1", function (ALLPlayers) {
-				//let removeResultLi = document.querySelector(".users-ul");
-				//	removeResultLi.remove();
-				//console.log("all player arr: ", ALLPlayersArr);
 				ALLPlayersArr = ALLPlayers;
-				//console.log("all player arr updated:", ALLPlayersArr )
-				//console.log("line 181", ALLPlayers);
+
 				let countUsersLi = document.querySelectorAll(".users-new-li").length;
-				//console.log("count user Li ", countUsersLi);
+
 				while (countUsersLi > 0) {
 					let removeUserLi = document.querySelector(".users-new-li");
 					removeUserLi.remove();
 					countUsersLi = countUsersLi - 1;
 				}
-				//ALLPlayers.forEach((oneData) => {
+
 				ALLPlayersArr.forEach((oneData) => {
-					//console.log(ALLPlayers);
 					for (let key in oneData) {
 						if (key) {
-							//console.log(`${key}: ${oneData[key]}`);
 							let eachCorrectAnswer = document.createElement("li");
 							eachCorrectAnswer.classList.add("users-new-li");
 							eachCorrectAnswer.textContent = `${key}: ${oneData[key]}`;
@@ -281,8 +228,6 @@
 
 			socket.on("send_allUsers", function (ALLPlayers) {
 				ALLPlayers.forEach((oneData) => {
-					//console.log("------------")
-					//console.log(ALLPlayers);
 					let countUsersLi = document.querySelectorAll(".users-new-li").length;
 					console.log("count user Li ", countUsersLi);
 
@@ -292,7 +237,6 @@
 						countUsersLi = countUsersLi - 1;
 					}
 					for (let key in oneData) {
-						//console.log(`${key}: ${oneData[key]}`);
 						let eachResult = document.createElement("li");
 						eachResult.classList.add("users-new-li");
 						eachResult.textContent = `${key}: ${oneData[key]}`;
@@ -386,11 +330,6 @@
 							//answer from the user
 							let userAnswer = document.getElementsByClassName("new-li");
 							let first = userAnswer[0].innerText;
-							//let first = userAnswer;
-							//for (var i = 0; i < userAnswer.length; i++) {
-							//var price = userAnswer[i].innerText;
-							//}
-							//console.log(userAnswer[0]);
 
 							//the correct answer from the program
 							let realAnswer = document.getElementsByClassName("correct-new-li");
@@ -398,7 +337,7 @@
 							let resultCompare = first.localeCompare(second);
 							let countIfInput = document.querySelectorAll(".result-new-li").length;
 							let correctAnswerArr = [];
-							//console.log(realAnswer[0].innerText);
+
 							if (first == "") {
 								eachResult.textContent = `Please enter your answer`;
 							} else {
@@ -413,26 +352,6 @@
 									socket.emit("user get points", currentPlayer);
 									//correctAnswerArr.push(currentPlayer);
 
-									/* console.log("--------------");
-									console.log("401 currentPlayer", currentPlayer);
-									console.log("402 currentPlayer", playerName );
-									let obj = {name: playerName, count: 1};
-									//playerArrObj
-									playerArrObj.push(obj);
-									console.log("object", playerArrObj);
-									socket.emit('user get points', obj)
-									socket.emit('user get points', currentPlayer);
-									
-									correctAnswerArr.push(currentPlayer);
-									console.log("correctAnswerArr: ", correctAnswerArr);
-
-									console.log("319 ALLPlayersArr:", ALLPlayersArr);
-
-									ALLPlayersArr.forEach((player) => {
-										if (player.name == currentPlayer) {
-											player.points = player.points + 10;
-										}
-									}) */
 									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
@@ -475,12 +394,6 @@
 								//eachCorrectAnswer.textContent = answerArray[i - 1];
 								letters.appendChild(eachLetter);
 							}
-							//eachLetter.classList.add("new-letter");
-							//eachLetter.textContent = myLetter;
-							//eachCorrectAnswer.textContent = answerArray[i - 1];
-							//letters.appendChild(eachLetter);
-
-							//console.log(myLetter);
 						}, timeScale * (i - 1));
 					}
 				}
@@ -491,9 +404,7 @@
 
 			startQuestion.addEventListener("submit", function (e) {
 				e.preventDefault();
-				/* let testing ='';
-				socket.emit('testing', testing); */
-				//Send the ary array to the index.js when the player press start btn
+
 				if (ary) {
 					socket.emit("ary-answer", ary);
 				}
@@ -567,28 +478,7 @@
 									console.log("401 currentPlayer", currentPlayer);
 
 									socket.emit("user get points", currentPlayer);
-									//correctAnswerArr.push(currentPlayer);
 
-									/* console.log("--------------");
-									console.log("401 currentPlayer", currentPlayer);
-									console.log("402 currentPlayer", playerName );
-									let obj = {name: playerName, count: 1};
-									//playerArrObj
-									playerArrObj.push(obj);
-									console.log("object", playerArrObj);
-									socket.emit('user get points', obj)
-									socket.emit('user get points', currentPlayer);
-									
-									correctAnswerArr.push(currentPlayer);
-									console.log("correctAnswerArr: ", correctAnswerArr);
-
-									console.log("319 ALLPlayersArr:", ALLPlayersArr);
-
-									ALLPlayersArr.forEach((player) => {
-										if (player.name == currentPlayer) {
-											player.points = player.points + 10;
-										}
-									}) */
 									console.log("319 ALLPlayersArr after points:", ALLPlayersArr);
 								}
 							}
@@ -631,10 +521,6 @@
 								//eachCorrectAnswer.textContent = answerArray[i - 1];
 								lettersCountry.appendChild(eachLetter);
 							}
-							//eachLetter.classList.add("new-letter");
-							//eachLetter.textContent = myLetter;
-							//eachCorrectAnswer.textContent = answerArray[i - 1];
-							//letters.appendChild(eachLetter);
 
 							//console.log(myLetter);
 						}, timeScale * (i - 1));
@@ -645,9 +531,6 @@
 			/////////////////////////////////////////////////////////////////////////////////////////////////
 			startQuestionCountry.addEventListener("submit", function (e) {
 				e.preventDefault();
-				/* let testing ='';
-				socket.emit('testing', testing); */
-				//Send the ary array to the index.js when the player press start btn
 				if (countries) {
 					socket.emit("country-answer", countries);
 				}
@@ -704,11 +587,6 @@
 							//answer from the user
 							let userAnswer = document.getElementsByClassName("new-li");
 							let first = userAnswer[0].innerText;
-							//let first = userAnswer;
-							//for (var i = 0; i < userAnswer.length; i++) {
-							//var price = userAnswer[i].innerText;
-							//}
-							//console.log(userAnswer[0]);
 
 							//the correct answer from the program
 							let realAnswer = document.getElementsByClassName("correct-new-li");
@@ -773,10 +651,6 @@
 								//eachCorrectAnswer.textContent = answerArray[i - 1];
 								lettersFruit.appendChild(eachLetter);
 							}
-							//eachLetter.classList.add("new-letter");
-							//eachLetter.textContent = myLetter;
-							//eachCorrectAnswer.textContent = answerArray[i - 1];
-							//letters.appendChild(eachLetter);
 
 							//console.log(myLetter);
 						}, timeScale * (i - 1));
@@ -784,14 +658,6 @@
 				}
 			});
 
-			/////////////////////////////////////////////////////////////////////////////
-			/* socket.on('testing', function(msg){
-				let eachResult = document.createElement("li");
-				eachResult.classList.add("result-new-li");
-				eachResult.textContent = msg +`: Please`;
-				result1.appendChild(eachResult);
-				io.emit('testing', msg );
-			}) */
 			/************************************************************/
 			//Answer Box: display the answer of the player in the "your answer box".
 			// let All_users = [];
@@ -805,7 +671,7 @@
 
 			formAnswer.addEventListener("submit", function (e) {
 				e.preventDefault();
-				//myQuizz();
+
 				//Player's answer box
 				let count = document.querySelectorAll(".new-li").length;
 				let removeNewLi = document.querySelector(".new-li");
