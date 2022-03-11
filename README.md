@@ -19,4 +19,10 @@
 > ### https://stackoverflow.com/questions/32265731/socket-io-emits-multiple-times
 > ### https://stackoverflow.com/questions/39187252/send-messages-from-server-to-client-socket-io
 
+>### GamePage
+>### https://owlcarousel2.github.io/OwlCarousel2/docs/started-welcome.html
+>### https://fontawesome.com/
+>### https://getbootstrap.com/docs/4.0/components/
+>### https://css-tricks.com/
+>https://www.w3schools.com/howto/howto_css_image_responsive.asp
 > ### Heroku Deployment  https://www.youtube.com/watch?v=gPOa0LvIwHQ
