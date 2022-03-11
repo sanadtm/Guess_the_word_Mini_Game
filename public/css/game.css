@@ -13,7 +13,7 @@ header {
 	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva,
 		Verdana, sans-serif;
 	text-align: center;
-	color: rgb(255, 255, 255);
+	color: rgb(35, 10, 92);
 }
 #inRoomUsers.users-ul {
 	color: rgb(29, 17, 17);
@@ -101,7 +101,7 @@ body {
 .answer-box {
 	width: 40%;
 	background-color: aquamarine;
-	color: rgb(209, 119, 119);
+	color: blue;
 
 	/* overflow: scroll; */
 }
@@ -295,7 +295,7 @@ body {
 	.answer-box {
 		width: 40%;
 		background-color: aquamarine;
-		color: rgb(209, 119, 119);
+		color: rgb(24, 8, 94);
 
 		/* overflow: scroll; */
 	}
@@ -513,7 +513,7 @@ body {
 	.answer-box {
 		width: 40%;
 		background-color: aquamarine;
-		color: rgb(209, 119, 119);
+		color: blue;
 
 		/* overflow: scroll; */
 	}

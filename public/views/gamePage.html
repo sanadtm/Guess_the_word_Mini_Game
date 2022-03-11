@@ -18,7 +18,7 @@
 	</head>
 	<body>
 		<header>
-			<h1>Game Page</h1>
+			<h1 style="color: orange">Game Page</h1>
 		</header>
 		<main>
 			<div class="container bootstrap-grid">
@@ -36,7 +36,7 @@
 							<div class="question-box owl-carousel owl-theme">
 								<div class="question item">
 									<h3 class="question-header">City in Oregon </h3>
-									<div>
+									<div style="background-color: rgb(155, 54, 8); padding: 7px; border-radius: 5px;">
 										Arrange these letters to build a correct name of city in Oregon:
 									</div>
 
@@ -48,27 +48,31 @@
 										<li class="new-letter">o</li> -->
 									</ul>
 									<form id="start-question" action="" class="start-question">
-										<button class="start-btn">Start</button>
+										<button class="start-btn" style="background-color: blue;">Start</button>
 									</form>
 								</div>
 
 								<div class="question item">
 									<h3 class="question-header">Name of Countries </h3>
-									<div> Arrange these letters to build a correct name of country: </div>
+									<div style="background-color: rgb(155, 54, 8); padding: 7px; border-radius: 5px;">
+										 Arrange these letters to build a correct name of country:
+									</div>
 
 									<ul class="'letters" id="lettersCountry"> </ul>
 									<form id="start-question-country" action="" class="start-question">
-										<button class="start-btn">Start</button>
+										<button class="start-btn" style="background-color: blue;">Start</button>
 									</form>
 								</div>
 
 								<div class="question item">
 									<h3 class="question-header">Name of Fruits </h3>
-									<div> Arrange these letters to build a correct name of fruit: </div>
+									<div style="background-color: rgb(155, 54, 8); padding: 7px; border-radius: 5px;"> 
+										Arrange these letters to build a correct name of fruit: 
+									</div>
 
 									<ul class="'letters" id="lettersFruit"> </ul>
 									<form id="start-question-fruit" action="" class="start-question">
-										<button class="start-btn">Start</button>
+										<button class="start-btn" style="background-color: blue;">Start</button>
 									</form>
 								</div>
 							</div>
@@ -105,7 +109,8 @@
 						<div class="input-answer row row1">
 							<form id="form-answer" action="" class="answer-input-group">
 								<input id="input-answer" autocomplete="off" class="user-answer" />
-								<button class="answer-btn">Enter</button>
+								<label for="input-answer" style="display: none;">input-answer</label>
+								<button class="answer-btn" style="background-color: blue;">Enter</button>
 							</form>
 						</div>
 					</div>
@@ -118,7 +123,8 @@
 						<div class="input-group">
 							<form id="form" action="" class="chatting-input-group">
 								<input id="input" autocomplete="off" class="user-input" />
-								<button class="send-btn">Send</button>
+								<label for="input" style="display: none;">Input</label>
+								<button style="background-color: blue;" class="send-btn">Send</button>
 							</form>
 						</div>
 					</div>
@@ -342,7 +348,7 @@
 								eachResult.textContent = `Please enter your answer`;
 							} else {
 								if (resultCompare !== 0) {
-									eachResult.textContent = `${first} is not the correct answer! Correct is ${second}`;
+									eachResult.textContent = `${first} is not the correct answer! Correct answer is ${second}`;
 								} else {
 									eachResult.textContent = `${first} is the correct answer. ${second} +10 points `;
 
